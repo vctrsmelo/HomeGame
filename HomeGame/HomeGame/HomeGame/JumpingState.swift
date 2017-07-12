@@ -18,9 +18,13 @@ class JumpingState: GKState {
         super.init()
     }
 
+    override func didEnter(from previousState: GKState?) {
+        
+    }
     
-    
-    
+    override func willExit(to nextState: GKState) {
+        
+    }
     
     
 

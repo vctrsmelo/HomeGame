@@ -39,6 +39,9 @@ class MovingState: GKState {
         
     }
     
+    override func willExit(to nextState: GKState) {
+        
+    }
     
 
 }

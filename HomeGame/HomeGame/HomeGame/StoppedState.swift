@@ -22,7 +22,9 @@ class StoppedState: GKState {
     
     
     
-    
+    override func willExit(to nextState: GKState) {
+        
+    }
     
     
     
