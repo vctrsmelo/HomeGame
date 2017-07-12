@@ -27,7 +27,7 @@ class MovingState: GKState {
              player?.nodeTest.color = .blue
             break
         case is JumpingState:
-        
+       
             player?.nodeTest.color = .brown
             break
         default:

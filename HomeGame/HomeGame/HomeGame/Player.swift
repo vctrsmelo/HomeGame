@@ -42,11 +42,14 @@ class Player: GKEntity {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func changeState() {
+    func changeState( stateClass: AnyClass) {
         
-        if( self.stateMachine.currentState is StoppedState ) {
-            self.stateMachine.enter(MovingState.self)
-        }
+        self.stateMachine.enter(stateClass)
+
+        
+        //if( self.stateMachine.currentState is StoppedState ) {
+//            self.stateMachine.enter(MovingState.self)
+        //}
     }
     
     

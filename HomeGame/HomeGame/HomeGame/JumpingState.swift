@@ -20,6 +20,11 @@ class JumpingState: GKState {
 
     override func didEnter(from previousState: GKState?) {
         
+        let pontoTeste = CGPoint(x: 100, y: 100)
+        let impluse = SKAction.move(to: pontoTeste, duration: 10)
+        player?.nodeTest.run(impluse)
+   
+    
     }
     
     override func willExit(to nextState: GKState) {

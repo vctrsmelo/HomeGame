@@ -12,6 +12,10 @@
 		8D8DF9121F155A9800CF6A97 /* MovingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF9111F155A9800CF6A97 /* MovingState.swift */; };
 		8D8DF9141F155AB100CF6A97 /* JumpingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF9131F155AB100CF6A97 /* JumpingState.swift */; };
 		8D8DF9161F15613700CF6A97 /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF9151F15613700CF6A97 /* PlayerComponent.swift */; };
+		8D8DF9181F1698AA00CF6A97 /* WaitingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF9171F1698AA00CF6A97 /* WaitingState.swift */; };
+		8D8DF91A1F169A9000CF6A97 /* PlayingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF9191F169A9000CF6A97 /* PlayingState.swift */; };
+		8D8DF91C1F169B1400CF6A97 /* PlayerWonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF91B1F169B1400CF6A97 /* PlayerWonState.swift */; };
+		8D8DF91E1F169B3600CF6A97 /* PlayerLostState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */; };
 		AE75D7C31F156B0400F37A5A /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C21F156B0400F37A5A /* MovementComponent.swift */; };
 		AE75D7C51F156B4A00F37A5A /* JumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */; };
 		AE75D7C71F156C4300F37A5A /* FallComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C61F156C4300F37A5A /* FallComponent.swift */; };
@@ -39,6 +43,10 @@
 		8D8DF9111F155A9800CF6A97 /* MovingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovingState.swift; sourceTree = "<group>"; };
 		8D8DF9131F155AB100CF6A97 /* JumpingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpingState.swift; sourceTree = "<group>"; };
 		8D8DF9151F15613700CF6A97 /* PlayerComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerComponent.swift; sourceTree = "<group>"; };
+		8D8DF9171F1698AA00CF6A97 /* WaitingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingState.swift; sourceTree = "<group>"; };
+		8D8DF9191F169A9000CF6A97 /* PlayingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingState.swift; sourceTree = "<group>"; };
+		8D8DF91B1F169B1400CF6A97 /* PlayerWonState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWonState.swift; sourceTree = "<group>"; };
+		8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerLostState.swift; sourceTree = "<group>"; };
 		AE75D7C21F156B0400F37A5A /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpComponent.swift; sourceTree = "<group>"; };
 		AE75D7C61F156C4300F37A5A /* FallComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallComponent.swift; sourceTree = "<group>"; };
@@ -189,6 +197,10 @@
 				8D8DF9111F155A9800CF6A97 /* MovingState.swift */,
 				8D8DF9131F155AB100CF6A97 /* JumpingState.swift */,
 				8D8DF9151F15613700CF6A97 /* PlayerComponent.swift */,
+				8D8DF9171F1698AA00CF6A97 /* WaitingState.swift */,
+				8D8DF9191F169A9000CF6A97 /* PlayingState.swift */,
+				8D8DF91B1F169B1400CF6A97 /* PlayerWonState.swift */,
+				8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */,
 			);
 			path = HomeGame;
 			sourceTree = "<group>";
@@ -275,18 +287,22 @@
 				AE75D7C31F156B0400F37A5A /* MovementComponent.swift in Sources */,
 				8D8DF9101F155A8200CF6A97 /* StoppedState.swift in Sources */,
 				EEF933681F154836004EB520 /* GameScene.swift in Sources */,
+				8D8DF9181F1698AA00CF6A97 /* WaitingState.swift in Sources */,
 				8D8DF9141F155AB100CF6A97 /* JumpingState.swift in Sources */,
 				ED0A2E361F1554360058E8D3 /* CharacterNode.swift in Sources */,
 				ED0A2E2C1F1549470058E8D3 /* HomeScene.swift in Sources */,
 				ED0A2E2E1F154A300058E8D3 /* LevelButtonNode.swift in Sources */,
 				8D8DF9121F155A9800CF6A97 /* MovingState.swift in Sources */,
+				8D8DF91A1F169A9000CF6A97 /* PlayingState.swift in Sources */,
 				ED0A2E321F1551EB0058E8D3 /* Level1Scene.swift in Sources */,
 				EEF9336A1F154836004EB520 /* GameViewController.swift in Sources */,
 				ED0A2E381F15561E0058E8D3 /* Database.swift in Sources */,
 				8D8DF9161F15613700CF6A97 /* PlayerComponent.swift in Sources */,
 				EEF933621F154836004EB520 /* AppDelegate.swift in Sources */,
+				8D8DF91C1F169B1400CF6A97 /* PlayerWonState.swift in Sources */,
 				8D8DF90E1F1559BA00CF6A97 /* Player.swift in Sources */,
 				ED0A2E341F15536F0058E8D3 /* ScenarioObjects.swift in Sources */,
+				8D8DF91E1F169B3600CF6A97 /* PlayerLostState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
