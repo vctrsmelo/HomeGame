@@ -10,5 +10,15 @@ import UIKit
 import GameplayKit
 
 class PlayerWonState: GKState {
+    
+    
+    let player: Player!
+
+    init(with player: Player) {
+        self.player = player
+        super.init()
+    }
+    
+    
 
 }

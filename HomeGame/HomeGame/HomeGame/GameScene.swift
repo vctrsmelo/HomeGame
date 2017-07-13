@@ -13,10 +13,24 @@ class GameScene: SKScene {
     
     var player: Player!
     var GameStateMachine: GKStateMachine!
+    var gesture: UISwipeGestureRecognizer!
     
+    let base = SKSpriteNode.init(color: .cyan, size: CGSize(width: 100, height: 100))
+    let ball = SKShapeNode.init(circleOfRadius: 40)
+    
+
     
     override func didMove(to view: SKView) {
         
+        
+        
+        addChild(base)
+        base.position = CGPoint(x: 0, y: 0)
+        
+        addChild(ball)
+        ball.position = base.position
+        
+        ball.fillColor = .brown
         
         let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector
             (self.tapped(sender:)))
@@ -42,15 +56,22 @@ class GameScene: SKScene {
         
         let playingState = PlayingState()
         let waitingState = WaitingState()
-        
-        
-        
         self.GameStateMachine = GKStateMachine(states: [playingState, waitingState])
-        
-        self.GameStateMachine.enter(PlayingState.self) //user comeca pensando no nivel, e nao jogando
-        
+        self.GameStateMachine.enter(PlayingState.self)
     }
     
+    
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        print ("motion endeed")
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print ("touches endeed")
+    }
+    
+    override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        print ("presses endeed")
+    }
     
     
     func tapped(sender: UITapGestureRecognizer){
@@ -64,9 +85,14 @@ class GameScene: SKScene {
     
      func swiped(sender:UISwipeGestureRecognizer){
         
-        player.changeState(stateClass: MovingState.self)
+        
+        if player?.stateMachine.currentState is StoppedState
+        {
+            player.changeState(stateClass: MovingState.self)
+        }
         
         
+        gesture = sender
         print("swiped")
     }
     
@@ -76,6 +102,17 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
+        if gesture != nil {
+        if gesture.state == UIGestureRecognizerState.ended {
+            print("swipe ended")
+            NSLog(String (describing: gesture.direction))
+        
+        
+        }
+        }
+        
+        
     }
     
     
@@ -85,9 +122,65 @@ class GameScene: SKScene {
     
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if player?.stateMachine.currentState is MovingState
+        {
+            print ("canceled")
+            player?.stateMachine.enter(StoppedState.self)
+        }
+        
         
     }
     
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches 
+        {
+            let location = touch.location(in: self)
+            let vector  = CGVector(dx: location.x - base.position.x, dy: location.y - base.position.y)
+            let angle = atan2(vector.dx, vector.dy)
+            
+            let degree = GLKMathRadiansToDegrees(Float(angle))
+            
+            let lenght: CGFloat = 40
+            
+            
+            var xDist: CGFloat! // = sin(angle) * lenght
+            var yDist: CGFloat! // = cos(angle) * lenght
+            
+            
+            print(degree + 180)
+            
+            if abs(location.x) - base.position.x <= 40
+            {
+                xDist = location.x
+                
+            }
+            else{
+                xDist = sin(angle) * lenght
+            }
+            
+            if abs(location.y) - base.position.y <= 40
+            {
+                yDist = location.y
+                
+            }
+            else{
+                yDist = cos(angle) * lenght
+            }
+
+            
+            ball.position = CGPoint(x: base.position.x + xDist, y:  base.position.y + yDist)
+            
+            
+            let deltaX: CGFloat = sin(angle) * 5
+            let deltaY: CGFloat = cos(angle) * 5
+            
+           // print(deltaY)
+           // print(deltaX)
+            
+            player?.nodeTest.position = CGPoint(x:(player?.nodeTest.position.x)! + deltaX,y: (player?.nodeTest.position.y)! + deltaY)
+        }
+    }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

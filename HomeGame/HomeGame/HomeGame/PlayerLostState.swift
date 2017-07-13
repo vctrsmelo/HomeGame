@@ -11,5 +11,15 @@ import GameplayKit
 
 
 class PlayerLostState: GKState {
+    
+    let player: Player!
+    
+    
+    
+    
+    init(with player: Player) {
+        self.player = player
+        super.init()
+    }
 
 }
