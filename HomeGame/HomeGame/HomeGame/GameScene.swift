@@ -156,7 +156,17 @@ class GameScene: SKScene {
                 
             }
             else{
-                xDist = sin(angle) * lenght
+                
+                if ( sin(angle)  < 0 ){
+                
+                //if (angle < 0) {
+                    //xDist = sin(angle) * lenght
+                    xDist = -40
+                }
+                else {
+                    xDist = 40
+                }
+                
             }
             
             if abs(location.y) - base.position.y <= 40
@@ -165,7 +175,17 @@ class GameScene: SKScene {
                 
             }
             else{
-                yDist = cos(angle) * lenght
+                
+                if (cos(angle) < 0){
+                    
+                    yDist = -40
+                }
+                else{
+                    yDist = 40
+                }
+                
+                
+                //yDist = cos(angle) * lenght
             }
 
             
