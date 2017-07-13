@@ -18,6 +18,16 @@ class GameScene: SKScene {
     let base = SKSpriteNode.init(color: .cyan, size: CGSize(width: 100, height: 100))
     let ball = SKShapeNode.init(circleOfRadius: 40)
     
+    
+    var xDistance: CGFloat!
+    var yDistance: CGFloat!
+    var angle: CGFloat!
+    
+    
+    
+    //DOUGLAS
+    var stop = false
+    
 
     
     override func didMove(to view: SKView) {
@@ -53,6 +63,7 @@ class GameScene: SKScene {
     
     self.player =  Player()
     addChild(player.nodeTest)
+    addChild(player.mainPlayerSprite)
         
         let playingState = PlayingState()
         let waitingState = WaitingState()
@@ -66,7 +77,11 @@ class GameScene: SKScene {
         print ("motion endeed")
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        player?.stateMachine.enter(StoppedState.self)
         print ("touches endeed")
+        
+        ball.position = base.position
     }
     
     override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
@@ -77,7 +92,9 @@ class GameScene: SKScene {
     func tapped(sender: UITapGestureRecognizer){
         
         player.changeState(stateClass: JumpingState.self)
-        
+        self.stop = true
+        player.jump()
+
         print("tapped")
     }
     
@@ -101,16 +118,39 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
+        
+        if angle != nil && xDistance != nil && yDistance != nil {
+        ball.position = CGPoint(x: base.position.x + xDistance, y:  base.position.y + yDistance)
+        
+        
+        let deltaX: CGFloat = sin(angle) * 5
+        let deltaY: CGFloat = cos(angle) * 5
+        
+        // print(deltaY)
+        // print(deltaX)
+        
+            
+            
+            
+        if !(player.stateMachine.currentState is StoppedState) {
+        
+        player?.nodeTest.position = CGPoint(x:(player?.nodeTest.position.x)! + deltaX,y: (player?.nodeTest.position.y)! + deltaY)
+                
+                
+            }
+        
+        }
+        
         // Called before each frame is rendered
         
-        if gesture != nil {
-        if gesture.state == UIGestureRecognizerState.ended {
-            print("swipe ended")
-            NSLog(String (describing: gesture.direction))
+        //if gesture != nil {
+       // if gesture.state == UIGestureRecognizerState.ended {
+         //   print("swipe ended")
+           // NSLog(String (describing: gesture.direction))
         
         
-        }
-        }
+    //}
+      //  }
         
         
     }
@@ -125,7 +165,7 @@ class GameScene: SKScene {
         if player?.stateMachine.currentState is MovingState
         {
             print ("canceled")
-            player?.stateMachine.enter(StoppedState.self)
+            //player?.stateMachine.enter(StoppedState.self)
         }
         
         
@@ -133,6 +173,9 @@ class GameScene: SKScene {
     
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
+        player?.stateMachine.enter(MovingState.self)
         for touch in touches 
         {
             let location = touch.location(in: self)
@@ -188,23 +231,18 @@ class GameScene: SKScene {
                 //yDist = cos(angle) * lenght
             }
 
+            self.xDistance = xDist
+            self.yDistance = yDist
+            self.angle = angle
             
-            ball.position = CGPoint(x: base.position.x + xDist, y:  base.position.y + yDist)
-            
-            
-            let deltaX: CGFloat = sin(angle) * 5
-            let deltaY: CGFloat = cos(angle) * 5
-            
-           // print(deltaY)
-           // print(deltaX)
-            
-            player?.nodeTest.position = CGPoint(x:(player?.nodeTest.position.x)! + deltaX,y: (player?.nodeTest.position.y)! + deltaY)
+           
         }
     }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
+        player?.stateMachine.enter(MovingState.self)
+
         
         
     }
