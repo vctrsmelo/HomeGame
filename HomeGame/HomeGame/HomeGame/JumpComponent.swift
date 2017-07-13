@@ -13,6 +13,9 @@ import GameplayKit
 class JumpComponent: GKComponent {
     
 //    var node: SKNode
+    var player: Player {
+        return self.entity as! Player
+    }
 
     override init(/*with node:SKNode*/) {
 //        self.node = node
@@ -27,8 +30,10 @@ class JumpComponent: GKComponent {
     func jumpAnimate(){
 //        self.node.physicsBody?.applyImpulse(<#T##impulse: CGVector##CGVector#>)
         
-        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }
-        // animationComponent.animate()
+//        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }
+//         animationComponent.animate()
+        
+        
     }
     
 }

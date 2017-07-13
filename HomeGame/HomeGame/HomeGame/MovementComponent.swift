@@ -12,6 +12,10 @@ import GameplayKit
 // Move Component for moving components (like the mains character)
 // Can be used for moving and running, using state machines
 class MovementComponent: GKComponent {
+    
+    var player: Player {
+        return self.entity as! Player
+    }
 
     override init() {
         super.init()
@@ -19,6 +23,9 @@ class MovementComponent: GKComponent {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        
+//        self.entity = Player()
+
     }
     
     // TODO

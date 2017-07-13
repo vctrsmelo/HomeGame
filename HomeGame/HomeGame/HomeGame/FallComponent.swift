@@ -12,6 +12,10 @@ import GameplayKit
 // Component for falling objects (like the cave ice that falls to the ground)
 class FallComponent: GKComponent {
 
+    var player: Player {
+        return self.entity as! Player
+    }
+
     override init() {
         super.init()
     }
@@ -24,8 +28,10 @@ class FallComponent: GKComponent {
     func fallAnimate(){
 //        self.node.physicsBody?.applyImpulse(<#T##impulse: CGVector##CGVector#>)
         
-        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }
-        // animationComponent.animate()
+//        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }
+//         animationComponent.animate()
+        
+        
     }
 
 }
