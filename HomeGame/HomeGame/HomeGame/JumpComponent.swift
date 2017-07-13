@@ -26,14 +26,13 @@ class JumpComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // TODO
     func jumpAnimate(){
 //        self.node.physicsBody?.applyImpulse(<#T##impulse: CGVector##CGVector#>)
         
 //        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }
 //         animationComponent.animate()
         
-        
+        player.jump()
     }
     
 }

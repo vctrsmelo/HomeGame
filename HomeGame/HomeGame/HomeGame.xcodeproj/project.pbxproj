@@ -19,6 +19,7 @@
 		AE75D7C31F156B0400F37A5A /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C21F156B0400F37A5A /* MovementComponent.swift */; };
 		AE75D7C51F156B4A00F37A5A /* JumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */; };
 		AE75D7C71F156C4300F37A5A /* FallComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C61F156C4300F37A5A /* FallComponent.swift */; };
+		AE75D7C91F18019A00F37A5A /* StopComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C81F18019A00F37A5A /* StopComponent.swift */; };
 		ED0A2E2A1F15491E0058E8D3 /* HomeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED0A2E291F15491E0058E8D3 /* HomeScene.sks */; };
 		ED0A2E2C1F1549470058E8D3 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2E2B1F1549470058E8D3 /* HomeScene.swift */; };
 		ED0A2E2E1F154A300058E8D3 /* LevelButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2E2D1F154A300058E8D3 /* LevelButtonNode.swift */; };
@@ -50,6 +51,7 @@
 		AE75D7C21F156B0400F37A5A /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpComponent.swift; sourceTree = "<group>"; };
 		AE75D7C61F156C4300F37A5A /* FallComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallComponent.swift; sourceTree = "<group>"; };
+		AE75D7C81F18019A00F37A5A /* StopComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopComponent.swift; sourceTree = "<group>"; };
 		ED0A2E291F15491E0058E8D3 /* HomeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HomeScene.sks; sourceTree = "<group>"; };
 		ED0A2E2B1F1549470058E8D3 /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
 		ED0A2E2D1F154A300058E8D3 /* LevelButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelButtonNode.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			children = (
 				AE75D7C21F156B0400F37A5A /* MovementComponent.swift */,
 				AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */,
+				AE75D7C81F18019A00F37A5A /* StopComponent.swift */,
 				AE75D7C61F156C4300F37A5A /* FallComponent.swift */,
 			);
 			name = LevelSceneComponents;
@@ -287,6 +290,7 @@
 				AE75D7C31F156B0400F37A5A /* MovementComponent.swift in Sources */,
 				8D8DF9101F155A8200CF6A97 /* StoppedState.swift in Sources */,
 				EEF933681F154836004EB520 /* GameScene.swift in Sources */,
+				AE75D7C91F18019A00F37A5A /* StopComponent.swift in Sources */,
 				8D8DF9181F1698AA00CF6A97 /* WaitingState.swift in Sources */,
 				8D8DF9141F155AB100CF6A97 /* JumpingState.swift in Sources */,
 				ED0A2E361F1554360058E8D3 /* CharacterNode.swift in Sources */,

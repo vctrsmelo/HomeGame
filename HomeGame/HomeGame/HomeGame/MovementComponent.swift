@@ -41,10 +41,10 @@ class MovementComponent: GKComponent {
                 distance = inputLastTouch.location(in: lastTouchView).x - inputFirstTouch.location(in: firstTouchView).x
                 
                 if distance > 10 {
-                    // call run animate com direita
+                    player.run()
                 }
                 else {
-                    // call move animate com direita
+                    player.walk()
                 }
                 
             }
@@ -54,10 +54,10 @@ class MovementComponent: GKComponent {
                 distance = inputLastTouch.location(in: lastTouchView).x - inputFirstTouch.location(in: firstTouchView).x
                 
                 if distance > 10 {
-                    // call run animate com esquerda
+                    player.run()
                 }
                 else {
-                    // call move animate com esquerda
+                    player.walk()
                 }
 
             }
