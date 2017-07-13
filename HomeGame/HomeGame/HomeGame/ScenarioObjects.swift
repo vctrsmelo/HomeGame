@@ -20,6 +20,10 @@ class ScenarioObjects: GKEntity {
         
         self.objectName = objectName
         self.objectSprite = objectSprite
+        
+        // Fall Component for falling objects (like the ice that falls from the top of a cave)
+        let fallcomponent = FallComponent()
+        self.addComponent(fallcomponent)
     }
     
     required init?(coder aDecoder: NSCoder) {

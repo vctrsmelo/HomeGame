@@ -12,4 +12,20 @@ import GameplayKit
 // Component for falling objects (like the cave ice that falls to the ground)
 class FallComponent: GKComponent {
 
+    override init() {
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // TODO
+    func fallAnimate(){
+//        self.node.physicsBody?.applyImpulse(<#T##impulse: CGVector##CGVector#>)
+        
+        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }
+        // animationComponent.animate()
+    }
+
 }
