@@ -11,11 +11,11 @@ import GameplayKit
 
 // Component for falling objects (like the cave ice that falls to the ground)
 class FallComponent: GKComponent {
-
-    var player: Player {
-        return self.entity as! Player
+    
+    var scenarioObj: ScenarioObjects {
+        return self.entity as! ScenarioObjects
     }
-
+    
     override init() {
         super.init()
     }
@@ -31,7 +31,7 @@ class FallComponent: GKComponent {
 //        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }
 //         animationComponent.animate()
         
-        
+        // call scenarioObj.fall()
     }
 
 }

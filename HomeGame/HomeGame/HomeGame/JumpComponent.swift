@@ -26,7 +26,6 @@ class JumpComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // TODO
     func jumpAnimate(){
         
         print("vamo pulaa")
@@ -36,7 +35,7 @@ class JumpComponent: GKComponent {
 //        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }
 //         animationComponent.animate()
         
-        
+        player.jump()
     }
     
 }
