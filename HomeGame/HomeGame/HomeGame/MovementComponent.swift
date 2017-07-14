@@ -16,6 +16,8 @@ class MovementComponent: GKComponent {
     var player: Player {
         return self.entity as! Player
     }
+    var rightMovement: Bool!
+    var fast: Bool!
 
     override init() {
         super.init()
@@ -30,6 +32,15 @@ class MovementComponent: GKComponent {
     
     // TODO
     func moveAnimate(swipeDir: UISwipeGestureRecognizerDirection, inputFirstTouch: UITouch, inputLastTouch: UITouch) {
+        
+        
+       
+        
+        
+        
+        
+        
+  
         let lastTouchView = inputLastTouch.view!
         let firstTouchView = inputFirstTouch.view!
         
@@ -63,5 +74,31 @@ class MovementComponent: GKComponent {
             }
         }
         
+        
+        
     }
+    
+    
+    func movement (){
+        if rightMovement  {
+            if fast {
+                player.run()
+            }
+            else{
+                player.walk()
+            }
+        }
+       
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }

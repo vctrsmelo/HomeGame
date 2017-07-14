@@ -29,9 +29,22 @@ class StoppedState: GKState {
     
     
     override func didEnter(from previousState: GKState?) {
+        _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            //Do stuff every second here
+        }
+        print("did enter")
         
+    }
+    
+    
+    override func update(deltaTime seconds: TimeInterval) {
         
+        print("stopped!!!")
         
+        //if (player?.checkTextureForInitialFrame())!{
+            
+          //  player?.stopMainPlayerSpriteAnimation()
+        //}
     }
 
 }

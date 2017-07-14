@@ -28,13 +28,11 @@ class Player: GKEntity {
     let walkTextureNumber = 8
     
 
-
+    
     
     override init() {
         super.init()
         
-        
-       
         
         self.initializeTextureForSpriteNode()
         self.initializeJumpTextures()
@@ -49,8 +47,17 @@ class Player: GKEntity {
         
         
         
+        let jumpComp = JumpComponent()
+        let moveComp = MovementComponent()
         let spriteComponent = PlayerComponent(color: SKColor.blue, size: CGSize(width: 50, height: 50))
         self.addComponent(spriteComponent)
+        self.addComponent(moveComp)
+        self.addComponent(jumpComp)
+        
+        
+        
+        
+        
         
        
         self.stateMachine = GKStateMachine(states: [playerMoving, playerJumping, playerStopped, playerLoser, playerWinner])
@@ -78,6 +85,10 @@ class Player: GKEntity {
 
     func walk(){
         
+        print("Caminhar")
+        
+        //if (String(describing: self.mainPlayerSprite.texture).range(of: "player_run_7") == nil){
+        
         let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.1)
         let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x/2, y: positionToWalk.y, duration: 0.4)
         let moveByHalfXDown = SKAction.moveBy(x: positionToWalk.x/2, y: -positionToWalk.y, duration: 0.4)
@@ -92,9 +103,16 @@ class Player: GKEntity {
         
         let walkFullActionGroup = SKAction.group(animationWithWalkAction)
         
-        self.mainPlayerSprite.run(SKAction.repeatForever(walkFullActionGroup))
+        self.mainPlayerSprite.run(walkFullActionGroup)
         
-    }
+        }
+    //}
+    
+    
+    
+    
+    
+    
     
     func jump(){
         
@@ -112,7 +130,7 @@ class Player: GKEntity {
         
         let jumpFullActionGroup = SKAction.group(animationWithJumpAction)
         
-        self.mainPlayerSprite.run(SKAction.repeatForever(jumpFullActionGroup))
+        self.mainPlayerSprite.run(jumpFullActionGroup)
         
         
     }
@@ -135,7 +153,7 @@ class Player: GKEntity {
         
         let walkFullActionGroup = SKAction.group(animationWithWalkAction)
         
-        self.mainPlayerSprite.run(SKAction.repeatForever(walkFullActionGroup))
+        self.mainPlayerSprite.run(walkFullActionGroup)
         
         
         
@@ -164,6 +182,8 @@ class Player: GKEntity {
             
         }
         
+         self.jumpTextures.append(SKTexture(imageNamed: "stop"))
+        
     }
     
     
@@ -177,6 +197,8 @@ class Player: GKEntity {
             self.walkTextures.append(SKTexture(imageNamed: "player_run_\(i)"))
             
         }
+        
+        self.jumpTextures.append(SKTexture(imageNamed: "stop"))
         
         
     }
@@ -200,5 +222,17 @@ class Player: GKEntity {
         }
     }
     
+    
+    
+    
+    
+    func stopMainPlayerSpriteAnimation(){
+        
+        self.mainPlayerSprite.removeAllActions()
+        
+    }
+    override func update(deltaTime seconds: TimeInterval) {
+        self.stateMachine.update(deltaTime: seconds )
+    }
     
 }

@@ -142,6 +142,7 @@
 		ED0A2E3D1F155B260058E8D3 /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
+				ED0A2E371F15561E0058E8D3 /* Database.swift */,
 			);
 			name = UserDefaults;
 			sourceTree = "<group>";
@@ -151,13 +152,6 @@
 			children = (
 			);
 			name = HomeSceneElements;
-			sourceTree = "<group>";
-		};
-		ED0A2E3F1F1691FD0058E8D3 /* Sprites */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Sprites;
 			sourceTree = "<group>";
 		};
 		EEF933551F154836004EB520 = {
@@ -179,7 +173,6 @@
 		EEF933601F154836004EB520 /* HomeGame */ = {
 			isa = PBXGroup;
 			children = (
-				ED0A2E3F1F1691FD0058E8D3 /* Sprites */,
 				ED0A2E3D1F155B260058E8D3 /* UserDefaults */,
 				ED0A2E3A1F155A870058E8D3 /* Scenes */,
 				EEF933611F154836004EB520 /* AppDelegate.swift */,
@@ -191,7 +184,6 @@
 				EEF9336E1F154836004EB520 /* Assets.xcassets */,
 				EEF933701F154836004EB520 /* LaunchScreen.storyboard */,
 				EEF933731F154836004EB520 /* Info.plist */,
-				ED0A2E371F15561E0058E8D3 /* Database.swift */,
 				8D8DF90D1F1559BA00CF6A97 /* Player.swift */,
 				8D8DF90F1F155A8200CF6A97 /* StoppedState.swift */,
 				8D8DF9111F155A9800CF6A97 /* MovingState.swift */,

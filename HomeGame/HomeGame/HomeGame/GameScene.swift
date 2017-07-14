@@ -45,19 +45,6 @@ class GameScene: SKScene {
         let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector
             (self.tapped(sender:)))
         
-        let swipe:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.swiped(sender:)))
-        let swipe2:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.swiped(sender:)))
-        let swipe3:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.swiped(sender:)))
-        let swipe4:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.swiped(sender:)))
-        
-        swipe2.direction = .left
-        swipe.direction = .right
-        swipe3.direction = .up
-        swipe4.direction = .down
-        view.addGestureRecognizer(swipe4)
-        view.addGestureRecognizer(swipe3)
-        view.addGestureRecognizer(swipe2)
-        view.addGestureRecognizer(swipe)
         view.addGestureRecognizer(tap)
         
     
@@ -72,74 +59,33 @@ class GameScene: SKScene {
     }
     
     
-    
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        print ("motion endeed")
-    }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         player?.stateMachine.enter(StoppedState.self)
         print ("touches endeed")
-        
         ball.position = base.position
     }
     
-    override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        print ("presses endeed")
-    }
-    
-    
     func tapped(sender: UITapGestureRecognizer){
-        
         player.changeState(stateClass: JumpingState.self)
-        self.stop = true
-        player.jump()
-
+        ///self.stop = true
+        //player.jump()
         print("tapped")
     }
     
     
-    
-     func swiped(sender:UISwipeGestureRecognizer){
-        
-        
-        if player?.stateMachine.currentState is StoppedState
-        {
-            player.changeState(stateClass: MovingState.self)
-        }
-        
-        
-        gesture = sender
-        print("swiped")
-    }
-    
-
-   
-    
-    
     override func update(_ currentTime: TimeInterval) {
         
+        
+        
         if angle != nil && xDistance != nil && yDistance != nil {
-        ball.position = CGPoint(x: base.position.x + xDistance, y:  base.position.y + yDistance)
-        
-        
-        let deltaX: CGFloat = sin(angle) * 5
-        let deltaY: CGFloat = cos(angle) * 5
-        
-        // print(deltaY)
-        // print(deltaX)
-        
-            
-            
-            
-        if !(player.stateMachine.currentState is StoppedState) {
-        
-        player?.nodeTest.position = CGPoint(x:(player?.nodeTest.position.x)! + deltaX,y: (player?.nodeTest.position.y)! + deltaY)
-                
-                
-            }
-        
+            //ball.position = CGPoint(x: basePos.x + xDistance, y:  basePos.y + yDistance)
+           // ball.position = CGPoint(x: base.position.x + xDistance, y:  base.position.y + yDistance)
         }
+        
+        player.update(deltaTime: currentTime)
+        
+       
         
         // Called before each frame is rendered
         
@@ -162,11 +108,15 @@ class GameScene: SKScene {
     
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if player?.stateMachine.currentState is MovingState
-        {
+        
+//        
+        //if player?.stateMachine.currentState is JumpingState
+       // {
             print ("canceled")
-            //player?.stateMachine.enter(StoppedState.self)
-        }
+            player?.stateMachine.enter(StoppedState.self)
+        //}
+        
+        
         
         
     }
@@ -175,8 +125,10 @@ class GameScene: SKScene {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         
-        player?.stateMachine.enter(MovingState.self)
-        for touch in touches 
+      //player?.stateMachine.enter(MovingState.self)
+        
+        
+        for touch in touches
         {
             let location = touch.location(in: self)
             let vector  = CGVector(dx: location.x - base.position.x, dy: location.y - base.position.y)
@@ -199,14 +151,16 @@ class GameScene: SKScene {
                 
             }
             else{
+                player?.stateMachine.state(forClass: MovingState.self)?.fast = true
                 
                 if ( sin(angle)  < 0 ){
-                
-                //if (angle < 0) {
+                    
+                    //if (angle < 0) {
                     //xDist = sin(angle) * lenght
                     xDist = -40
                 }
                 else {
+                    
                     xDist = 40
                 }
                 
@@ -230,13 +184,31 @@ class GameScene: SKScene {
                 
                 //yDist = cos(angle) * lenght
             }
-
-            self.xDistance = xDist
-            self.yDistance = yDist
-            self.angle = angle
             
-           
+            
+            ball.position = CGPoint(x: base.position.x + xDist, y:  base.position.y + yDist)
+            
+            
+           // let deltaX: CGFloat = sin(angle) * 5
+           // let deltaY: CGFloat = cos(angle) * 5
+            if sin(angle) > 0 {
+                player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+            }
+            
+            
+            
+            // print(deltaY)
+            // print(deltaX)
+            
+          //  player?.nodeTest.position = CGPoint(x:(player?.nodeTest.position.x)! + deltaX,y: (player?.nodeTest.position.y)! + deltaY)
+            
+            
+            
+            
         }
+
+        //player?.stateMachine.enter(MovingState.self)
+        
     }
     
     

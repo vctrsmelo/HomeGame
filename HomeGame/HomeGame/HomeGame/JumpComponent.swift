@@ -28,6 +28,9 @@ class JumpComponent: GKComponent {
     
     // TODO
     func jumpAnimate(){
+        
+        print("vamo pulaa")
+        player.jump()
 //        self.node.physicsBody?.applyImpulse(<#T##impulse: CGVector##CGVector#>)
         
 //        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }
