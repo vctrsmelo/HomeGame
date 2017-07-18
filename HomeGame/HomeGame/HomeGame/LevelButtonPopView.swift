@@ -16,15 +16,46 @@ class LevelButtonPopView : SKSpriteNode {
 
     init() {
         self.background = SKTexture(imageNamed: "photo")
-        super.init(texture: background, color: .white, size: CGSize(width: 100, height: 100))
+        super.init(texture: background, color: .white, size: CGSize(width: 450, height: 450))
+        self.zPosition = CGFloat(100)
 
         // scene to be pushed
         self.levelScene = Level1Scene()
-        self.playButton = SKSpriteNode(imageNamed: "play1600")
+        
+        self.initPlayButton()
+        self.isUserInteractionEnabled = true
+        self.addChild(playButton)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if playButton.frame.contains((touches.first?.location(in: self))!) {
+//            print("play")
+            let gameScene = GameScene(size: self.frame.size)
+            
+            gameScene.scaleMode = .aspectFill
+            let view = self.playButton.parent?.parent?.parent as! SKScene
+            view.view?.presentScene(gameScene, transition: SKTransition.fade(with: .lightGray, duration: 0.1))
+        }
+        else {
+            self.removeFromParent()
+        }
+    }
+    
+    func initPlayButton(){
+        let playTexture = SKTexture(imageNamed: "play1600")
+        
+        self.playButton = SKSpriteNode(texture: playTexture, color: .white, size: CGSize(width: 100, height: 100))
+        
+        self.playButton.anchorPoint = CGPoint(x: 0.5, y: 0.0)
+        
+        let playButtonPosX = self.frame.midX
+        let playButtonPosY = self.frame.minY
+        self.playButton.position = CGPoint(x: playButtonPosX, y: playButtonPosY)
+        
+        self.playButton.zPosition = CGFloat(110)
+    }
 }

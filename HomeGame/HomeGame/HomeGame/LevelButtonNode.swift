@@ -19,7 +19,9 @@ class LevelButtonNode : SKSpriteNode {
         self.icon = SKTexture(imageNamed: "icone")
         self.popView = LevelButtonPopView()
         
-        super.init(texture: icon, color: .white, size: CGSize(width: 100, height: 100))
+        super.init(texture: icon, color: .white, size: CGSize(width: 50, height: 50))
+        
+        self.isUserInteractionEnabled = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,7 +33,7 @@ class LevelButtonNode : SKSpriteNode {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchButton()
+        self.addChild(popView)
     }
     
 }

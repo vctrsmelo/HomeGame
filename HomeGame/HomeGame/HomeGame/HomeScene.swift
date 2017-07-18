@@ -39,7 +39,7 @@ class HomeScene: SKScene {
     func initBackground(){
         
         /* Initialize background with a texture */
-        self.background = SKSpriteNode(texture: SKTexture(imageNamed: "worldbackground"), size: CGSize(width: 300, height: 300))
+        self.background = SKSpriteNode(texture: SKTexture(imageNamed: "worldbackground"), size: CGSize(width: self.frame.maxX, height: self.frame.maxY))
         self.background.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.background.zPosition = CGFloat(-100)
     }
@@ -64,7 +64,7 @@ class HomeScene: SKScene {
         
         for levelButton in levelButtons {
             levelButton.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            levelButton.zPosition = CGFloat(100)
+            levelButton.zPosition = CGFloat(0)
         }
     }
     
