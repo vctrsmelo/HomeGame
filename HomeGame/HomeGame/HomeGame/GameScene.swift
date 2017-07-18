@@ -18,6 +18,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let base = SKSpriteNode.init(color: .cyan, size: CGSize(width: 100, height: 100))
     let ball = SKShapeNode.init(circleOfRadius: 40)
     
+    var waterNode: SBDynamicWaterNode!
+    
+    let WATER_COLOR = SKColor.blue
     
     var xDistance: CGFloat!
     var yDistance: CGFloat!
@@ -43,6 +46,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     override func didMove(to view: SKView) {
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        self.waterNode = SBDynamicWaterNode.init(width: Float(self.size.width), numJoints: 100, surfaceHeight: Float(self.size.height)/2.0, fillColour: WATER_COLOR)
+        self.getScenarioElements()
+        
+        self.waterNode.position = CGPoint(x: 0, y: -(self.size.height)/2)
+        self.addChild(waterNode)
         
         addChild(base)
         base.position = CGPoint(x: 0, y: 0)
@@ -197,8 +206,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             }
             
             
+        //water
+        self.waterNode.update(currentTime)
+        self.waterNode.render()
         
-        
+        if angle != nil && xDistance != nil && yDistance != nil {
+            //ball.position = CGPoint(x: basePos.x + xDistance, y:  basePos.y + yDistance)
+           // ball.position = CGPoint(x: base.position.x + xDistance, y:  base.position.y + yDistance)
         }
         
         
