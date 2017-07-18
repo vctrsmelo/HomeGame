@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate{
     
     var player: Player!
     var GameStateMachine: GKStateMachine!
@@ -24,15 +24,21 @@ class GameScene: SKScene {
     var angle: CGFloat!
     
     
+    var fatalElements = ["ice_cub, water"]
+    
     
     //DOUGLAS
     var stop = false
+    
+    var sceneObjects:[ScenarioObjects] = []
     
 
     
     override func didMove(to view: SKView) {
         
+        self.physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
         
+        self.getScenarioElements()
         
         addChild(base)
         base.position = CGPoint(x: 0, y: 0)
@@ -71,6 +77,8 @@ class GameScene: SKScene {
         ///self.stop = true
         //player.jump()
         print("tapped")
+        
+        player.changeState(stateClass: StoppedState.self)
     }
     
     
@@ -105,22 +113,19 @@ class GameScene: SKScene {
     
     
 
-    
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-//        
-        //if player?.stateMachine.currentState is JumpingState
-       // {
-            print ("canceled")
-            player?.stateMachine.enter(StoppedState.self)
-        //}
-        
-        
+    func didBegin(_ contact: SKPhysicsContact) {
+
+        print("Morreu - Volte ao inicio")
+        self.player.resetPlayerPosition()
         
         
     }
     
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        print ("canceled")
+        
+    }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -218,6 +223,19 @@ class GameScene: SKScene {
         
         
     }
+    
+    
+    func getScenarioElements(){
+        
+        for child in self.children{
+
+            self.sceneObjects.append(ScenarioObjects(objectSprite: child as! SKSpriteNode,objectName: (child.name)!))
+            
+        }
+    }
+    
+   
+    
     
     
 }
