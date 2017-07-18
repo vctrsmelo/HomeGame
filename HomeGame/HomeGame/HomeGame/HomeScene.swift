@@ -11,40 +11,37 @@ import GameplayKit
 
 class HomeScene: SKScene {
 
-    var leveButtons:[LevelButtonNode]!
-    var worldNode:SKSpriteNode!
     var background:SKSpriteNode!
+    var worldNode: SKSpriteNode!
+    var levelButtons:[LevelButtonNode]! = []
     
-
     override func didMove(to view: SKView) {
-        
         if(initHomeSceneAttributes()){
-            
             print("Init Sucess!")
+            
+            self.addChild(self.background)
+            self.addChild(self.worldNode)
+            for levelButton in self.levelButtons {
+                addChild(levelButton)
+            }
         }
-        
-        
-    
     }
     
     
     func initHomeSceneAttributes()->Bool{
-        
-        
-        self.initLevelButtons()
-        self.initWorldNode()
         self.initBackground()
-       
+        self.initWorldNode()
+        self.initLevelButtons()
         
         return true
     }
     
-    
-    func initLevelButtons(){
+    func initBackground(){
         
-        /* Get the childs from the .sks file using the name identifiers and aloc
-         * the nodes according to its locations
-         */
+        /* Initialize background with a texture */
+        self.background = SKSpriteNode(texture: SKTexture(imageNamed: "worldbackground"), size: CGSize(width: 300, height: 300))
+        self.background.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.background.zPosition = CGFloat(-100)
     }
     
     func initWorldNode(){
@@ -52,15 +49,27 @@ class HomeScene: SKScene {
         /* Initialize world node with the earth image to place the global warming
          * hotspots
          */
+        self.worldNode = SKSpriteNode(texture: SKTexture(imageNamed: "world"), color: UIColor.white, size: CGSize(width: 400, height: 400))
+        self.worldNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.worldNode.zPosition = CGFloat(-90)
+    }
+
+    func initLevelButtons(){
         
+        /* Get the childs from the .sks file using the name identifiers and aloc
+         * the nodes according to its locations
+         */
+        
+        self.levelButtons.append(LevelButtonNode(pos: CGPoint(x: 0, y: 0)))
+        
+        for levelButton in levelButtons {
+            levelButton.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            levelButton.zPosition = CGFloat(100)
+        }
     }
     
-    func initBackground(){
-        
-        /* Initialize background with a texture */
-        
+    func didSelectLevel(){
         
     }
-    
-    
+        
 }

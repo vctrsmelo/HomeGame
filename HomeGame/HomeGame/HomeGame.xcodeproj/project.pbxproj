@@ -16,6 +16,7 @@
 		8D8DF91A1F169A9000CF6A97 /* PlayingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF9191F169A9000CF6A97 /* PlayingState.swift */; };
 		8D8DF91C1F169B1400CF6A97 /* PlayerWonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF91B1F169B1400CF6A97 /* PlayerWonState.swift */; };
 		8D8DF91E1F169B3600CF6A97 /* PlayerLostState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */; };
+		AE30A62F1F1D29E500879E56 /* LevelButtonPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE30A62E1F1D29E500879E56 /* LevelButtonPopView.swift */; };
 		AE75D7C31F156B0400F37A5A /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C21F156B0400F37A5A /* MovementComponent.swift */; };
 		AE75D7C51F156B4A00F37A5A /* JumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */; };
 		AE75D7C71F156C4300F37A5A /* FallComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C61F156C4300F37A5A /* FallComponent.swift */; };
@@ -48,6 +49,7 @@
 		8D8DF9191F169A9000CF6A97 /* PlayingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingState.swift; sourceTree = "<group>"; };
 		8D8DF91B1F169B1400CF6A97 /* PlayerWonState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWonState.swift; sourceTree = "<group>"; };
 		8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerLostState.swift; sourceTree = "<group>"; };
+		AE30A62E1F1D29E500879E56 /* LevelButtonPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelButtonPopView.swift; sourceTree = "<group>"; };
 		AE75D7C21F156B0400F37A5A /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpComponent.swift; sourceTree = "<group>"; };
 		AE75D7C61F156C4300F37A5A /* FallComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallComponent.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				ED0A2E2D1F154A300058E8D3 /* LevelButtonNode.swift */,
+				AE30A62E1F1D29E500879E56 /* LevelButtonPopView.swift */,
 			);
 			name = HomeSceneElements;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				8D8DF9101F155A8200CF6A97 /* StoppedState.swift in Sources */,
 				EEF933681F154836004EB520 /* GameScene.swift in Sources */,
 				AE75D7C91F18019A00F37A5A /* StopComponent.swift in Sources */,
+				AE30A62F1F1D29E500879E56 /* LevelButtonPopView.swift in Sources */,
 				8D8DF9181F1698AA00CF6A97 /* WaitingState.swift in Sources */,
 				8D8DF9141F155AB100CF6A97 /* JumpingState.swift in Sources */,
 				ED0A2E361F1554360058E8D3 /* CharacterNode.swift in Sources */,
