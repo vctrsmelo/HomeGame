@@ -52,15 +52,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     override func didMove(to view: SKView) {
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.getScenarioElements()
         
         self.physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
-
-        bGround = SKSpriteNode.init(imageNamed: "ground")
-        back2 = SKSpriteNode.init(imageNamed: "ground")
-        bGround.position = CGPoint.zero
-        back2.position = CGPoint(x: self.frame.width, y: 0)
-        
-        self.getScenarioElements()
         
         self.waterNode = SBDynamicWaterNode.init(width: Float(self.size.width), numJoints: 100, surfaceHeight: Float(self.size.height)/2.0, fillColour: WATER_COLOR)
         let physicsBody = SKPhysicsBody(rectangleOf:CGSize(width: self.frame.size.width, height: 1))//CGFloat(self.size.height)))
@@ -72,7 +66,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.waterNode.physicsBody?.isDynamic = true
         
         self.waterNode.name = "water"
-        
+
         self.waterNode.physicsBody?.affectedByGravity = false
         self.waterNode.physicsBody?.pinned = true
         self.waterNode.physicsBody?.allowsRotation = false
@@ -82,7 +76,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         self.waterNode.position = CGPoint(x: 0, y: -(self.size.height)/2)
         self.addChild(waterNode)
-
+        
+        
+        addChild(base)
+        base.position = CGPoint(x: 0, y: 0)
+        
+        
+        
+        bGround = SKSpriteNode.init(imageNamed: "ground")
+        back2 = SKSpriteNode.init(imageNamed: "ground")
+        bGround.position = CGPoint.zero
+        back2.position = CGPoint(x: self.frame.width, y: 0)
+        
+        self.getScenarioElements()
         
         addChild(back2)
         addChild(bGround)
@@ -96,8 +102,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         view.addGestureRecognizer(Tap)
         
         
+    
         self.player =  Player()
-        //addChild(player.nodeTest)
+        addChild(player.nodeTest)
         addChild(player.mainPlayerSprite)
         
         let playingState = PlayingState()
@@ -226,9 +233,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 
             }
             
-        }
-        
-
+            
+        //water
         if angle != nil && xDistance != nil && yDistance != nil {
             //ball.position = CGPoint(x: basePos.x + xDistance, y:  basePos.y + yDistance)
            // ball.position = CGPoint(x: base.position.x + xDistance, y:  base.position.y + yDistance)
@@ -461,7 +467,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         addChild(base)
         addChild(ball)
-        
+       
         base.position = (touches.first?.location(in: self))!
         ball.position = (touches.first?.location(in: self))!
         
@@ -471,14 +477,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         print("base pos y= " +  String(describing: ball.position.y))
         print("ball pos y= " +  String(describing: ball.position.y))
+
         
-        
-        //        base.zPosition = 1
-        //        ball.zPosition = 1
-        //
+//        base.zPosition = 1
+//        ball.zPosition = 1
+//        
         
         
     }
+    
     
     
     func seeIfItWasTapped(touches:Set<UITouch> ) -> Bool{
@@ -530,8 +537,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     func getScenarioElements(){
         
         for child in self.children{
-            
-            
+
             self.sceneObjects.append(ScenarioObjects(objectSprite: child as! SKSpriteNode,objectName: (child.name)!))
             
         }

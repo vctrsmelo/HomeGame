@@ -50,7 +50,6 @@ class Player: GKEntity {
     override init() {
         super.init()
         
-        
         self.initializeTextureForSpriteNode()
         self.initializeJumpTextures()
         self.initializeWalkTextures()
@@ -72,12 +71,6 @@ class Player: GKEntity {
         self.addComponent(moveComp)
         self.addComponent(jumpComp)
         self.addComponent(stopComp)
-        
-        
-        
-        
-        
-        
        
         self.stateMachine = GKStateMachine(states: [playerMoving, playerJumping, playerStopped, playerLoser, playerWinner])
         self.stateMachine.enter(StoppedState.self)
