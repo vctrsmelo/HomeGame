@@ -16,6 +16,12 @@ class HomeScene: SKScene {
     var levelButtons:[LevelButtonNode]! = []
     
     override func didMove(to view: SKView) {
+        super.didMove(to: view)
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        // Set the scale mode to scale to fill the window
+        self.scaleMode = .aspectFill
+        
         if(initHomeSceneAttributes()){
             print("Init Sucess!")
             
@@ -39,7 +45,7 @@ class HomeScene: SKScene {
     func initBackground(){
         
         /* Initialize background with a texture */
-        self.background = SKSpriteNode(texture: SKTexture(imageNamed: "worldbackground"), size: CGSize(width: self.frame.maxX, height: self.frame.maxY))
+        self.background = SKSpriteNode(texture: SKTexture(imageNamed: "worldbackground"), size: CGSize(width: (self.view?.bounds.maxX)!, height: (self.view?.bounds.maxY)!))
         self.background.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.background.zPosition = CGFloat(-100)
     }
@@ -49,7 +55,7 @@ class HomeScene: SKScene {
         /* Initialize world node with the earth image to place the global warming
          * hotspots
          */
-        self.worldNode = SKSpriteNode(texture: SKTexture(imageNamed: "world"), color: UIColor.white, size: CGSize(width: 400, height: 400))
+        self.worldNode = SKSpriteNode(texture: SKTexture(imageNamed: "world"), color: UIColor.white, size: CGSize(width: 300, height: 300))
         self.worldNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.worldNode.zPosition = CGFloat(-90)
     }
@@ -63,7 +69,7 @@ class HomeScene: SKScene {
         self.levelButtons.append(LevelButtonNode(pos: CGPoint(x: 0, y: 0)))
         
         for levelButton in levelButtons {
-            levelButton.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            levelButton.anchorPoint = CGPoint(x: 0.5, y: 0.0)
             levelButton.zPosition = CGFloat(0)
         }
     }
