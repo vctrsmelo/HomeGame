@@ -31,7 +31,7 @@ class Player: GKEntity {
     var walkTextures:[SKTexture] = []
     var jumpTextures:[SKTexture] = []
     
-    let positionToWalk = CGPoint(x: 20, y: 0)
+    var positionToWalk = CGPoint(x: 20, y: 0)
     let positionToJump = CGPoint(x: 80, y:60 )
     
     let jumpTextureNumber = 60
@@ -274,33 +274,34 @@ class Player: GKEntity {
             
             self.runEnded = 0
         
-        let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.05)
-        let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: 0.2)
-        let moveByHalfXDown = SKAction.moveBy(x: positionToWalk.x, y: -positionToWalk.y, duration: 0.2)
-        
-        
-        let walkAction = SKAction.sequence([moveByHalfXUp, moveByHalfXDown])
-        
-        var animationWithWalkAction = Array<SKAction>()
-        
-        animationWithWalkAction.append(animateSprite)
-        animationWithWalkAction.append(walkAction)
-        
-        let walkFullActionGroup = SKAction.group(animationWithWalkAction)
-        
-        self.actionCompleted = false
-            self.mainPlayerSprite.run(walkFullActionGroup, completion:{
-                
-                self.runEnded = 1
-                
-            })
-        
-        self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
+            let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.05)
+            let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: 0.2)
+            let moveByHalfXDown = SKAction.moveBy(x: positionToWalk.x, y: -positionToWalk.y, duration: 0.2)
             
-            self.actionCompleted = true
-        })
+            
+            let walkAction = SKAction.sequence([moveByHalfXUp, moveByHalfXDown])
+            
+            var animationWithWalkAction = Array<SKAction>()
+            
+            animationWithWalkAction.append(animateSprite)
+            animationWithWalkAction.append(walkAction)
+            
+            let walkFullActionGroup = SKAction.group(animationWithWalkAction)
+            
+            self.actionCompleted = false
+                self.mainPlayerSprite.run(walkFullActionGroup, completion:{
+                    
+                    self.runEnded = 1
+                    
+                })
+            
+            self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
+                
+                self.actionCompleted = true
+            })
 
         
+        }
         
     }
     

@@ -207,8 +207,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "397"
             endingLineNumber = "397"
-            landmarkName = "seeIfItWasTapped(touches:)"
-            landmarkType = "7">
+            landmarkName = "GameScene"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -303,8 +303,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "walk(positionDirection:)"
-            landmarkType = "7">
+            landmarkName = "Player"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -415,7 +415,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "366"
             endingLineNumber = "366"
-            landmarkName = "touchesBegan(_:with:)"
+            landmarkName = "touchesMoved(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -431,8 +431,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "369"
             endingLineNumber = "369"
-            landmarkName = "touchesBegan(_:with:)"
-            landmarkType = "7">
+            landmarkName = "GameScene"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -463,7 +463,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "101"
             endingLineNumber = "101"
-            landmarkName = "walk(positionDirection:)"
+            landmarkName = "changeState(stateClass:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

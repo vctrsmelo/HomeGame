@@ -30,7 +30,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     var fatalElements = ["ice_cub, water"]
     var rightMov = false
-    var rightMov = true
     var xGreaterThanLenght = false
     var yGreaterThanLenght = false
     
