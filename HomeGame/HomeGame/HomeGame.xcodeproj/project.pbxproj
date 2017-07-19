@@ -29,6 +29,9 @@
 		ED0A2E341F15536F0058E8D3 /* ScenarioObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2E331F15536F0058E8D3 /* ScenarioObjects.swift */; };
 		ED0A2E361F1554360058E8D3 /* CharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2E351F1554360058E8D3 /* CharacterNode.swift */; };
 		ED0A2E381F15561E0058E8D3 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2E371F15561E0058E8D3 /* Database.swift */; };
+		EEBFA9361F1E48FD007DB093 /* SBDynamicWaterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */; };
+		EEBFA9391F1E4B76007DB093 /* Droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9371F1E4B76007DB093 /* Droplet.png */; };
+		EEBFA93A1F1E4B76007DB093 /* Droplets.fsh in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9381F1E4B76007DB093 /* Droplets.fsh */; };
 		EEF933621F154836004EB520 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF933611F154836004EB520 /* AppDelegate.swift */; };
 		EEF933641F154836004EB520 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEF933631F154836004EB520 /* GameScene.sks */; };
 		EEF933661F154836004EB520 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEF933651F154836004EB520 /* Actions.sks */; };
@@ -62,6 +65,11 @@
 		ED0A2E331F15536F0058E8D3 /* ScenarioObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScenarioObjects.swift; sourceTree = "<group>"; };
 		ED0A2E351F1554360058E8D3 /* CharacterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterNode.swift; sourceTree = "<group>"; };
 		ED0A2E371F15561E0058E8D3 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		EEBFA9331F1E48FD007DB093 /* HomeGame-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeGame-Bridging-Header.h"; sourceTree = "<group>"; };
+		EEBFA9341F1E48FD007DB093 /* SBDynamicWaterNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDynamicWaterNode.h; sourceTree = "<group>"; };
+		EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDynamicWaterNode.m; sourceTree = "<group>"; };
+		EEBFA9371F1E4B76007DB093 /* Droplet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Droplet.png; sourceTree = "<group>"; };
+		EEBFA9381F1E4B76007DB093 /* Droplets.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Droplets.fsh; sourceTree = "<group>"; };
 		EEF9335E1F154836004EB520 /* HomeGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF933611F154836004EB520 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EEF933631F154836004EB520 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -160,6 +168,18 @@
 			name = HomeSceneElements;
 			sourceTree = "<group>";
 		};
+		EEBFA9321F1E48C6007DB093 /* WaterExtension */ = {
+			isa = PBXGroup;
+			children = (
+				EEBFA9371F1E4B76007DB093 /* Droplet.png */,
+				EEBFA9381F1E4B76007DB093 /* Droplets.fsh */,
+				EEBFA9341F1E48FD007DB093 /* SBDynamicWaterNode.h */,
+				EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */,
+				EEBFA9331F1E48FD007DB093 /* HomeGame-Bridging-Header.h */,
+			);
+			name = WaterExtension;
+			sourceTree = "<group>";
+		};
 		EEF933551F154836004EB520 = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +199,7 @@
 		EEF933601F154836004EB520 /* HomeGame */ = {
 			isa = PBXGroup;
 			children = (
+				EEBFA9321F1E48C6007DB093 /* WaterExtension */,
 				ED0A2E3D1F155B260058E8D3 /* UserDefaults */,
 				ED0A2E3A1F155A870058E8D3 /* Scenes */,
 				EEF933611F154836004EB520 /* AppDelegate.swift */,
@@ -235,7 +256,8 @@
 				TargetAttributes = {
 					EEF9335D1F154836004EB520 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = HXG58UK739;
+						DevelopmentTeam = Y93HUJS49V;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -263,12 +285,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEBFA9391F1E4B76007DB093 /* Droplet.png in Resources */,
 				EEF9336D1F154836004EB520 /* Main.storyboard in Resources */,
 				ED0A2E2A1F15491E0058E8D3 /* HomeScene.sks in Resources */,
 				EEF933641F154836004EB520 /* GameScene.sks in Resources */,
 				ED0A2E301F1551C30058E8D3 /* Level1Scene.sks in Resources */,
 				EEF9336F1F154836004EB520 /* Assets.xcassets in Resources */,
 				EEF933721F154836004EB520 /* LaunchScreen.storyboard in Resources */,
+				EEBFA93A1F1E4B76007DB093 /* Droplets.fsh in Resources */,
 				EEF933661F154836004EB520 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEBFA9361F1E48FD007DB093 /* SBDynamicWaterNode.m in Sources */,
 				AE75D7C71F156C4300F37A5A /* FallComponent.swift in Sources */,
 				AE75D7C51F156B4A00F37A5A /* JumpComponent.swift in Sources */,
 				AE75D7C31F156B0400F37A5A /* MovementComponent.swift in Sources */,
@@ -425,12 +450,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HXG58UK739;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = Y93HUJS49V;
 				INFOPLIST_FILE = HomeGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.victormelo.HomeGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HomeGame/HomeGame-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -439,12 +467,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HXG58UK739;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = Y93HUJS49V;
 				INFOPLIST_FILE = HomeGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.victormelo.HomeGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HomeGame/HomeGame-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
