@@ -52,10 +52,10 @@ class MovementComponent: GKComponent {
                 distance = inputLastTouch.location(in: lastTouchView).x - inputFirstTouch.location(in: firstTouchView).x
                 
                 if distance > 10 {
-                    player.run()
+                //    player.run()
                 }
                 else {
-                    player.walk()
+                //    player.walk()
                 }
                 
             }
@@ -65,10 +65,10 @@ class MovementComponent: GKComponent {
                 distance = inputLastTouch.location(in: lastTouchView).x - inputFirstTouch.location(in: firstTouchView).x
                 
                 if distance > 10 {
-                    player.run()
+               //     player.run()
                 }
                 else {
-                    player.walk()
+              //      player.walk()
                 }
 
             }
@@ -82,11 +82,23 @@ class MovementComponent: GKComponent {
     func movement (){
         if rightMovement  {
             if fast {
-                player.run()
+                player.run(positionDirection: .right)
             }
             else{
-                player.walk()
+                player.walk(positionDirection: .right)
             }
+        }
+        else{
+            
+            if fast {
+                player.run(positionDirection: .left)
+            }
+            else{
+                player.walk(positionDirection: .left)
+            }
+            
+            
+            
         }
        
         

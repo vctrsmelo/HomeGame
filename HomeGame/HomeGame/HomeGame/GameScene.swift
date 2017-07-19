@@ -30,6 +30,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     var fatalElements = ["ice_cub, water"]
     var rightMov = false
+    var rightMov = true
+    var xGreaterThanLenght = false
+    var yGreaterThanLenght = false
     
     var bGround  = SKSpriteNode()
     var back2 = SKSpriteNode()
@@ -40,7 +43,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     override func didMove(to view: SKView) {
         
-        self.physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
+        
+    
+        
+        
+        
+        
         bGround = SKSpriteNode.init(imageNamed: "ground")
         back2 = SKSpriteNode.init(imageNamed: "ground")
         bGround.position = CGPoint.zero
@@ -153,6 +161,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     func tapped(sender: UITapGestureRecognizer){
+        
+        player?.stateMachine.state(forClass: JumpingState.self)?.rightMovement = self.rightMov
+        
         player.changeState(stateClass: JumpingState.self)
         ///self.stop = true
         //player.jump()
@@ -228,13 +239,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        // if (self.seeIfItWasTapped(touches: touches)){
-        //   self.tapped(sender: tap)
-        
-        //  }
         player?.stateMachine.enter(MovingState.self)
         player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
-        // else{
         
         print("touches moved")
         for touch in touches
@@ -248,81 +254,107 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             
             let lenght: CGFloat = 40
             
-            
             var xDist: CGFloat! // = sin(angle) * lenght
             var yDist: CGFloat! // = cos(angle) * lenght
             
             
             print(degree + 180)
-            
-            if abs(location.x) - abs(base.position.x) <= 40
+            if abs(location.x - base.position.x) <= lenght
             {
-                xDist = location.x
+                //xDist = location.x - base.position.x
+                xDist = abs(location.x - base.position.x)
                 player?.stateMachine.state(forClass: MovingState.self)?.fast = false
+                self.xGreaterThanLenght = false
                 
             }
             else{
-                player?.stateMachine.state(forClass: MovingState.self)?.fast = true
+                if location.x < base.position.x {
+                    xDist = -lenght
                 
-                if ( sin(angle)  < 0 ){
+                }
+                else
+                {
+                    xDist = lenght
+                }
+                
+                player?.stateMachine.state(forClass: MovingState.self)?.fast = true
+                self.xGreaterThanLenght = true
+                
+                //if ( sin(angle)  < 0 ){
                     
                     //if (angle < 0) {
                     //xDist = sin(angle) * lenght
-                    xDist = -40
-                }
-                else {
+                //    xDist = -40
+               // }
+               // else {
                     
-                    xDist = 40
-                }
+                //    xDist = 40
+               // }
                 
             }
             
-            if abs(location.y) - abs(base.position.y) <= 40
+            if abs(location.y - base.position.y) <= lenght
             {
-                yDist = location.y
+                //yDist = location.y
+                yDist = abs(location.y - base.position.y)
+                self.yGreaterThanLenght = false
                 
             }
             else{
+                self.yGreaterThanLenght = true
                 
-                if (cos(angle) < 0){
-                    
-                    yDist = -40
+                if location.y > base.position.y{
+                    yDist = lenght
                 }
-                else{
-                    yDist = 40
+                else {
+                    yDist = -lenght
                 }
+//                
+//                if (cos(angle) < 0){
+//                    
+//                    yDist = -40
+//                }
+//                else{
+//                    yDist = 40
+//                }
                 
                 
                 //yDist = cos(angle) * lenght
             }
+            if angle == 0 {
+                
+                player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+
+            }
+            else{
+                
+        
             
-            
-            ball.position = CGPoint(x: base.position.x + xDist, y:  base.position.y + yDist)
-            
-            
-            // let deltaX: CGFloat = sin(angle) * 5
-            // let deltaY: CGFloat = cos(angle) * 5
             if sin(angle) > 0 {
                 player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+                self.rightMov = true
+                
             }
             else{
                 player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                self.rightMov = false
+                
+                if !self.xGreaterThanLenght{
+                xDist = -xDist
+                }
                 
             }
-            
-            
-            
-            // print(deltaY)
-            // print(deltaX)
-            
-            //  player?.nodeTest.position = CGPoint(x:(player?.nodeTest.position.x)! + deltaX,y: (player?.nodeTest.position.y)! + deltaY)
-            
-            
-            
-            
-            // }
-            
-            //player?.stateMachine.enter(MovingState.self)
+                
+                
+                if cos(angle) <  0{
+                    if !self.yGreaterThanLenght{
+                    yDist = -yDist
+                    }
+                }
+                
+            }
+            ball.position = CGPoint(x: base.position.x + xDist, y:  base.position.y + yDist)
+
         }
     }
     

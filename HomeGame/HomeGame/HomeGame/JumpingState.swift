@@ -12,6 +12,7 @@ import GameplayKit
 class JumpingState: GKState {
     
     weak var player: Player?
+    var rightMovement: Bool!
     
     init(with player: Player) {
         self.player = player
@@ -26,7 +27,7 @@ class JumpingState: GKState {
         //    self.player?.stateMachine.enter(StoppedState.self)
        // })
         
-        
+         player?.component(ofType: JumpComponent.self)?.rightMovement = self.rightMovement
          player?.component(ofType: JumpComponent.self)?.jumpAnimate()
         
         

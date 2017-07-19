@@ -11,7 +11,7 @@ import GameplayKit
 
 // Jump Component for jumping entities (like the main character)
 class JumpComponent: GKComponent {
-    
+    var rightMovement: Bool!
 //    var node: SKNode
     var player: Player {
         return self.entity as! Player
@@ -29,7 +29,14 @@ class JumpComponent: GKComponent {
     func jumpAnimate(){
         
         print("vamo pulaa")
-        player.jump()
+        if rightMovement{
+            player.jump(positionDirection: .right )
+        }
+        else{
+            player.jump(positionDirection: .left)
+
+        }
+        
 //        self.node.physicsBody?.applyImpulse(<#T##impulse: CGVector##CGVector#>)
         
 //        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }

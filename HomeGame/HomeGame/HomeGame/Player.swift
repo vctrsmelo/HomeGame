@@ -9,6 +9,16 @@
 import UIKit
 import GameplayKit
 
+
+
+
+enum positionEnum {
+    case left
+    case right
+}
+
+
+
 class Player: GKEntity {
     
     
@@ -90,13 +100,28 @@ class Player: GKEntity {
 
     }
 
-    func walk(){
+    func walk(positionDirection: positionEnum){
+        
+        
         
         print("Caminhar")
         
-        
         //if (String(describing: self.mainPlayerSprite.texture).range(of: "player_run_7") == nil){
         if (animationEnded == 1 ){
+            
+            
+            if positionDirection == .left {
+                
+                self.mainPlayerSprite.xScale = -1
+                positionToWalk.x = -40
+                
+            }
+            else{
+                self.mainPlayerSprite.xScale = abs( self.mainPlayerSprite.xScale)
+                positionToWalk.x = 40
+                
+                print("indo pra dir poxa")
+            }
             
         animationEnded = 0
             print("caminhando")
@@ -152,7 +177,8 @@ class Player: GKEntity {
         
         
     }
-    //}
+   
+
     
     
     
@@ -161,10 +187,22 @@ class Player: GKEntity {
     
     
     
-    func jump(){
+    func jump(positionDirection: positionEnum){
         
         
         if (jumpFinished == 1){
+            
+            
+            
+            if positionDirection == .left{
+                self.mainPlayerSprite.xScale = -1
+                positionToJump.x = -80
+                
+            }
+            else{
+                self.mainPlayerSprite.xScale = abs (self.mainPlayerSprite.xScale)
+                positionToJump.x = abs (positionToJump.x)
+            }
             
         jumpFinished = 0
         
@@ -205,11 +243,25 @@ class Player: GKEntity {
     }
     
     
-    func run(){
+    func run(positionDirection: positionEnum){
         
         
         
         if (runEnded == 1){
+            
+            
+            if positionDirection == .left {
+                self.mainPlayerSprite.xScale = -1
+                positionToWalk.x = -40
+                
+            }
+            else{
+                self.mainPlayerSprite.xScale = abs ( self.mainPlayerSprite.xScale)
+                positionToWalk.x = abs (self.positionToWalk.x)
+
+            }
+            
+            
             self.runEnded = 0
         
         let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.05)

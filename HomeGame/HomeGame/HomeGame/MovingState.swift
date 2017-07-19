@@ -13,7 +13,7 @@ class MovingState: GKState {
     
     var touchesSet: Set<UITouch>!
     
-    var rightMovement: Bool = false
+    var rightMovement: Bool = true
     var fast: Bool = false
     
     var stop = 0
