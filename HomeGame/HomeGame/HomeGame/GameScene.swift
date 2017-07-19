@@ -176,19 +176,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     override func update(_ currentTime: TimeInterval) {
         
         if !(player.stateMachine.currentState is StoppedState){
+            if (player?.mainPlayerSprite.position.x)! > (view?.frame.size.width)!/4 ||
+                (player?.mainPlayerSprite.position.x)! < -(view?.frame.size.width)!/4{
+                bGround.position.x -= 1
+                back2.position.x -= 1
+                
+                player?.positionToWalk.x = 0
+                
+                
+                if bGround.position.x < -self.frame.size.width{
+                    
+                    bGround.position.x  = abs (bGround.position.x)
+                    
+                }
+                if back2.position.x < -self.frame.size.width{
+                    
+                    back2.position.x  = abs (back2.position.x)
+                }
+                
+            }
+            
+            
         
-        bGround.position.x -= 1
-        back2.position.x -= 1
-        
-        if bGround.position.x < -self.frame.size.width{
-            
-            bGround.position.x  = abs (bGround.position.x)
-            
-        }
-        if back2.position.x < -self.frame.size.width{
-            
-            back2.position.x  = abs (back2.position.x)
-        }
         
         }
         

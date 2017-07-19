@@ -113,12 +113,17 @@ class Player: GKEntity {
             if positionDirection == .left {
                 
                 self.mainPlayerSprite.xScale = -1
-                positionToWalk.x = -40
+                if positionToWalk.x != 0 {
+                    positionToWalk.x = -40
+                }
                 
             }
             else{
                 self.mainPlayerSprite.xScale = abs( self.mainPlayerSprite.xScale)
-                positionToWalk.x = 40
+                if positionToWalk.x != 0  {
+                    positionToWalk.x = 40
+                }
+                
                 
                 print("indo pra dir poxa")
             }
@@ -196,7 +201,9 @@ class Player: GKEntity {
             
             if positionDirection == .left{
                 self.mainPlayerSprite.xScale = -1
-                positionToJump.x = -80
+                if positionToJump.x != 0 {
+                    positionToJump.x = -80
+                }
                 
             }
             else{
@@ -223,7 +230,7 @@ class Player: GKEntity {
         
         self.actionCompleted = false
         self.mainPlayerSprite.run(jumpFullActionGroup, completion:{
-            
+            self.stateMachine.enter(StoppedState.self)
             self.jumpFinished = 1
         })
             
@@ -252,7 +259,10 @@ class Player: GKEntity {
             
             if positionDirection == .left {
                 self.mainPlayerSprite.xScale = -1
-                positionToWalk.x = -40
+                if positionToWalk.x != 0 {
+                    positionToWalk.x = -40
+                }
+                
                 
             }
             else{
