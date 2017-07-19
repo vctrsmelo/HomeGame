@@ -22,13 +22,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var xDistance: CGFloat!
     var yDistance: CGFloat!
     var angle: CGFloat!
+    var tolerance: Float =  5
     
+    var longTap: UILongPressGestureRecognizer!
+    var tap: UITapGestureRecognizer!
+    var stop = false
     
     var fatalElements = ["ice_cub, water"]
+    var rightMov = false
     
-    
-    //DOUGLAS
-    var stop = false
+    var bGround  = SKSpriteNode()
+    var back2 = SKSpriteNode()
     
     var sceneObjects:[ScenarioObjects] = []
     
@@ -37,39 +41,115 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     override func didMove(to view: SKView) {
         
         self.physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
+        bGround = SKSpriteNode.init(imageNamed: "ground")
+        back2 = SKSpriteNode.init(imageNamed: "ground")
+        bGround.position = CGPoint.zero
+        back2.position = CGPoint(x: self.frame.width, y: 0)
         
         self.getScenarioElements()
         
-        addChild(base)
-        base.position = CGPoint(x: 0, y: 0)
+        addChild(back2)
+        addChild(bGround)
         
-        addChild(ball)
-        ball.position = base.position
         
-        ball.fillColor = .brown
         
-        let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector
+        let Tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector
             (self.tapped(sender:)))
+        self.tap = Tap
+        tap.delaysTouchesBegan = true
+        view.addGestureRecognizer(Tap)
         
-        view.addGestureRecognizer(tap)
         
-    
-    self.player =  Player()
-    addChild(player.nodeTest)
-    addChild(player.mainPlayerSprite)
+        self.player =  Player()
+        //addChild(player.nodeTest)
+        addChild(player.mainPlayerSprite)
         
         let playingState = PlayingState()
         let waitingState = WaitingState()
         self.GameStateMachine = GKStateMachine(states: [playingState, waitingState])
         self.GameStateMachine.enter(PlayingState.self)
+        
+        
+//        let longTap:UILongPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(self.longTapped))
+//        longTap.delegate = self as? UIGestureRecognizerDelegate
+//        longTap.minimumPressDuration = 1
+//        view.addGestureRecognizer(longTap)
+//        
+//        self.longTap = longTap
+//        addChild(base)
+//        addChild(ball)
+        ball.fillColor = .brown
+        ball.zPosition = 1
+        base.zPosition = 1
+        player.mainPlayerSprite.zPosition = 1
+        
+    }
+    
+   func longTapped (){
+    
+    
+    
+    print("long tappeeeeeed")
+    
+    if longTap.state == .began {
+    print("bega")
+   
+  var location = self.longTap.location(in: self.view)
+//    
+//   // location.
+//    location.x = location.x - (view?.frame.size.width)!/2 + 0.5
+//    
+//    if (location.y <  (view?.frame.size.height)!/2 )
+//    {
+//        
+//        location.y = abs (location.y - (view?.frame.size.height)!/2) + 0.5
+//        
+//    }
+//    else{
+//        location.y = location.y - (view?.frame.size.height)!/2 + 0.5
+//        
+//    }
+//    
+//    base.position = location
+   // base.convert(location, to: self)
+    
+    let posititi =  self.convert(location, to: self)
+    base.position = self.convert(location, to: self)
+    base.isHidden = false
+    ball.isHidden = false
+    
+    ball.position = base.position
+    
+    ball.fillColor = .brown
+        
+        addChild(base)
+        addChild(ball)
+    }
+    
+    if longTap.state == .ended {
+        
+        
+        base.isHidden = true
+        ball.isHidden = true
+        
+        base.removeFromParent()
+        ball.removeFromParent()
+        
     }
     
     
+
+    }
+    
+    
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        player?.stateMachine.enter(StoppedState.self)
+        player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+       // player?.stateMachine.enter(StoppedState.self)
         print ("touches endeed")
-        ball.position = base.position
+        ball.removeFromParent()
+        base.removeFromParent()
+        
     }
     
     func tapped(sender: UITapGestureRecognizer){
@@ -84,27 +164,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     override func update(_ currentTime: TimeInterval) {
         
+        if !(player.stateMachine.currentState is StoppedState){
         
+        bGround.position.x -= 1
+        back2.position.x -= 1
         
-        if angle != nil && xDistance != nil && yDistance != nil {
-            //ball.position = CGPoint(x: basePos.x + xDistance, y:  basePos.y + yDistance)
-           // ball.position = CGPoint(x: base.position.x + xDistance, y:  base.position.y + yDistance)
+        if bGround.position.x < -self.frame.size.width{
+            
+            bGround.position.x  = abs (bGround.position.x)
+            
         }
+        if back2.position.x < -self.frame.size.width{
+            
+            back2.position.x  = abs (back2.position.x)
+        }
+        
+        }
+        
         
         player.update(deltaTime: currentTime)
         
-       
+        
         
         // Called before each frame is rendered
         
         //if gesture != nil {
-       // if gesture.state == UIGestureRecognizerState.ended {
-         //   print("swipe ended")
-           // NSLog(String (describing: gesture.direction))
+        // if gesture.state == UIGestureRecognizerState.ended {
+        //   print("swipe ended")
+        // NSLog(String (describing: gesture.direction))
         
         
-    //}
-      //  }
+        //}
+        //  }
         
         
     }
@@ -123,18 +214,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        //
+        //if player?.stateMachine.currentState is JumpingState
+        // {
         print ("canceled")
+        player?.stateMachine.enter(StoppedState.self)
+        //}
+        
+        ball.position =  base.position
+        
         
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        // if (self.seeIfItWasTapped(touches: touches)){
+        //   self.tapped(sender: tap)
         
-      //player?.stateMachine.enter(MovingState.self)
+        //  }
+        player?.stateMachine.enter(MovingState.self)
+        player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
+        // else{
         
-        
+        print("touches moved")
         for touch in touches
         {
+            
             let location = touch.location(in: self)
             let vector  = CGVector(dx: location.x - base.position.x, dy: location.y - base.position.y)
             let angle = atan2(vector.dx, vector.dy)
@@ -150,9 +255,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             
             print(degree + 180)
             
-            if abs(location.x) - base.position.x <= 40
+            if abs(location.x) - abs(base.position.x) <= 40
             {
                 xDist = location.x
+                player?.stateMachine.state(forClass: MovingState.self)?.fast = false
                 
             }
             else{
@@ -171,7 +277,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 
             }
             
-            if abs(location.y) - base.position.y <= 40
+            if abs(location.y) - abs(base.position.y) <= 40
             {
                 yDist = location.y
                 
@@ -194,10 +300,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             ball.position = CGPoint(x: base.position.x + xDist, y:  base.position.y + yDist)
             
             
-           // let deltaX: CGFloat = sin(angle) * 5
-           // let deltaY: CGFloat = cos(angle) * 5
+            // let deltaX: CGFloat = sin(angle) * 5
+            // let deltaY: CGFloat = cos(angle) * 5
             if sin(angle) > 0 {
                 player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+            }
+            else{
+                player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                
             }
             
             
@@ -205,25 +315,92 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             // print(deltaY)
             // print(deltaX)
             
-          //  player?.nodeTest.position = CGPoint(x:(player?.nodeTest.position.x)! + deltaX,y: (player?.nodeTest.position.y)! + deltaY)
+            //  player?.nodeTest.position = CGPoint(x:(player?.nodeTest.position.x)! + deltaX,y: (player?.nodeTest.position.y)! + deltaY)
             
             
             
             
+            // }
+            
+            //player?.stateMachine.enter(MovingState.self)
         }
-
-        //player?.stateMachine.enter(MovingState.self)
-        
     }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         player?.stateMachine.enter(MovingState.self)
+        
+        player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
+        
+        
+        addChild(base)
+        addChild(ball)
+       
+        base.position = (touches.first?.location(in: self))!
+        ball.position = (touches.first?.location(in: self))!
+        
+        
+        print("base pos x = " + String (describing: base.position.x))
+        print("ball pos x= " +  String(describing: ball.position.x))
+        
+        print("base pos y= " +  String(describing: ball.position.y))
+        print("ball pos y= " +  String(describing: ball.position.y))
 
+        
+//        base.zPosition = 1
+//        ball.zPosition = 1
+//        
         
         
     }
     
+    
+    
+    func seeIfItWasTapped(touches:Set<UITouch> ) -> Bool{
+        
+        
+        
+        
+        let firstTouch = touches.first!
+        let number = touches.endIndex
+        
+        let lastTouch = touches[touches.index(touches.startIndex, offsetBy: touches.count-1)]
+        
+        
+        print(firstTouch.location(in: self).x)
+        print(firstTouch.location(in: self).y)
+        print(lastTouch.location(in: self).x)
+        print(lastTouch.location(in: self).y)
+        
+        print("difer x =  " + String (describing: abs (lastTouch.location(in: self).x) - abs(firstTouch.location(in: self).x)))
+        print("difer y = " + String (describing: abs (lastTouch.location(in: self).y) - abs(firstTouch.location(in: self).y)))
+        
+        
+        if abs (lastTouch.location(in: self).x) - abs(firstTouch.location(in: self).x) > CGFloat (tolerance)
+        {
+            
+            return false
+        }
+        if abs (lastTouch.location(in: self).y) - abs(firstTouch.location(in: self).y) > CGFloat (tolerance)
+        {
+            
+            return false
+        }
+        
+        
+        return true
+        
+        //        for touch in touches {
+        //
+        //            if abs(Float (touch.location(in: self).x))  > abs(Float((firstTouch?.location(in: self).x)!)) + tolerance || abs(Float(touch.location(in: self).y))  > abs (Float ((firstTouch?.location(in: self).y)!)) + tolerance{
+        //
+        //                return false
+        //            }
+        //        }
+        
+        
+        
+    }
     
     func getScenarioElements(){
         

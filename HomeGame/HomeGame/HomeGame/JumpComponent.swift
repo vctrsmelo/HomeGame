@@ -35,7 +35,7 @@ class JumpComponent: GKComponent {
 //        guard let animationComponent = self.entity?.component(ofType: FallComponent.self) else { return }
 //         animationComponent.animate()
         
-        player.jump()
+        //player.jump()
     }
     
 }

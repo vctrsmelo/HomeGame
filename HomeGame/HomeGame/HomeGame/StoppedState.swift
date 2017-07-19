@@ -33,13 +33,15 @@ class StoppedState: GKState {
             //Do stuff every second here
         }
         print("did enter")
+        player?.component(ofType: StopComponent.self)?.stopAnimate()
+        
         
     }
     
     
     override func update(deltaTime seconds: TimeInterval) {
         
-        print("stopped!!!")
+        //print("stopped!!!")
         
         //if (player?.checkTextureForInitialFrame())!{
             

@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "flappy-bird-pipes-2-wallpaper-5.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "player_run_5.png",
       "scale" : "2x"
     },
     {

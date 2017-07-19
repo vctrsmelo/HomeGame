@@ -16,7 +16,7 @@ class MovingState: GKState {
     var rightMovement: Bool = false
     var fast: Bool = false
     
-    
+    var stop = 0
     //var basePos: CGPoint!
     //var xDistance: CGFloat!
     //var yDistance: CGFloat!
@@ -64,13 +64,26 @@ func movePlayer (){
 
     
     override func update(deltaTime seconds: TimeInterval) {
+       
+        //if !(player?.stateMachine.currentState is StoppedState) {
+        
         
         player?.component(ofType: MovementComponent.self)?.rightMovement = self.rightMovement
         player?.component(ofType: MovementComponent.self)?.fast = self.fast
         
         player?.component(ofType: MovementComponent.self)?.movement()
-        
-        
+       // }
+        if self.stop == 1
+        {
+            if !(player?.checkTextureForInitialFrame())!
+            {
+                player?.stateMachine.enter(StoppedState.self)
+                self.player?.animationEnded = 1
+                self.player?.runEnded = 1
+                self.player?.jumpFinished = 1
+            }
+            
+        }
     }
     
     

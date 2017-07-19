@@ -24,6 +24,8 @@ class StopComponent: GKComponent {
 
     func stopAnimate(){
         // call player.stop()
+        
+       // player.checkTextureForInitialFrame()
     }
     
 }
