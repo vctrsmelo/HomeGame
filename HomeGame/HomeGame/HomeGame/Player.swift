@@ -28,6 +28,8 @@ class Player: GKEntity {
     
      var mainPlayerSprite:SKSpriteNode!
     
+    var isAboveWater = true
+    
     var walkTextures:[SKTexture] = []
     var jumpTextures:[SKTexture] = []
     
@@ -59,8 +61,8 @@ class Player: GKEntity {
         
         let playerWinner = PlayerWonState(with: self)
         let playerLoser = PlayerLostState(with: self)
-        
-        
+
+        self.initializePlayerPhysicsBody()
         
         let jumpComp = JumpComponent()
         let moveComp = MovementComponent()
@@ -356,10 +358,13 @@ class Player: GKEntity {
     }
     
     func resetPlayerPosition(){
-        
-        self.mainPlayerSprite.run(SKAction.move(to: CGPoint(x:10, y:200), duration: 0.1))
-     
-        
+
+        let resetPos = SKAction.move(to: CGPoint(x:10, y:200), duration: 0.1)
+        self.mainPlayerSprite.run(resetPos,completion: {() -> Void in
+            
+            self.isAboveWater = true
+            
+        })
         
     }
     

@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 
+
 class GameScene: SKScene, SKPhysicsContactDelegate{
     
     var player: Player!
@@ -19,8 +20,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let ball = SKShapeNode.init(circleOfRadius: 40)
     
     var waterNode: SBDynamicWaterNode!
-    
+    let kFixedTimeStep: Double = Double(1.0/500)
+    let kSurfaceHeight: Double = 235
+    var splashWidth: Int!
+    var splashForceMultiplier: Double!
     let WATER_COLOR = SKColor.blue
+    var hasReferenceFrameTime = false
+    var lastFrameTime: TimeInterval!
     
     var xDistance: CGFloat!
     var yDistance: CGFloat!
@@ -46,12 +52,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     override func didMove(to view: SKView) {
         
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.getScenarioElements()
+        
+        self.physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
         
         self.waterNode = SBDynamicWaterNode.init(width: Float(self.size.width), numJoints: 100, surfaceHeight: Float(self.size.height)/2.0, fillColour: WATER_COLOR)
-        self.getScenarioElements()
+        let physicsBody = SKPhysicsBody(rectangleOf:CGSize(width: self.frame.size.width, height: 1))//CGFloat(self.size.height)))
+        self.waterNode.physicsBody = physicsBody
+        
+        self.waterNode.physicsBody?.collisionBitMask = 1
+        self.waterNode.physicsBody?.contactTestBitMask = 1
+        self.waterNode.physicsBody?.categoryBitMask = 1
+        self.waterNode.physicsBody?.isDynamic = true
+        
+        self.waterNode.name = "water"
+
+        self.waterNode.physicsBody?.affectedByGravity = false
+        self.waterNode.physicsBody?.pinned = true
+        self.waterNode.physicsBody?.allowsRotation = false
+        
+        
+        
         
         self.waterNode.position = CGPoint(x: 0, y: -(self.size.height)/2)
         self.addChild(waterNode)
+        
         
         addChild(base)
         base.position = CGPoint(x: 0, y: 0)
@@ -100,6 +125,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         base.zPosition = 1
         player.mainPlayerSprite.zPosition = 1
         
+        
+        self.setDefaultValues() //water
     }
     
    func longTapped (){
@@ -207,9 +234,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             
             
         //water
-        self.waterNode.update(currentTime)
-        self.waterNode.render()
-        
         if angle != nil && xDistance != nil && yDistance != nil {
             //ball.position = CGPoint(x: basePos.x + xDistance, y:  basePos.y + yDistance)
            // ball.position = CGPoint(x: base.position.x + xDistance, y:  base.position.y + yDistance)
@@ -232,9 +256,52 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         //  }
         
         
+        if !self.hasReferenceFrameTime{
+            self.lastFrameTime = currentTime
+            self.hasReferenceFrameTime = true
+            return
+        }
+        
+        let dt: TimeInterval = currentTime-self.lastFrameTime
+       
+        
+        // Fixed Update
+        var accumulator: TimeInterval = 0;
+        accumulator += dt;
+        
+        while (accumulator >= kFixedTimeStep) {
+            self.fixedUpdate(kFixedTimeStep)
+            accumulator -= kFixedTimeStep
+        }
+        
+        self.lateUpdate(dt)
+        self.lastFrameTime = currentTime
+        
+        
     }
     
+    func fixedUpdate(_ dt:TimeInterval){
+        
+        self.waterNode.update(dt)
+        
+        if self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode.position.y+CGFloat(self.waterNode.surfaceHeight){
+            
+            print("playerY:\(self.player.mainPlayerSprite.position.y)")
+            print("waterY:\(self.waterNode.position.y)")
+            self.player.isAboveWater = false
+            self.waterNode.splashAt(x: Float(self.player.mainPlayerSprite.position.x)+Float(self.view!.frame.width/2.0), force: 20, width: 20)
+            
+        }
+        
+
+        
+    }
     
+    func lateUpdate(_ dt: CFTimeInterval){
+        
+        self.waterNode.render()
+        
+    }
     
     
 
@@ -242,7 +309,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
         print("Morreu - Volte ao inicio")
         self.player.resetPlayerPosition()
-        
+
         
     }
     
@@ -381,26 +448,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
     }
     
+    func setDefaultValues(){
+        
+        self.waterNode.surfaceHeight = Float(self.kSurfaceHeight)
+        self.splashWidth = 20
+        self.splashForceMultiplier = 0.125
+        self.waterNode.setDefaultValues()
+        
+    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         player?.stateMachine.enter(MovingState.self)
         
-        player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
-        
-        
-        addChild(base)
-        addChild(ball)
-       
-        base.position = (touches.first?.location(in: self))!
-        ball.position = (touches.first?.location(in: self))!
-        
-        
-        print("base pos x = " + String (describing: base.position.x))
-        print("ball pos x= " +  String(describing: ball.position.x))
-        
-        print("base pos y= " +  String(describing: ball.position.y))
-        print("ball pos y= " +  String(describing: ball.position.y))
-
         
 //        base.zPosition = 1
 //        ball.zPosition = 1
