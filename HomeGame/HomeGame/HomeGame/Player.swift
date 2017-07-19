@@ -32,7 +32,7 @@ class Player: GKEntity {
     var jumpTextures:[SKTexture] = []
     
     var positionToWalk = CGPoint(x: 20, y: 0)
-    let positionToJump = CGPoint(x: 80, y:60 )
+    var positionToJump = CGPoint(x: 80, y:60 )
     
     let jumpTextureNumber = 60
     let walkTextureNumber = 8
@@ -128,58 +128,38 @@ class Player: GKEntity {
                 print("indo pra dir poxa")
             }
             
-        animationEnded = 0
-            print("caminhando")
-        
-        
-        if(actionCompleted){
+            animationEnded = 0
+                print("caminhando")
             
             
-            let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.1)
-            let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x/2, y: positionToWalk.y, duration: 0.4)
-            let moveByHalfXDown = SKAction.moveBy(x: positionToWalk.x/2, y: -positionToWalk.y, duration: 0.4)
-            
-            
-            let walkAction = SKAction.sequence([moveByHalfXUp, moveByHalfXDown])
-            
-            var animationWithWalkAction = Array<SKAction>()
-            
-            animationWithWalkAction.append(animateSprite)
-            animationWithWalkAction.append(walkAction)
-            
-            let walkFullActionGroup = SKAction.group(animationWithWalkAction)
-            
-            self.actionCompleted = false
-            
-            self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
+            if(actionCompleted){
                 
-                self.actionCompleted = true
-            })
+                
+                let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.1)
+                let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x/2, y: positionToWalk.y, duration: 0.4)
+                let moveByHalfXDown = SKAction.moveBy(x: positionToWalk.x/2, y: -positionToWalk.y, duration: 0.4)
+                
+                
+                let walkAction = SKAction.sequence([moveByHalfXUp, moveByHalfXDown])
+                
+                var animationWithWalkAction = Array<SKAction>()
+                
+                animationWithWalkAction.append(animateSprite)
+                animationWithWalkAction.append(walkAction)
+                
+                let walkFullActionGroup = SKAction.group(animationWithWalkAction)
+                
+                self.actionCompleted = false
+                
+                self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
+                    
+                    self.actionCompleted = true
+                })
+                
+            }
             
+                
         }
-        
-        
-        var animationWithWalkAction = Array<SKAction>()
-        
-        animationWithWalkAction.append(animateSprite)
-        animationWithWalkAction.append(walkAction)
-        
-        let walkFullActionGroup = SKAction.group(animationWithWalkAction)
-        
-//        self.mainPlayerSprite.run(walkFullActionGroup) { 
-//            
-//        }
-        
-        
-    
-            self.mainPlayerSprite.run(walkFullActionGroup, completion: {
-            self.animationEnded = 1
-          //  self.stateMachine.enter(StoppedState.self)
-            
-             })
-        
-        }
-        
         
     }
    
@@ -236,15 +216,6 @@ class Player: GKEntity {
             
             
         }
-        
-        
-        self.mainPlayerSprite.run(jumpFullActionGroup, completion: {() -> Void in
-            
-            self.actionCompleted = true
-            
-            self.mainPlayerSprite.physicsBody?.affectedByGravity = true
-        })
-
         
         
     }
@@ -372,7 +343,7 @@ class Player: GKEntity {
         
         mainPlayerSprite.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "stop"), size: CGSize(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height))
         
-        mainPlayerSprite.physicsBody?.affectedByGravity = true
+        mainPlayerSprite.physicsBody?.affectedByGravity = false
         
         mainPlayerSprite.physicsBody?.allowsRotation = false
         
