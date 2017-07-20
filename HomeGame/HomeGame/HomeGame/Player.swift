@@ -36,6 +36,8 @@ class Player: GKEntity {
     var positionToWalk = CGPoint(x: 20, y: 0)
     var positionToJump = CGPoint(x: 80, y:60 )
     
+    let initialPositionInScene = CGPoint(x:10, y:200)
+    
     let jumpTextureNumber = 60
     let walkTextureNumber = 8
     var jumpFinished = 1
@@ -336,7 +338,7 @@ class Player: GKEntity {
         
         mainPlayerSprite.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "stop"), size: CGSize(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height))
         
-        mainPlayerSprite.physicsBody?.affectedByGravity = false
+        mainPlayerSprite.physicsBody?.affectedByGravity = true
         
         mainPlayerSprite.physicsBody?.allowsRotation = false
         
@@ -350,7 +352,7 @@ class Player: GKEntity {
     
     func resetPlayerPosition(){
 
-        let resetPos = SKAction.move(to: CGPoint(x:10, y:200), duration: 0.1)
+        let resetPos = SKAction.move(to: self.initialPositionInScene, duration: 0.1)
         self.mainPlayerSprite.run(resetPos,completion: {() -> Void in
             
             self.isAboveWater = true
@@ -367,8 +369,8 @@ class Player: GKEntity {
     }
     override func update(deltaTime seconds: TimeInterval) {
         
-        
         self.stateMachine.update(deltaTime: seconds )
+        
     }
     
 }

@@ -419,7 +419,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             
             let location = touch.location(in: self)
             let vector  = CGVector(dx: location.x - base.position.x, dy: location.y - base.position.y)
-            var angle = atan2(vector.dx, vector.dy)
+            let angle = atan2(vector.dx, vector.dy)
             
             let degree = GLKMathRadiansToDegrees(Float(angle))
             

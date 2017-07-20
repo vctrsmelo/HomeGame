@@ -34,8 +34,9 @@ class LevelButtonPopView : SKSpriteNode {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let homeScene = self.parent?.parent as! SKScene
         if playButton.frame.contains((touches.first?.location(in: self))!) {
-            let gameScene = GameScene(size: homeScene.size)
-            homeScene.view?.presentScene(gameScene)
+            let level1Scene = SKScene(fileNamed: "Level1Scene")
+            homeScene.view?.presentScene(level1Scene)
+
         }
         else {
             self.removeFromParent()
