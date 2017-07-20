@@ -226,9 +226,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                         self.rightMov = false
                         player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
                         
-                        
                     }
-
                     
                 }
                 else{
@@ -243,19 +241,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                         self.rightMov = false
                         player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
                         
-                        
                     }
-
-                    
-                    
+    
                 }
                 
-                
-                
             }
-            
-            
-            
             
             else{
                 
@@ -265,13 +255,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 
             }
         }
-       
-        
-        
-        
-        
-        
-        
         
         if !(player.stateMachine.currentState is StoppedState){
             
@@ -312,28 +295,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             
             if (player?.mainPlayerSprite.position.x)! < -(view?.frame.size.width)!/4 {
                 if (!self.rightMov){
-                bGround.position.x += 1
-                back2.position.x += 1
-                
-                player?.positionToWalk.x = 0
-                player?.positionToJump.x = 0
-                
-                if bGround.position.x > self.frame.size.width{
+                    bGround.position.x += 1
+                    back2.position.x += 1
                     
-                    bGround.position.x  = -bGround.position.x
+                    player?.positionToWalk.x = 0
+                    player?.positionToJump.x = 0
                     
+                    if bGround.position.x > self.frame.size.width{
+                        
+                        bGround.position.x  = -bGround.position.x
+                        
+                    }
+                    if back2.position.x > self.frame.size.width{
+                        
+                        back2.position.x = -back2.position.x
+                    }
+                    
+                
                 }
-                if back2.position.x > self.frame.size.width{
-                    
-                    back2.position.x = -back2.position.x
-                }
-                
-                
-            }
                 else{
                     player?.positionToWalk.x = -40
                     player?.positionToJump.x = -80
                 }
+            }
             
         }
         
@@ -374,7 +358,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         self.lateUpdate(dt)
         self.lastFrameTime = currentTime
-        
         
     }
     
@@ -570,25 +553,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         
         if !self.children.contains(base){
-        addChild(base)
-        addChild(ball)
-        
-        base.position = (touches.first?.location(in: self))!
-        ball.position = (touches.first?.location(in: self))!
-        
-        
-        print("base pos x = " + String (describing: base.position.x))
-        print("ball pos x= " +  String(describing: ball.position.x))
-        
-        print("base pos y= " +  String(describing: ball.position.y))
-        print("ball pos y= " +  String(describing: ball.position.y))
-        
-        
-        //        base.zPosition = 1
-        //        ball.zPosition = 1
-        //
-        
-        
+            addChild(base)
+            addChild(ball)
+            
+            base.position = (touches.first?.location(in: self))!
+            ball.position = (touches.first?.location(in: self))!
+            
+            
+            print("base pos x = " + String (describing: base.position.x))
+            print("ball pos x= " +  String(describing: ball.position.x))
+            
+            print("base pos y= " +  String(describing: ball.position.y))
+            print("ball pos y= " +  String(describing: ball.position.y))
+            
+            
+            //        base.zPosition = 1
+            //        ball.zPosition = 1
+            //
+            
+            
+        }
     }
     
     
