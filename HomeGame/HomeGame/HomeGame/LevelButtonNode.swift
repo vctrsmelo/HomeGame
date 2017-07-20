@@ -8,30 +8,32 @@
 
 import SpriteKit
 
-class LevelButtonNode{
+class LevelButtonNode : SKSpriteNode {
 
     // LevelScene:SKScene 
     
-    var icon:SKSpriteNode!
-    var background:SKSpriteNode!
-    var levelScene:SKScene!
+    var icon: SKTexture!
+    var popView: LevelButtonPopView!
     
-    init(background:SKSpriteNode,
-         levelScene:SKScene) {
+    init(pos: CGPoint) {
+        self.icon = SKTexture(imageNamed: "icone")
+        self.popView = LevelButtonPopView()
         
-        // Todas imagens terão o mesmo icone? PlayButton?
-        self.icon = SKSpriteNode(texture: SKTexture(image: UIImage(named: "icone.png")!))
-        self.background = background
-        self.levelScene = levelScene
+        super.init(texture: icon, color: .white, size: CGSize(width: 50, height: 50))
         
+        self.isUserInteractionEnabled = true
     }
     
-    func pushSceneUp(){
-        
-        // Pushing the scene to the view controller
-        
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
+    func touchButton(){
+        self.addChild(popView)
+    }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.addChild(popView)
+    }
     
 }

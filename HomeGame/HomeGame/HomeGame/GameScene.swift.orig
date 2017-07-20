@@ -19,6 +19,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let base = SKShapeNode.init(circleOfRadius: 50)
     let ball = SKShapeNode.init(circleOfRadius: 40)
     
+<<<<<<< HEAD
+    var firstMov = 1
+=======
     var waterNode: SBDynamicWaterNode!
     let kFixedTimeStep: Double = Double(1.0/500)
     let kSurfaceHeight: Double = 235
@@ -27,6 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let WATER_COLOR = SKColor.blue
     var hasReferenceFrameTime = false
     var lastFrameTime: TimeInterval!
+>>>>>>> 5fb650ebf0063a07cfc3c3b4b53f1d2a8d060f13
     
     var xDistance: CGFloat!
     var yDistance: CGFloat!
@@ -120,10 +124,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         base.zPosition = 1
         player.mainPlayerSprite.zPosition = 1
         
+<<<<<<< HEAD
         player.stateMachine.enter(StoppedState.self)
         
+=======
         
         self.setDefaultValues() //water
+>>>>>>> 5fb650ebf0063a07cfc3c3b4b53f1d2a8d060f13
     }
     
    func longTapped (){
@@ -309,6 +316,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 
             }
             
+<<<<<<< HEAD
             
             if (player?.mainPlayerSprite.position.x)! < -(view?.frame.size.width)!/4 {
                 if (!self.rightMov){
@@ -335,6 +343,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                     player?.positionToJump.x = -80
                 }
             
+        }
+        
+        
+    }
+    
+    player.update(deltaTime: currentTime)
+    }
+=======
+        }
+        
+
+        if angle != nil && xDistance != nil && yDistance != nil {
+            //ball.position = CGPoint(x: basePos.x + xDistance, y:  basePos.y + yDistance)
+           // ball.position = CGPoint(x: base.position.x + xDistance, y:  base.position.y + yDistance)
         }
         
         
@@ -401,6 +423,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
     }
     
+>>>>>>> 5fb650ebf0063a07cfc3c3b4b53f1d2a8d060f13
     
 
     func didBegin(_ contact: SKPhysicsContact) {
@@ -583,10 +606,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         print("base pos y= " +  String(describing: ball.position.y))
         print("ball pos y= " +  String(describing: ball.position.y))
         
+<<<<<<< HEAD
+//        base.zPosition = 1
+//        ball.zPosition = 1
+//        
+        }
+        self.firstMov = 1
+=======
         
         //        base.zPosition = 1
         //        ball.zPosition = 1
         //
+>>>>>>> 5fb650ebf0063a07cfc3c3b4b53f1d2a8d060f13
         
         
     }
