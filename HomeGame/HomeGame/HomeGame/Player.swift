@@ -120,10 +120,10 @@ class Player: GKEntity {
             }
             else{
                 self.mainPlayerSprite.xScale = abs( self.mainPlayerSprite.xScale)
-                if positionToWalk.x != 0  {
-                    positionToWalk.x = 40
-                }
-                
+               // if positionToWalk.x != 0  {
+                //    positionToWalk.x = 40
+               // }
+                positionToWalk.x = abs(positionToWalk.x)
                 
                 print("indo pra dir poxa")
             }
@@ -132,7 +132,7 @@ class Player: GKEntity {
                 print("caminhando")
             
             
-            if(actionCompleted){
+            //if(actionCompleted){
                 
                 
                 let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.1)
@@ -154,9 +154,10 @@ class Player: GKEntity {
                 self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
                     
                     self.actionCompleted = true
+                    self.animationEnded =  1
                 })
                 
-            }
+            //}
             
                 
         }
@@ -173,13 +174,9 @@ class Player: GKEntity {
     
     
     func jump(positionDirection: positionEnum){
-        
-        
+
         if (jumpFinished == 1){
-            
-            
-            
-            if positionDirection == .left{
+          if positionDirection == .left{
                 self.mainPlayerSprite.xScale = -1
                 if positionToJump.x != 0 {
                     positionToJump.x = -80
@@ -278,6 +275,7 @@ class Player: GKEntity {
     
     
     func initializeTextureForSpriteNode(){
+          
         
         mainPlayerSprite = SKSpriteNode(texture: SKTexture(imageNamed: "stop"))
         

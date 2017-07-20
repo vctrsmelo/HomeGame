@@ -15,9 +15,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var GameStateMachine: GKStateMachine!
     var gesture: UISwipeGestureRecognizer!
     
-    let base = SKSpriteNode.init(color: .cyan, size: CGSize(width: 100, height: 100))
+    let base = SKShapeNode.init(circleOfRadius: 50)
     let ball = SKShapeNode.init(circleOfRadius: 40)
     
+    var firstMov = 1
     
     var xDistance: CGFloat!
     var yDistance: CGFloat!
@@ -29,7 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var stop = false
     
     var fatalElements = ["ice_cub, water"]
-    var rightMov = false
+    var rightMov = true
     var xGreaterThanLenght = false
     var yGreaterThanLenght = false
     
@@ -38,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     var sceneObjects:[ScenarioObjects] = []
     
-
+    
     
     override func didMove(to view: SKView) {
         
@@ -86,9 +87,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //        addChild(base)
 //        addChild(ball)
         ball.fillColor = .brown
+        base.fillColor = .cyan
         ball.zPosition = 1
         base.zPosition = 1
         player.mainPlayerSprite.zPosition = 1
+        
+        player.stateMachine.enter(StoppedState.self)
         
     }
     
@@ -101,7 +105,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     if longTap.state == .began {
     print("bega")
    
-  var location = self.longTap.location(in: self.view)
+        let location = self.longTap.location(in: self.view)
 //    
 //   // location.
 //    location.x = location.x - (view?.frame.size.width)!/2 + 0.5
@@ -120,7 +124,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    base.position = location
    // base.convert(location, to: self)
     
-    let posititi =  self.convert(location, to: self)
+    
     base.position = self.convert(location, to: self)
     base.isHidden = false
     ball.isHidden = false
@@ -168,20 +172,88 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         //player.jump()
         print("tapped")
         
-        player.changeState(stateClass: StoppedState.self)
+        //player.changeState(stateClass: StoppedState.self)
     }
     
     
     override func update(_ currentTime: TimeInterval) {
         
+        if (self.children .contains(base)){
+            
+            if abs (ball.position.x - base.position.x) > 3 { //&& self.player?.stateMachine.currentState is StoppedState{
+                self.player?.stateMachine.enter(MovingState.self)
+                player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
+                
+                if abs(ball.position.x - base.position.x) >= 40{
+                    player?.stateMachine.state(forClass: MovingState.self)?.fast = true
+                    
+                    if ball.position.x > base.position.x{
+                        self.rightMov = true
+                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+                        
+                    }
+                    else{
+                        self.rightMov = false
+                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                        
+                        
+                    }
+
+                    
+                }
+                else{
+                    player?.stateMachine.state(forClass: MovingState.self)?.fast = false
+
+                    if ball.position.x > base.position.x {
+                        self.rightMov = true
+                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+                        
+                    }
+                    else{
+                        self.rightMov = false
+                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                        
+                        
+                    }
+
+                    
+                    
+                }
+                
+                
+                
+            }
+            
+            
+            
+            
+            else{
+                
+                
+                 player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+                
+                
+            }
+        }
+       
+        
+        
+        
+        
+        
+        
+        
         if !(player.stateMachine.currentState is StoppedState){
-            if (player?.mainPlayerSprite.position.x)! > (view?.frame.size.width)!/4 ||
-                (player?.mainPlayerSprite.position.x)! < -(view?.frame.size.width)!/4{
+            
+            if ((player?.mainPlayerSprite.position.x)! > (view?.frame.size.width)!/4){
+                 print("no limite da direita")
+                if (self.rightMov) {
+                print("no limite da direita 2 ")
                 bGround.position.x -= 1
                 back2.position.x -= 1
                 
                 player?.positionToWalk.x = 0
-                
+                player?.positionToJump.x = 0
                 
                 if bGround.position.x < -self.frame.size.width{
                     
@@ -192,35 +264,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                     
                     back2.position.x  = abs (back2.position.x)
                 }
+                }
+                
+                else{
+                    
+                  
+                    player?.positionToWalk.x = 20
+                    player?.positionToJump.x = 80
+                    
+                    
+                }
+                
+                
                 
             }
             
             
-        
-        
+            if (player?.mainPlayerSprite.position.x)! < -(view?.frame.size.width)!/4 {
+                if (!self.rightMov){
+                bGround.position.x += 1
+                back2.position.x += 1
+                
+                player?.positionToWalk.x = 0
+                player?.positionToJump.x = 0
+                
+                if bGround.position.x > self.frame.size.width{
+                    
+                    bGround.position.x  = -bGround.position.x
+                    
+                }
+                if back2.position.x > self.frame.size.width{
+                    
+                    back2.position.x = -back2.position.x
+                }
+                
+                
+            }
+                else{
+                    player?.positionToWalk.x = -40
+                    player?.positionToJump.x = -80
+                }
+            
         }
-        
-        
-        player.update(deltaTime: currentTime)
-        
-        
-        
-        // Called before each frame is rendered
-        
-        //if gesture != nil {
-        // if gesture.state == UIGestureRecognizerState.ended {
-        //   print("swipe ended")
-        // NSLog(String (describing: gesture.direction))
-        
-        
-        //}
-        //  }
         
         
     }
     
-    
-    
+    player.update(deltaTime: currentTime)
+    }
     
 
     func didBegin(_ contact: SKPhysicsContact) {
@@ -247,8 +338,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        player?.stateMachine.enter(MovingState.self)
-        player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
+        //player?.stateMachine.enter(MovingState.self)
+        //player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
         
         print("touches moved")
         for touch in touches
@@ -256,7 +347,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             
             let location = touch.location(in: self)
             let vector  = CGVector(dx: location.x - base.position.x, dy: location.y - base.position.y)
-            let angle = atan2(vector.dx, vector.dy)
+            var angle = atan2(vector.dx, vector.dy)
             
             let degree = GLKMathRadiansToDegrees(Float(angle))
             
@@ -269,10 +360,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             print(degree + 180)
             if abs(location.x - base.position.x) <= lenght
             {
+                
+//                if abs(location.x - base.position.x) <= 1{
+//                    angle = 0
+//                }
+//                else {
                 //xDist = location.x - base.position.x
                 xDist = abs(location.x - base.position.x)
-                player?.stateMachine.state(forClass: MovingState.self)?.fast = false
+                //player?.stateMachine.state(forClass: MovingState.self)?.fast = false
                 self.xGreaterThanLenght = false
+               // }
                 
             }
             else{
@@ -285,7 +382,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                     xDist = lenght
                 }
                 
-                player?.stateMachine.state(forClass: MovingState.self)?.fast = true
+                //player?.stateMachine.state(forClass: MovingState.self)?.fast = true
                 self.xGreaterThanLenght = true
                 
                 //if ( sin(angle)  < 0 ){
@@ -339,12 +436,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
             
             if sin(angle) > 0 {
-                player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+                //player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
                 self.rightMov = true
                 
             }
             else{
-                player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                //player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
                 self.rightMov = false
                 
                 if !self.xGreaterThanLenght{
@@ -359,9 +456,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                     yDist = -yDist
                     }
                 }
+                ball.position = CGPoint(x: base.position.x + xDist, y:  base.position.y + yDist)
                 
             }
-            ball.position = CGPoint(x: base.position.x + xDist, y:  base.position.y + yDist)
+            
 
         }
     }
@@ -373,6 +471,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
         
         
+        if !self.children.contains(base){
         addChild(base)
         addChild(ball)
        
@@ -390,6 +489,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //        base.zPosition = 1
 //        ball.zPosition = 1
 //        
+        }
+        self.firstMov = 1
         
         
     }
