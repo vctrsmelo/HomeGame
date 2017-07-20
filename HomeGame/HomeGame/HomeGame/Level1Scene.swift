@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class Level1Scene: SKScene {
+class Level1Scene: SKScene , SKPhysicsContactDelegate{
 
     var scenarioObjects:[ScenarioObjects]!
     var characterNodes:[CharacterNode]!
@@ -37,11 +37,11 @@ class Level1Scene: SKScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
     
+        self.physicsWorld.contactDelegate = self
+        
         self.initScenarioElements()
         self.initCharacterNodes()
         self.initControllerInterface()
-        
-
         
     }
     
@@ -60,6 +60,56 @@ class Level1Scene: SKScene {
         player.mainPlayerSprite.zPosition = 1
         
     }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+     
+        
+        var playerColision = false
+        
+        var playerNode:SKNode!
+        
+        var obstacleNode:SKNode!
+        
+        if let name = contact.bodyA.node?.name{
+            
+            playerNode = contact.bodyA.node
+            obstacleNode = contact.bodyB.node
+            
+            playerColision = true
+
+        }
+        else if let name = contact.bodyB.node?.name{
+            
+            playerNode = contact.bodyB.node
+            obstacleNode = contact.bodyA.node
+        
+            playerColision = true
+        }
+        
+        
+        
+        if(playerColision){
+            
+            if(obstacleNode.physicsBody?.contactTestBitMask == 1){
+                
+                // Chao escorrega
+                
+                print("Chao escorrega")
+            }
+            else if(obstacleNode.physicsBody?.contactTestBitMask == 2){
+                
+                print("Agua morre")
+                
+                // Agua - morre
+                // ou
+                // Ice cub - morre
+            }
+            
+        }
+        
+    }
+    
+
     
     func initControllerInterface(){
         
@@ -267,6 +317,8 @@ class Level1Scene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         
+        
+        
         if (self.children .contains(base)){
             
             if abs (ball.position.x - base.position.x) > 3 { //&& self.player?.stateMachine.currentState is StoppedState{
@@ -316,7 +368,8 @@ class Level1Scene: SKScene {
         }
         
         player.update(deltaTime: currentTime)
-        
+ 
     }
+ 
    
 }

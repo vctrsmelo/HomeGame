@@ -347,6 +347,8 @@ class Player: GKEntity {
         mainPlayerSprite.physicsBody?.isDynamic = true
         
         mainPlayerSprite.physicsBody?.categoryBitMask = (1|2)
+        
+        mainPlayerSprite.name="Player"
   
     }
     
