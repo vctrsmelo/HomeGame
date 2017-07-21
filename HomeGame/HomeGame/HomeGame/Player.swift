@@ -99,12 +99,8 @@ class Player: GKEntity {
 
     func walk(positionDirection: positionEnum){
         
-        
-        
-        print("Caminhar")
-        
         //if (String(describing: self.mainPlayerSprite.texture).range(of: "player_run_7") == nil){
-        if (animationEnded == 1 ){
+        if (animationEnded == 1 && jumpFinished == 1){
             
             
             if positionDirection == .left {
@@ -206,6 +202,7 @@ class Player: GKEntity {
         self.mainPlayerSprite.run(jumpFullActionGroup, completion:{
             self.stateMachine.enter(StoppedState.self)
             self.jumpFinished = 1
+            self.mainPlayerSprite.physicsBody?.affectedByGravity = true
         })
             
             
@@ -219,7 +216,7 @@ class Player: GKEntity {
         
         
         
-        if (runEnded == 1){
+        if (runEnded == 1 && jumpFinished == 1){
             
             
             if positionDirection == .left {
