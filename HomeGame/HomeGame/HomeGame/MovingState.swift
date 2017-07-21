@@ -53,7 +53,7 @@ class MovingState: GKState {
         
     }
     
-func movePlayer (){
+    func movePlayer (){
         
         
     
