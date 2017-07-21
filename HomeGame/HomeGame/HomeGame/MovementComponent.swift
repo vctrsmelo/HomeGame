@@ -18,7 +18,8 @@ class MovementComponent: GKComponent {
     }
     var rightMovement: Bool!
     var fast: Bool!
-
+    var distance: Double = 0.0
+    
     override init() {
         super.init()
     }
@@ -80,22 +81,31 @@ class MovementComponent: GKComponent {
     
     
     func movement (){
+        
+        
+        let duration = distance * -0.003 + 0.4
+        
+        
         if rightMovement  {
-            if fast {
-                player.run(positionDirection: .right)
-            }
-            else{
-                player.walk(positionDirection: .right)
-            }
+            
+            
+            
+            
+           // if fast {
+            //    player.run(positionDirection: .right)
+            //}
+            //else{
+                player.walk(positionDirection: .right, duration: duration)
+            //}
         }
         else{
             
-            if fast {
-                player.run(positionDirection: .left)
-            }
-            else{
-                player.walk(positionDirection: .left)
-            }
+            //if fast {
+             //   player.run(positionDirection: .left)
+            //}
+            //else{
+                player.walk(positionDirection: .left, duration: duration)
+            //}
             
             
             

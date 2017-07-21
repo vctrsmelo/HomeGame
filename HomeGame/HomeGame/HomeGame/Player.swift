@@ -95,11 +95,12 @@ class Player: GKEntity {
 
     }
 
-    func walk(positionDirection: positionEnum){
+    func walk(positionDirection: positionEnum, duration: Double){
         
         
         
         print("Caminhar")
+    
         
         //if (String(describing: self.mainPlayerSprite.texture).range(of: "player_run_7") == nil){
         if (animationEnded == 1 ){
@@ -124,15 +125,19 @@ class Player: GKEntity {
             }
             
             animationEnded = 0
-                print("caminhando")
+                print("caminhando com duracao:")
+                print(duration)
             
             
-            //if(actionCompleted){
+            
+            //walk duration = 0.4
+            //run duration = 0.2
+            
+           // print("Duratioooonnn" + String (duration))
                 
-                
-                let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.1)
-                let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x/2, y: positionToWalk.y, duration: 0.4)
-                let moveByHalfXDown = SKAction.moveBy(x: positionToWalk.x/2, y: -positionToWalk.y, duration: 0.4)
+                let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: duration / 4)
+                let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x/2, y: positionToWalk.y, duration: duration)
+                let moveByHalfXDown = SKAction.moveBy(x: positionToWalk.x/2, y: -positionToWalk.y, duration: duration)
                 
                 
                 let walkAction = SKAction.sequence([moveByHalfXUp, moveByHalfXDown])
@@ -274,7 +279,7 @@ class Player: GKEntity {
         
         mainPlayerSprite = SKSpriteNode(texture: SKTexture(imageNamed: "stop"))
         
-        mainPlayerSprite.position = CGPoint(x: 5, y: 100)
+        mainPlayerSprite.position = CGPoint(x: -220, y: -79.992 + 50)
         
         self.initializePlayerPhysicsBody()
     }
