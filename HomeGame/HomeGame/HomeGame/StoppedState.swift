@@ -32,9 +32,8 @@ class StoppedState: GKState {
         _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
             //Do stuff every second here
         }
-        print("did enter")
-        player?.component(ofType: StopComponent.self)?.stopAnimate()
         
+        player?.component(ofType: StopComponent.self)?.stopAnimate()
         
     }
     
