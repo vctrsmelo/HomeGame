@@ -166,7 +166,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             base.isHidden = false
             ball.isHidden = false
             
-        }
+        }   
         
         if gesture.state == .ended || gesture.state == .cancelled{
             
