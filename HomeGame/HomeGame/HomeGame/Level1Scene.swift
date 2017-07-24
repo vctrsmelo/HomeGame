@@ -165,7 +165,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         tapLocation = gesture.location(in: self.view)
         
         player.changeState(stateClass: JumpingState.self)
-        print("tap")
 
     }
     
@@ -198,9 +197,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             return
             
         }
-                print("longpress")
-//        setJoystickPosition(to: self.convertPoint(fromView: position))
-
+        
     }
 
 
@@ -225,7 +222,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             return
             
         }
-                print("pan")
 
         setJoystickPosition(to: self.convertPoint(fromView: position))
        
