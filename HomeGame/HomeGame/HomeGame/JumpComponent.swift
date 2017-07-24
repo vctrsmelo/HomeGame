@@ -28,7 +28,6 @@ class JumpComponent: GKComponent {
     
     func jumpAnimate(){
         
-        print("vamo pulaa")
         if rightMovement{
             player.jump(positionDirection: .right )
         }
