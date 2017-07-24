@@ -25,10 +25,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var tap: UITapGestureRecognizer!
     var stop = false
     var tolerance: Float =  5
-    var joystickGesture: UIGestureRecognizer!
-    var longPressSetted = false
-    
-    var tapLocation: CGPoint!
+    var joystickTouch: UITouch!
     
     //movement attributes
     var rightMov = true
@@ -40,12 +37,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-
-        return true
-
-    }
-    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
     
@@ -54,7 +45,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gesture:)))
         longPressRecognizer.delegate = self
-        longPressRecognizer.numberOfTouchesRequired = 1
         self.view?.addGestureRecognizer(longPressRecognizer)
         
         
@@ -64,16 +54,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(gesture:)))
         panRecognizer.delegate = self
-        panRecognizer.maximumNumberOfTouches = 1
         self.view?.addGestureRecognizer(panRecognizer)
         
         self.initScenarioElements()
         self.initCharacterNodes()
         self.initControllerInterface()
-        
-        if let view = self.view {
-            view.isMultipleTouchEnabled = true
-        }
         
     }
     
@@ -126,8 +111,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 
                 // Chao escorrega
                 
+                print("Chao escorrega")
             }
             else if(obstacleNode.physicsBody?.contactTestBitMask == 2){
+                
+                print("Agua morre")
                 
                 // Agua - morre
                 // ou
@@ -162,50 +150,46 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         player?.stateMachine.state(forClass: JumpingState.self)?.rightMovement = self.rightMov
         
-        tapLocation = gesture.location(in: self.view)
-        
         player.changeState(stateClass: JumpingState.self)
 
+        
     }
     
     //controller methodss
     public func handleLongPress (gesture: UILongPressGestureRecognizer){
-
-        if longPressSetted{
-            return
-        }
         
         let position = gesture.location(in: self.view!)
-        
         if gesture.state == .began{
 
-            longPressSetted = true
             base.position = self.convertPoint(fromView: position)
             ball.position = base.position
             base.isHidden = false
             ball.isHidden = false
             
-        }   
+        }
         
         if gesture.state == .ended || gesture.state == .cancelled{
             
             base.isHidden = true
             ball.isHidden = true
-            longPressSetted = false
+            
             ball.position == base.position
             player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
             return
             
         }
+        
+        setJoystickPosition(to: self.convertPoint(fromView: position))
         
     }
 
 
     public func handlePan(gesture: UIPanGestureRecognizer){
-
-        let position = gesture.location(in: self.view!)
         
-        if gesture.state == .began && base.isHidden{
+        
+        let position = gesture.location(in: self.view!)
+        if gesture.state == .began{
+            
             base.position = self.convertPoint(fromView: position)
             ball.position = base.position
             base.isHidden = false
@@ -213,20 +197,21 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
         }
         
+        
         if gesture.state == .ended || gesture.state == .cancelled{
-            longPressSetted = false
+        
             base.isHidden = true
             ball.isHidden = true
+            
             ball.position == base.position
             player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
             return
             
         }
-
+        
         setJoystickPosition(to: self.convertPoint(fromView: position))
-       
+        
     }
-    
     
     private func setJoystickPosition(to location : CGPoint){
         
@@ -240,6 +225,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         var xDist: CGFloat! // = sin(angle) * lenght
         var yDist: CGFloat! // = cos(angle) * lenght
 
+
+        print(degree + 180)
         if abs(location.x - base.position.x) <= lenght
         {
             xDist = abs(location.x - base.position.x)
@@ -285,11 +272,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
 
 
 
-            if sin(angle) > 0{
+            if sin(angle) > 0 && !(self.player?.stateMachine.currentState is JumpingState){ //moving to the right
                 self.rightMov = true
 
             }
-            else{
+            else if !(self.player?.stateMachine.currentState is JumpingState){ //moving to the left
                 self.rightMov = false
 
                 if !self.xGreaterThanLenght{
@@ -304,7 +291,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                     yDist = -yDist
                 }
             }
-            
             ball.position = CGPoint(x: base.position.x + xDist, y:  base.position.y + yDist)
             
         }
@@ -465,10 +451,16 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     override func update(_ currentTime: TimeInterval) {
         
+<<<<<<< HEAD
+        
+        
+        if (self.children .contains(base)){
+=======
         if (!base.isHidden && !(self.player?.stateMachine.currentState is JumpingState)){
+>>>>>>> control system implemented using gesture recognizers
             
             if abs (ball.position.x - base.position.x) > 3 { //&& self.player?.stateMachine.currentState is StoppedState{
-               
+                
                     
                 self.player?.stateMachine.enter(MovingState.self)
                 player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
@@ -479,13 +471,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                     player?.stateMachine.state(forClass: MovingState.self)?.fast = true
                     
                     if ball.position.x > base.position.x{
-
                         self.rightMov = true
                         player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
                         
                     }
                     else{
-                        
                         self.rightMov = false
                         player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
                         
@@ -493,11 +483,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                     
                 }
                 else{
-
                     player?.stateMachine.state(forClass: MovingState.self)?.fast = false
                     
                     if ball.position.x > base.position.x {
-
                         self.rightMov = true
                         player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
                         
@@ -513,7 +501,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             }
                 
             else if !(self.player?.stateMachine.currentState is JumpingState){
-
+                
                 player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
                 
                 

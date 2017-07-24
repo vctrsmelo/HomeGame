@@ -118,13 +118,10 @@ class Player: GKEntity {
                // }
                 positionToWalk.x = abs(positionToWalk.x)
                 
-                print("indo pra dir poxa")
             }
             
             animationEnded = 0
-                print("caminhando com duracao:")
-                print(duration)
-            
+           
             
             
             //walk duration = 0.4
