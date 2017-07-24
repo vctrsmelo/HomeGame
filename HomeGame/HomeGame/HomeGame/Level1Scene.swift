@@ -289,11 +289,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
 
 
 
-            if sin(angle) > 0{// && !(self.player?.stateMachine.currentState is JumpingState){ //moving to the right
+            if sin(angle) > 0{
                 self.rightMov = true
 
             }
-            else{// if {!(self.player?.stateMachine.currentState is JumpingState){ //moving to the left
+            else{
                 self.rightMov = false
 
                 if !self.xGreaterThanLenght{
