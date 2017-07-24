@@ -35,6 +35,14 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var xGreaterThanLenght = false
     var yGreaterThanLenght = false
     
+    
+    
+    
+    // Camera manager integration
+    
+    
+    var cameraManager:CameraManager!
+    
     override func sceneDidLoad() {
        
         
@@ -51,6 +59,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
         self.physicsWorld.contactDelegate = self
         
+        
+        self.setCameraConfigurations()
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gesture:)))
         longPressRecognizer.delegate = self
@@ -77,6 +87,17 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
     }
     
+    
+    func setCameraConfigurations(){
+        
+        self.cameraManager = CameraManager()
+        
+        addChild(self.cameraManager.cameraNode)
+        
+        camera = self.cameraManager.cameraNode
+        
+        
+    }
     
     func initScenarioElements(){
         
@@ -287,11 +308,15 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
 
             if sin(angle) > 0{
                 self.rightMov = true
+                
+                self.cameraManager.setRightSideCameraConfiguration()
 
             }
             else{
                 self.rightMov = false
-
+                
+                self.cameraManager.setLeftSideCameraConfigurations(node: player.mainPlayerSprite)
+                
                 if !self.xGreaterThanLenght{
                     xDist = -xDist
                 }
@@ -522,6 +547,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         }
         
         player.update(deltaTime: currentTime)
+        
+        self.cameraManager.checkCameraPositionAndPerformMovement(node: player.mainPlayerSprite)
  
     }
  
