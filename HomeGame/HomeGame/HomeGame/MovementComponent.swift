@@ -17,7 +17,7 @@ class MovementComponent: GKComponent {
         return self.entity as! Player
     }
     var rightMovement: Bool!
-    var fast: Bool!
+    //var fast: Bool!
     var distance: Double = 0.0
     
     override init() {
@@ -32,95 +32,58 @@ class MovementComponent: GKComponent {
     }
     
     // TODO
-    func moveAnimate(swipeDir: UISwipeGestureRecognizerDirection, inputFirstTouch: UITouch, inputLastTouch: UITouch) {
-        
-        
-       
-        
-        
-        
-        
-        
-  
-        let lastTouchView = inputLastTouch.view!
-        let firstTouchView = inputFirstTouch.view!
-        
-        var distance : CGFloat!
-        if lastTouchView.isEqual(firstTouchView) {
-            if(swipeDir == .right){
-                
-                // só funciona no lado positivo? usar modulo!
-                distance = inputLastTouch.location(in: lastTouchView).x - inputFirstTouch.location(in: firstTouchView).x
-                
-                if distance > 10 {
-                //    player.run()
-                }
-                else {
-                //    player.walk()
-                }
-                
-            }
-            else if (swipeDir == .left){
-                
-                // só funciona no lado positivo? usar modulo!
-                distance = inputLastTouch.location(in: lastTouchView).x - inputFirstTouch.location(in: firstTouchView).x
-                
-                if distance > 10 {
-               //     player.run()
-                }
-                else {
-              //      player.walk()
-                }
-
-            }
-        }
-        
-        
-        
-    }
-    
+//    func moveAnimate(swipeDir: UISwipeGestureRecognizerDirection, inputFirstTouch: UITouch, inputLastTouch: UITouch) {
+//        let lastTouchView = inputLastTouch.view!
+//        let firstTouchView = inputFirstTouch.view!
+//        
+//        var distance : CGFloat!
+//        if lastTouchView.isEqual(firstTouchView) {
+//            if(swipeDir == .right){
+//                
+//                // só funciona no lado positivo? usar modulo!
+//                distance = inputLastTouch.location(in: lastTouchView).x - inputFirstTouch.location(in: firstTouchView).x
+//                
+//                if distance > 10 {
+//                //    player.run()
+//                }
+//                else {
+//                //    player.walk()
+//                }
+//                
+//            }
+//            else if (swipeDir == .left){
+//                
+//                // só funciona no lado positivo? usar modulo!
+//                distance = inputLastTouch.location(in: lastTouchView).x - inputFirstTouch.location(in: firstTouchView).x
+//                
+//                if distance > 10 {
+//               //     player.run()
+//                }
+//                else {
+//              //      player.walk()
+//                }
+//
+//            }
+//        }
+//        
+//        
+//        
+//    }
+//    
     
     func movement (){
-        
-        
         let duration = distance * -0.002 + 0.494
         
         
         if rightMovement  {
-            
-            
-            
-            
-           // if fast {
-            //    player.run(positionDirection: .right)
-            //}
-            //else{
-                player.walk(positionDirection: .right, duration: duration)
-            //}
+            player.walk(positionDirection: .right, duration: duration)
+
         }
         else{
-            
-            //if fast {
-             //   player.run(positionDirection: .left)
-            //}
-            //else{
-                player.walk(positionDirection: .left, duration: duration)
-            //}
-            
-            
-            
+            player.walk(positionDirection: .left, duration: duration)
+     
         }
-       
-        
-        
-        
     }
-    
-    
-    
-    
-    
-    
     
     
 }

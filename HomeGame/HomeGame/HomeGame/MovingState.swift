@@ -14,7 +14,7 @@ class MovingState: GKState {
     var touchesSet: Set<UITouch>!
     
     var rightMovement: Bool = true
-    var fast: Bool = false
+    //var fast: Bool = false
     var distance: Double = 0.0
     var stop = 0
     //var basePos: CGPoint!
@@ -69,7 +69,7 @@ class MovingState: GKState {
         
         player?.component(ofType: MovementComponent.self)?.distance = self.distance
         player?.component(ofType: MovementComponent.self)?.rightMovement = self.rightMovement
-        player?.component(ofType: MovementComponent.self)?.fast = self.fast
+        //player?.component(ofType: MovementComponent.self)?.fast = self.fast
         
         player?.component(ofType: MovementComponent.self)?.movement()
        // }
@@ -79,7 +79,7 @@ class MovingState: GKState {
             {
                 player?.stateMachine.enter(StoppedState.self)
                 self.player?.animationEnded = 1
-                self.player?.runEnded = 1
+                //self.player?.runEnded = 1
                 self.player?.jumpFinished = 1
             }
             

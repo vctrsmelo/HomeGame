@@ -47,7 +47,7 @@ class Player: GKEntity {
 
     var animationEnded = 1
     
-    var runEnded =  1
+    //var runEnded =  1
     
     override init() {
         super.init()
@@ -213,61 +213,61 @@ class Player: GKEntity {
     }
     
     
-    func run(positionDirection: positionEnum){
-        
-        
-        
-        if (runEnded == 1 && jumpFinished == 1){
-            
-            
-            if positionDirection == .left {
-                self.mainPlayerSprite.xScale = -1
-                if positionToWalk.x != 0 {
-                    positionToWalk.x = -40
-                }
-                
-                
-            }
-            else{
-                self.mainPlayerSprite.xScale = abs ( self.mainPlayerSprite.xScale)
-                positionToWalk.x = abs (self.positionToWalk.x)
-
-            }
-            
-            
-            self.runEnded = 0
-        
-            let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.05)
-            let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: 0.2)
-            let moveByHalfXDown = SKAction.moveBy(x: positionToWalk.x, y: -positionToWalk.y, duration: 0.2)
-            
-            
-            let walkAction = SKAction.sequence([moveByHalfXUp, moveByHalfXDown])
-            
-            var animationWithWalkAction = Array<SKAction>()
-            
-            animationWithWalkAction.append(animateSprite)
-            animationWithWalkAction.append(walkAction)
-            
-            let walkFullActionGroup = SKAction.group(animationWithWalkAction)
-            
-            self.actionCompleted = false
-                self.mainPlayerSprite.run(walkFullActionGroup, completion:{
-                    
-                    self.runEnded = 1
-                    
-                })
-            
-            self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
-                
-                self.actionCompleted = true
-            })
-
-        
-        }
-        
-    }
-    
+//    func run(positionDirection: positionEnum){
+//        
+//        
+//        
+//        if (runEnded == 1 && jumpFinished == 1){
+//            
+//            
+//            if positionDirection == .left {
+//                self.mainPlayerSprite.xScale = -1
+//                if positionToWalk.x != 0 {
+//                    positionToWalk.x = -40
+//                }
+//                
+//                
+//            }
+//            else{
+//                self.mainPlayerSprite.xScale = abs ( self.mainPlayerSprite.xScale)
+//                positionToWalk.x = abs (self.positionToWalk.x)
+//
+//            }
+//            
+//            
+//            self.runEnded = 0
+//        
+//            let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.05)
+//            let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: 0.2)
+//            let moveByHalfXDown = SKAction.moveBy(x: positionToWalk.x, y: -positionToWalk.y, duration: 0.2)
+//            
+//            
+//            let walkAction = SKAction.sequence([moveByHalfXUp, moveByHalfXDown])
+//            
+//            var animationWithWalkAction = Array<SKAction>()
+//            
+//            animationWithWalkAction.append(animateSprite)
+//            animationWithWalkAction.append(walkAction)
+//            
+//            let walkFullActionGroup = SKAction.group(animationWithWalkAction)
+//            
+//            self.actionCompleted = false
+//                self.mainPlayerSprite.run(walkFullActionGroup, completion:{
+//                    
+//                    self.runEnded = 1
+//                    
+//                })
+//            
+//            self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
+//                
+//                self.actionCompleted = true
+//            })
+//
+//        
+//        }
+//        
+//    }
+//    
     
     func initializeTextureForSpriteNode(){
           

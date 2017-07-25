@@ -245,7 +245,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 
                 
                 if abs(self.touchLocation.x - base.position.x) >= 60{
-                    player?.stateMachine.state(forClass: MovingState.self)?.fast = true
+                    //player?.stateMachine.state(forClass: MovingState.self)?.fast = true
                     player?.stateMachine.state(forClass: MovingState.self)?.distance = 60
                     if ball.position.x > base.position.x{
                         self.rightMov = true
@@ -262,7 +262,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                 else{
                     player?.stateMachine.state(forClass: MovingState.self)?.distance = Double(abs(self.touchLocation.x - self.base.position.x)) //Double (abs (ball.position.x - base.position.x))
                     
-                    player?.stateMachine.state(forClass: MovingState.self)?.fast = false
+                    //player?.stateMachine.state(forClass: MovingState.self)?.fast = false
 
                     if ball.position.x > base.position.x {
                         self.rightMov = true
@@ -616,51 +616,51 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     
-    func seeIfItWasTapped(touches:Set<UITouch> ) -> Bool{
-        
-        
-        
-        
-        let firstTouch = touches.first!
-        let number = touches.endIndex
-        
-        let lastTouch = touches[touches.index(touches.startIndex, offsetBy: touches.count-1)]
-        
-        
-        print(firstTouch.location(in: self).x)
-        print(firstTouch.location(in: self).y)
-        print(lastTouch.location(in: self).x)
-        print(lastTouch.location(in: self).y)
-        
-        print("difer x =  " + String (describing: abs (lastTouch.location(in: self).x) - abs(firstTouch.location(in: self).x)))
-        print("difer y = " + String (describing: abs (lastTouch.location(in: self).y) - abs(firstTouch.location(in: self).y)))
-        
-        
-        if abs (lastTouch.location(in: self).x) - abs(firstTouch.location(in: self).x) > CGFloat (tolerance)
-        {
-            
-            return false
-        }
-        if abs (lastTouch.location(in: self).y) - abs(firstTouch.location(in: self).y) > CGFloat (tolerance)
-        {
-            
-            return false
-        }
-        
-        
-        return true
-        
-        //        for touch in touches {
-        //
-        //            if abs(Float (touch.location(in: self).x))  > abs(Float((firstTouch?.location(in: self).x)!)) + tolerance || abs(Float(touch.location(in: self).y))  > abs (Float ((firstTouch?.location(in: self).y)!)) + tolerance{
-        //
-        //                return false
-        //            }
-        //        }
-        
-        
-        
-    }
+//    func seeIfItWasTapped(touches:Set<UITouch> ) -> Bool{
+//        
+//        
+//        
+//        
+//        let firstTouch = touches.first!
+//        let number = touches.endIndex
+//        
+//        let lastTouch = touches[touches.index(touches.startIndex, offsetBy: touches.count-1)]
+//        
+//        
+//        print(firstTouch.location(in: self).x)
+//        print(firstTouch.location(in: self).y)
+//        print(lastTouch.location(in: self).x)
+//        print(lastTouch.location(in: self).y)
+//        
+//        print("difer x =  " + String (describing: abs (lastTouch.location(in: self).x) - abs(firstTouch.location(in: self).x)))
+//        print("difer y = " + String (describing: abs (lastTouch.location(in: self).y) - abs(firstTouch.location(in: self).y)))
+//        
+//        
+//        if abs (lastTouch.location(in: self).x) - abs(firstTouch.location(in: self).x) > CGFloat (tolerance)
+//        {
+//            
+//            return false
+//        }
+//        if abs (lastTouch.location(in: self).y) - abs(firstTouch.location(in: self).y) > CGFloat (tolerance)
+//        {
+//            
+//            return false
+//        }
+//        
+//        
+//        return true
+//        
+//        //        for touch in touches {
+//        //
+//        //            if abs(Float (touch.location(in: self).x))  > abs(Float((firstTouch?.location(in: self).x)!)) + tolerance || abs(Float(touch.location(in: self).y))  > abs (Float ((firstTouch?.location(in: self).y)!)) + tolerance{
+//        //
+//        //                return false
+//        //            }
+//        //        }
+//        
+//        
+//        
+//    }
     
     func getScenarioElements(){
         
