@@ -28,6 +28,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var joystickGesture: UIGestureRecognizer!
     var longPressSetted = false
     
+    var tapLocation: CGPoint!
     
     var longPressLocation: CGPoint!
     
@@ -302,9 +303,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     public func handlePan(gesture: UIPanGestureRecognizer){
 
         let position = gesture.location(in: self.view!)
-        
-        
-        let position = gesture.location(in: self.view!)
+
         self.longPressLocation = self.convertPoint(fromView: position)
         
         if gesture.state == .began{
