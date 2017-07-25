@@ -16,6 +16,8 @@
 		8D8DF91A1F169A9000CF6A97 /* PlayingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF9191F169A9000CF6A97 /* PlayingState.swift */; };
 		8D8DF91C1F169B1400CF6A97 /* PlayerWonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF91B1F169B1400CF6A97 /* PlayerWonState.swift */; };
 		8D8DF91E1F169B3600CF6A97 /* PlayerLostState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */; };
+		8DE3551A1F26790100FB3C56 /* CreditsScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8DE355191F26790100FB3C56 /* CreditsScene.sks */; };
+		8DE3551C1F267A7D00FB3C56 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE3551B1F267A7D00FB3C56 /* CreditsScene.swift */; };
 		AE30A62F1F1D29E500879E56 /* LevelButtonPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE30A62E1F1D29E500879E56 /* LevelButtonPopView.swift */; };
 		AE75D7C31F156B0400F37A5A /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C21F156B0400F37A5A /* MovementComponent.swift */; };
 		AE75D7C51F156B4A00F37A5A /* JumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */; };
@@ -55,6 +57,8 @@
 		8D8DF9191F169A9000CF6A97 /* PlayingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingState.swift; sourceTree = "<group>"; };
 		8D8DF91B1F169B1400CF6A97 /* PlayerWonState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWonState.swift; sourceTree = "<group>"; };
 		8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerLostState.swift; sourceTree = "<group>"; };
+		8DE355191F26790100FB3C56 /* CreditsScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CreditsScene.sks; sourceTree = "<group>"; };
+		8DE3551B1F267A7D00FB3C56 /* CreditsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
 		AE30A62E1F1D29E500879E56 /* LevelButtonPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelButtonPopView.swift; sourceTree = "<group>"; };
 		AE75D7C21F156B0400F37A5A /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpComponent.swift; sourceTree = "<group>"; };
@@ -245,6 +249,8 @@
 				8D8DF9191F169A9000CF6A97 /* PlayingState.swift */,
 				8D8DF91B1F169B1400CF6A97 /* PlayerWonState.swift */,
 				8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */,
+				8DE355191F26790100FB3C56 /* CreditsScene.sks */,
+				8DE3551B1F267A7D00FB3C56 /* CreditsScene.swift */,
 			);
 			path = HomeGame;
 			sourceTree = "<group>";
@@ -313,6 +319,7 @@
 				EEBFA9391F1E4B76007DB093 /* Droplet.png in Resources */,
 				EEF9336D1F154836004EB520 /* Main.storyboard in Resources */,
 				ED0A2E2A1F15491E0058E8D3 /* HomeScene.sks in Resources */,
+				8DE3551A1F26790100FB3C56 /* CreditsScene.sks in Resources */,
 				EEF933641F154836004EB520 /* GameScene.sks in Resources */,
 				ED0A2E301F1551C30058E8D3 /* Level1Scene.sks in Resources */,
 				ED1128EF1F1FE59000D67489 /* snowParticle.sks in Resources */,
@@ -338,6 +345,7 @@
 				ED1129181F22951000D67489 /* CameraManager.swift in Sources */,
 				8D8DF9101F155A8200CF6A97 /* StoppedState.swift in Sources */,
 				EEF933681F154836004EB520 /* GameScene.swift in Sources */,
+				8DE3551C1F267A7D00FB3C56 /* CreditsScene.swift in Sources */,
 				AE75D7C91F18019A00F37A5A /* StopComponent.swift in Sources */,
 				AE30A62F1F1D29E500879E56 /* LevelButtonPopView.swift in Sources */,
 				8D8DF9181F1698AA00CF6A97 /* WaitingState.swift in Sources */,

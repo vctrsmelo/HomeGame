@@ -61,6 +61,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         super.didMove(to: view)
         
+        
+        
+        //let credits = SKScene(fileNamed: "CreditsScene")
+       // self.view?.presentScene(credits)
+        
         self.physicsWorld.contactDelegate = self
         
         
