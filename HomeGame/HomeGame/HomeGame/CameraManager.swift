@@ -17,18 +17,19 @@ class CameraManager: AnyObject {
     var esquerda = false
     var direita = false
     
-    var lastPositionToRight = CGPoint(x: 268, y: 0)
-    var lastPositionToLeft = CGPoint(x: -268, y: 0)
-
+    var lastPositionToRight = CGPoint(x: 1, y: 0)
+    var lastPositionToLeft = CGPoint(x: 1, y: 0)
     
     var cameraNode:SKCameraNode!
     
+    var viewWidth:CGFloat!
     
     
-    
-    init() {
+    init(viewWidth:CGFloat) {
         
         cameraNode = SKCameraNode()
+        self.viewWidth = viewWidth
+    
     }
     
     
@@ -41,21 +42,28 @@ class CameraManager: AnyObject {
     
     func setLeftSideCameraConfigurations(node:SKNode){
         
-        if(direita){
+        if(node.position.x > viewWidth/2){
             
-            lastPositionToRight = node.position
+            
+            if(direita){
+                
+                lastPositionToRight = node.position
+                
+            }
+            
+            direita  = false
+            
+            esquerda = true
+            
+            if((lastPositionToRight.x - 1) > node.position.x){
+                
+                lastPositionToRight.x = node.position.x + 1
+                
+            }
+            
             
         }
         
-        direita  = false
-        
-        esquerda = true
-        
-        if((lastPositionToRight.x - 536) > node.position.x){
-            
-            lastPositionToRight.x = node.position.x + 536
-            
-        }
         
     }
     
@@ -74,15 +82,22 @@ class CameraManager: AnyObject {
         
         if(node.position.x >= lastPositionToRight.x && direita){
             
-            cameraNode.position.x = (node.position.x - 268)
+            
+            cameraNode.run(SKAction.move(to: CGPoint(x: (node.position.x - 1), y: node.position.y), duration: 0.01))
+            
+            //cameraNode.position.x = (node.position.x - 1)
             
         }
         
-        if(node.position.x <= (lastPositionToRight.x - 536) && esquerda){
+        if(node.position.x <= (lastPositionToRight.x - 1) && esquerda){
             
-            cameraNode.position.x = (node.position.x + 268)
+            cameraNode.run(SKAction.move(to: CGPoint(x: (node.position.x + 1), y: node.position.y), duration: 0.01))
             
         }
+        
+        print(node.position.x)
+        
+        cameraNode.position.y = node.position.y+40
         
     }
     

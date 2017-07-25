@@ -157,6 +157,7 @@
 		ED0A2E3C1F155B000058E8D3 /* LevelScenesElements */ = {
 			isa = PBXGroup;
 			children = (
+				EEF933611F154836004EB520 /* AppDelegate.swift */,
 				ED0A2E351F1554360058E8D3 /* CharacterNode.swift */,
 				ED0A2E331F15536F0058E8D3 /* ScenarioObjects.swift */,
 			);
@@ -231,7 +232,6 @@
 				EEBFA9321F1E48C6007DB093 /* WaterExtension */,
 				ED0A2E3D1F155B260058E8D3 /* UserDefaults */,
 				ED0A2E3A1F155A870058E8D3 /* Scenes */,
-				EEF933611F154836004EB520 /* AppDelegate.swift */,
 				EEF933631F154836004EB520 /* GameScene.sks */,
 				EEF933651F154836004EB520 /* Actions.sks */,
 				EEF933671F154836004EB520 /* GameScene.swift */,
