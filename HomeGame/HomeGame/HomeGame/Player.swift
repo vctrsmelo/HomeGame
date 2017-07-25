@@ -219,6 +219,7 @@ class Player: GKEntity {
     }
     
     
+    /*
     func run(positionDirection: positionEnum){
         
         
@@ -273,6 +274,7 @@ class Player: GKEntity {
         }
         
     }
+ */
     
     func initializeTextureForSpriteNode(){
           

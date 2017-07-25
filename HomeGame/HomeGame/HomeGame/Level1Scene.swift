@@ -100,7 +100,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func setCameraConfigurations(){
         
-        self.cameraManager = CameraManager()
+        self.cameraManager = CameraManager(viewWidth: (self.view?.frame.width)!)
         
         addChild(self.cameraManager.cameraNode)
         
