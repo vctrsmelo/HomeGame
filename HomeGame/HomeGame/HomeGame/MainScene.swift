@@ -60,9 +60,9 @@ class MainScene: SKScene {
         
         self.playbtn = SKSpriteNode(texture: playBtnTexture, size: playBtnSize)
         
-        self.playbtn.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+        self.playbtn.anchorPoint = CGPoint(x: 1.2, y: 0.0)
         
-        let playbtnPosX = background.frame.minX
+        let playbtnPosX = background.frame.midX
         let playbtnPosY = background.frame.minY
         self.playbtn.position = CGPoint(x: playbtnPosX, y: playbtnPosY)
 
@@ -76,9 +76,9 @@ class MainScene: SKScene {
         
         self.creditsbtn = SKSpriteNode(texture: creditsBtnTexture, size: creditsBtnSize)
         
-        self.creditsbtn.anchorPoint = CGPoint(x: 1.0, y: 0.0)
+        self.creditsbtn.anchorPoint = CGPoint(x: -0.2, y: 0.0)
         
-        let creditsbtnPosX = background.frame.maxX
+        let creditsbtnPosX = background.frame.midX
         let creditsbtnPosY = background.frame.minY
         self.creditsbtn.position = CGPoint(x: creditsbtnPosX, y: creditsbtnPosY)
 

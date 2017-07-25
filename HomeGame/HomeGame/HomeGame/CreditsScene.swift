@@ -97,7 +97,7 @@ class CreditsScene: SKScene {
         
         if (woodTrunk?.contains((touch?.location(in: self))!))!{
             
-            if let home = SKScene(fileNamed: "HomeScene"){
+            if let home = SKScene(fileNamed: "MainScene"){
                 self.view?.presentScene(home)
             }
             
