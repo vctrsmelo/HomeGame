@@ -28,6 +28,8 @@ class Player: GKEntity {
     
      var mainPlayerSprite:SKSpriteNode!
     
+    let spriteScale: CGFloat = 0.2
+    
     var isAboveWater = true
     
     var walkTextures:[SKTexture] = []
@@ -36,10 +38,11 @@ class Player: GKEntity {
     var test:SKTextureAtlas!
     
     var positionToWalk = CGPoint(x: 30, y: 0)
-    var positionToJump = CGPoint(x: 250, y: 80)
+    var positionToJump = CGPoint(x: 75, y: 160)
+    let jumpX:CGFloat = 75.0
     
     let initialPositionInScene = CGPoint(x:10, y:200)
-    
+
     let jumpTextureNumber = 60
     let walkTextureNumber = 8
     var jumpFinished = 1
@@ -109,7 +112,7 @@ class Player: GKEntity {
             
             if positionDirection == .left {
                 
-                self.mainPlayerSprite.xScale = -0.1
+                self.mainPlayerSprite.xScale = -spriteScale
                 if positionToWalk.x != 0 {
                     positionToWalk.x = -70
                 }
@@ -153,6 +156,7 @@ class Player: GKEntity {
                 
                 self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
                     
+                    self.mainPlayerSprite.zPosition = 0
                     self.actionCompleted = true
                     self.animationEnded =  1
                 })
@@ -177,9 +181,9 @@ class Player: GKEntity {
 
         if (jumpFinished == 1){
           if positionDirection == .left{
-                self.mainPlayerSprite.xScale = -0.1
+                self.mainPlayerSprite.xScale = -spriteScale
                 if positionToJump.x != 0 {
-                    positionToJump.x = -250
+                    positionToJump.x = -jumpX
                 }
                 
             }
@@ -193,8 +197,6 @@ class Player: GKEntity {
         let animateSprite = SKAction.animate(with: self.jumpTextures, timePerFrame: 0.2)
         let moveByHalfXUp = SKAction.moveBy(x: positionToJump.x/2, y: positionToJump.y, duration: 0.4)
         let moveByHalfXDown = SKAction.moveBy(x: positionToJump.x/2, y: -positionToJump.y, duration: 0.4)
-        
-        self.mainPlayerSprite.physicsBody?.affectedByGravity = false
         
         let walkAction = SKAction.sequence([moveByHalfXUp, moveByHalfXDown])
         
@@ -283,6 +285,8 @@ class Player: GKEntity {
         
         mainPlayerSprite.position = CGPoint(x: -220, y: -79.992 + 50)
         
+        mainPlayerSprite.zPosition = 0
+        
         self.initializePlayerPhysicsBody()
     }
     
@@ -365,7 +369,7 @@ class Player: GKEntity {
         
         mainPlayerSprite.physicsBody?.categoryBitMask = (1|2|3)
         
-        mainPlayerSprite.setScale(0.1)
+        mainPlayerSprite.setScale(spriteScale)
         
         mainPlayerSprite.name="Player"
   

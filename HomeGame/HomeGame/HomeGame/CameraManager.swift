@@ -86,9 +86,9 @@ class CameraManager: AnyObject {
             if(node.position.x >= lastPositionToRight.x && direita){
                 
                 
-                cameraNode.run(SKAction.move(to: CGPoint(x: (node.position.x - 1), y: node.position.y), duration: 0.01))
+                //cameraNode.run(SKAction.move(to: CGPoint(x: (node.position.x - 1), y: node.position.y), duration: 0.01))
                 
-                //cameraNode.position.x = (node.position.x - 1)
+                cameraNode.position.x = (node.position.x - 1)
                 
             }
         
@@ -96,13 +96,14 @@ class CameraManager: AnyObject {
             
             if(node.position.x <= (lastPositionToRight.x - 1) && esquerda){
                 
-                cameraNode.run(SKAction.move(to: CGPoint(x: (node.position.x + 1), y: node.position.y), duration: 0.01))
+                //cameraNode.run(SKAction.move(to: CGPoint(x: (node.position.x + 1), y: node.position.y), duration: 0.01))
+                cameraNode.position.x = (node.position.x + 1)
                 
             }
             
             print(node.position.x)
             
-            cameraNode.position.y = node.position.y+40
+            cameraNode.position.y = node.position.y+100
             
             
             

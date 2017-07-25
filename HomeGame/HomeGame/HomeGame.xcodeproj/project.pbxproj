@@ -26,7 +26,6 @@
 		ED0A2E2A1F15491E0058E8D3 /* HomeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED0A2E291F15491E0058E8D3 /* HomeScene.sks */; };
 		ED0A2E2C1F1549470058E8D3 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2E2B1F1549470058E8D3 /* HomeScene.swift */; };
 		ED0A2E2E1F154A300058E8D3 /* LevelButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2E2D1F154A300058E8D3 /* LevelButtonNode.swift */; };
-		ED0A2E301F1551C30058E8D3 /* Level1Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED0A2E2F1F1551C30058E8D3 /* Level1Scene.sks */; };
 		ED0A2E321F1551EB0058E8D3 /* Level1Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2E311F1551EB0058E8D3 /* Level1Scene.swift */; };
 		ED0A2E341F15536F0058E8D3 /* ScenarioObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2E331F15536F0058E8D3 /* ScenarioObjects.swift */; };
 		ED0A2E361F1554360058E8D3 /* CharacterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2E351F1554360058E8D3 /* CharacterNode.swift */; };
@@ -34,6 +33,7 @@
 		ED1128EE1F1FE59000D67489 /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED1128EC1F1FE59000D67489 /* SmokeParticle.sks */; };
 		ED1128EF1F1FE59000D67489 /* snowParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED1128ED1F1FE59000D67489 /* snowParticle.sks */; };
 		ED1129181F22951000D67489 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1129171F22951000D67489 /* CameraManager.swift */; };
+		EE3EED851F27D111006A4960 /* Level1Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EE3EED841F27D111006A4960 /* Level1Scene.sks */; };
 		EEBFA9361F1E48FD007DB093 /* SBDynamicWaterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */; };
 		EEBFA9391F1E4B76007DB093 /* Droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9371F1E4B76007DB093 /* Droplet.png */; };
 		EEBFA93A1F1E4B76007DB093 /* Droplets.fsh in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9381F1E4B76007DB093 /* Droplets.fsh */; };
@@ -67,7 +67,6 @@
 		ED0A2E291F15491E0058E8D3 /* HomeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HomeScene.sks; sourceTree = "<group>"; };
 		ED0A2E2B1F1549470058E8D3 /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
 		ED0A2E2D1F154A300058E8D3 /* LevelButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelButtonNode.swift; sourceTree = "<group>"; };
-		ED0A2E2F1F1551C30058E8D3 /* Level1Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1Scene.sks; sourceTree = "<group>"; };
 		ED0A2E311F1551EB0058E8D3 /* Level1Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level1Scene.swift; sourceTree = "<group>"; };
 		ED0A2E331F15536F0058E8D3 /* ScenarioObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScenarioObjects.swift; sourceTree = "<group>"; };
 		ED0A2E351F1554360058E8D3 /* CharacterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterNode.swift; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		ED1128EC1F1FE59000D67489 /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
 		ED1128ED1F1FE59000D67489 /* snowParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = snowParticle.sks; sourceTree = "<group>"; };
 		ED1129171F22951000D67489 /* CameraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		EE3EED841F27D111006A4960 /* Level1Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1Scene.sks; sourceTree = "<group>"; };
 		EEBFA9331F1E48FD007DB093 /* HomeGame-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeGame-Bridging-Header.h"; sourceTree = "<group>"; };
 		EEBFA9341F1E48FD007DB093 /* SBDynamicWaterNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDynamicWaterNode.h; sourceTree = "<group>"; };
 		EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDynamicWaterNode.m; sourceTree = "<group>"; };
@@ -126,8 +126,8 @@
 		ED0A2E391F155A310058E8D3 /* LevelScenes */ = {
 			isa = PBXGroup;
 			children = (
-				ED0A2E2F1F1551C30058E8D3 /* Level1Scene.sks */,
 				ED0A2E311F1551EB0058E8D3 /* Level1Scene.swift */,
+				EE3EED841F27D111006A4960 /* Level1Scene.sks */,
 				AE75D7C01F15685500F37A5A /* LevelSceneComponents */,
 				ED0A2E3C1F155B000058E8D3 /* LevelScenesElements */,
 			);
@@ -287,7 +287,7 @@
 				TargetAttributes = {
 					EEF9335D1F154836004EB520 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = HXG58UK739;
+						DevelopmentTeam = Y93HUJS49V;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -321,11 +321,11 @@
 				ED0A2E2A1F15491E0058E8D3 /* HomeScene.sks in Resources */,
 				8DE3551A1F26790100FB3C56 /* CreditsScene.sks in Resources */,
 				EEF933641F154836004EB520 /* GameScene.sks in Resources */,
-				ED0A2E301F1551C30058E8D3 /* Level1Scene.sks in Resources */,
 				ED1128EF1F1FE59000D67489 /* snowParticle.sks in Resources */,
 				EEF9336F1F154836004EB520 /* Assets.xcassets in Resources */,
 				EEF933721F154836004EB520 /* LaunchScreen.storyboard in Resources */,
 				ED1128EE1F1FE59000D67489 /* SmokeParticle.sks in Resources */,
+				EE3EED851F27D111006A4960 /* Level1Scene.sks in Resources */,
 				EEBFA93A1F1E4B76007DB093 /* Droplets.fsh in Resources */,
 				EEF933661F154836004EB520 /* Actions.sks in Resources */,
 			);
@@ -488,7 +488,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = HXG58UK739;
+				DEVELOPMENT_TEAM = Y93HUJS49V;
 				INFOPLIST_FILE = HomeGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -507,7 +507,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = HXG58UK739;
+				DEVELOPMENT_TEAM = Y93HUJS49V;
 				INFOPLIST_FILE = HomeGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
