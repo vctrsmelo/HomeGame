@@ -261,6 +261,15 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         player.changeState(stateClass: JumpingState.self)
         
+        if(self.rightMov){
+            
+            self.cameraManager.setRightSideCameraConfiguration()
+        }
+        else{
+            
+            self.cameraManager.setLeftSideCameraConfigurations(node: self.player.mainPlayerSprite)
+        }
+        
         if childNode(withName: "fallObj") != nil{
             self.fallObj(obj: self.childNode(withName: "fallObj")!)
         }
