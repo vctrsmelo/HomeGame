@@ -28,7 +28,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var joystickGesture: UIGestureRecognizer!
     var longPressSetted = false
     
-    var tapLocation: CGPoint!
+    
+    var longPressLocation: CGPoint!
     
     //movement attributes
     var rightMov = true
@@ -154,10 +155,48 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 // ou
                 // Ice cub - morre
             }
-            
+            else if(obstacleNode.physicsBody?.contactTestBitMask == 3){
+                
+              if ( obstacleNode.position.y  < playerNode.position.y  && playerNode.position.x  > obstacleNode.position.x - obstacleNode.frame.size.width/2 && playerNode.position.x < obstacleNode.position.x + obstacleNode.frame.size.width/2){
+                
+                
+                let rot1 = SKAction.rotate(byAngle: -CGFloat(GLKMathDegreesToRadians(5)), duration: 1.5)
+                //let rot2 = SKAction.rotate(byAngle: CGFloat(GLKMathDegreesToRadians(5)), duration: 1.5)
+                var animationAction = Array<SKAction>()
+                
+                animationAction.append(rot1)
+                //animationAction.append(rot2)
+                
+                
+                
+                let fallAction: SKAction = SKAction.move(to: CGPoint(x: obstacleNode.position.x, y:-200), duration:1.0)
+                
+                animationAction.append(fallAction)
+                let animationFull = SKAction.sequence(animationAction)
+
+                
+                let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    //obstacleNode?.physicsBody?.affectedByGravity = true
+                    obstacleNode.run(animationFull)
+
+                   
+                }
+                
+                
+                
+                
+            }
+        }
+        
         }
         
     }
+    
+    
+   
+   
+    
     
 
     
@@ -196,11 +235,10 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             return
         }
         
-        let position = gesture.location(in: self.view!)
         
+        let position = gesture.location(in: self.view!)
+        self.longPressLocation = self.convertPoint(fromView: position)
         if gesture.state == .began{
-
-            longPressSetted = true
             base.position = self.convertPoint(fromView: position)
             ball.position = base.position
             base.isHidden = false
@@ -226,8 +264,15 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
 
         let position = gesture.location(in: self.view!)
         
-        if gesture.state == .began && base.isHidden{
+        
+        let position = gesture.location(in: self.view!)
+        self.longPressLocation = self.convertPoint(fromView: position)
+
+        if gesture.state == .began{
+            
             base.position = self.convertPoint(fromView: position)
+            
+            
             ball.position = base.position
             base.isHidden = false
             ball.isHidden = false
@@ -499,8 +544,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
                 
         
-                
-                if abs(ball.position.x - base.position.x) >= 40{
+                if abs (longPressLocation.x - base.position.x) >= 150{
+                //if abs(ball.position.x - base.position.x) >= 40{
+                    
+                    player?.stateMachine.state(forClass: MovingState.self)?.distance = 150
+
                     player?.stateMachine.state(forClass: MovingState.self)?.fast = true
                     
                     if ball.position.x > base.position.x{
@@ -520,7 +568,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 else{
 
                     player?.stateMachine.state(forClass: MovingState.self)?.fast = false
-                    
+                    player?.stateMachine.state(forClass: MovingState.self)?.distance = abs (Double(longPressLocation.x - base.position.x))
+
                     if ball.position.x > base.position.x {
 
                         self.rightMov = true
