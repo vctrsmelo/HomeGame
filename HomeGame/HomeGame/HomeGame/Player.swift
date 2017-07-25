@@ -177,7 +177,7 @@ class Player: GKEntity {
 
         if (jumpFinished == 1){
           if positionDirection == .left{
-                self.mainPlayerSprite.xScale = -0.2
+                self.mainPlayerSprite.xScale = -0.1
                 if positionToJump.x != 0 {
                     positionToJump.x = -250
                 }
