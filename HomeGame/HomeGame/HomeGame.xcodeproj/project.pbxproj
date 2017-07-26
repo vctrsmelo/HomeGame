@@ -21,6 +21,7 @@
 		AE30A62F1F1D29E500879E56 /* LevelButtonPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE30A62E1F1D29E500879E56 /* LevelButtonPopView.swift */; };
 		AE30A6371F27B91100879E56 /* MainScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AE30A6361F27B91100879E56 /* MainScene.sks */; };
 		AE30A6391F27B99A00879E56 /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE30A6381F27B99A00879E56 /* MainScene.swift */; };
+		AE30A63B1F2921FA00879E56 /* NewCreditsScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AE30A63A1F2921FA00879E56 /* NewCreditsScene.sks */; };
 		AE75D7C31F156B0400F37A5A /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C21F156B0400F37A5A /* MovementComponent.swift */; };
 		AE75D7C51F156B4A00F37A5A /* JumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */; };
 		AE75D7C71F156C4300F37A5A /* FallComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C61F156C4300F37A5A /* FallComponent.swift */; };
@@ -67,6 +68,7 @@
 		AE30A62E1F1D29E500879E56 /* LevelButtonPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelButtonPopView.swift; sourceTree = "<group>"; };
 		AE30A6361F27B91100879E56 /* MainScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainScene.sks; sourceTree = "<group>"; };
 		AE30A6381F27B99A00879E56 /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
+		AE30A63A1F2921FA00879E56 /* NewCreditsScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NewCreditsScene.sks; sourceTree = "<group>"; };
 		AE75D7C21F156B0400F37A5A /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpComponent.swift; sourceTree = "<group>"; };
 		AE75D7C61F156C4300F37A5A /* FallComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallComponent.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */,
 				8DE355191F26790100FB3C56 /* CreditsScene.sks */,
 				8DE3551B1F267A7D00FB3C56 /* CreditsScene.swift */,
+				AE30A63A1F2921FA00879E56 /* NewCreditsScene.sks */,
 			);
 			path = HomeGame;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				ED11293C1F2961AB00D67489 /* FireFlyTest.sks in Resources */,
 				EEF9336F1F154836004EB520 /* Assets.xcassets in Resources */,
 				EEF933721F154836004EB520 /* LaunchScreen.storyboard in Resources */,
+				AE30A63B1F2921FA00879E56 /* NewCreditsScene.sks in Resources */,
 				AE30A6371F27B91100879E56 /* MainScene.sks in Resources */,
 				ED1128EE1F1FE59000D67489 /* SmokeParticle.sks in Resources */,
 				EE3EED851F27D111006A4960 /* Level1Scene.sks in Resources */,
