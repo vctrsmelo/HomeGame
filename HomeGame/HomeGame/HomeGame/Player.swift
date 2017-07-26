@@ -330,8 +330,6 @@ class Player: GKEntity {
     
     func checkTextureForInitialFrame()->Bool{
         
-        print(self.mainPlayerSprite.texture)
-        
         if ((String(describing: self.mainPlayerSprite.texture).range(of: "7")) == nil){
             
             //print(self.mainPlayerSprite.texture)
@@ -344,20 +342,15 @@ class Player: GKEntity {
             return false
             
         }
-        else{
-           // let texture
-            return true
-            
-            
-        }
-        
+    
         return true
+
     }
     
     
     func initializePlayerPhysicsBody(){
         
-        mainPlayerSprite.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "1"), size: CGSize(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height))
+        mainPlayerSprite.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height)) //SKPhysicsBody(texture: SKTexture(imageNamed: "1"), size: CGSize(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height))
         
         mainPlayerSprite.physicsBody?.affectedByGravity = true
         
