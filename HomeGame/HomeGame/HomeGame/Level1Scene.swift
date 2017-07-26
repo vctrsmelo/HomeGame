@@ -87,6 +87,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         super.didMove(to: view)
         
+        
+        
         self.snow = SKEmitterNode.init(fileNamed: "snowParticle")
         self.snow.position.x = 8483
         self.snow.position.y = 200
@@ -107,6 +109,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.addChild(self.fog[0])
         self.addChild(self.fog[1])
         
+    
+ 
         //let credits = SKScene(fileNamed: "CreditsScene")
        // self.view?.presentScene(credits)
         
