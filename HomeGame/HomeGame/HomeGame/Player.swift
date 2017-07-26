@@ -49,10 +49,13 @@ class Player: GKEntity {
     
     var actionCompleted = true
     
+    var finishEndGameAnimation = false
     
     var bird:SKNode!
 
     var animationEnded = 1
+    
+    var totalTimePassedEndGameAnimation = 0.0
     
     //var runEnded =  1
     
@@ -381,6 +384,55 @@ class Player: GKEntity {
             self.isAboveWater = true
             
         })
+        
+    }
+    
+    
+    
+    
+    func performEndGameAnimation(){
+        
+        
+        if(self.actionCompleted && !finishEndGameAnimation){
+            
+            
+            let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.6/Double(walkTextures.count))
+            let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: 0.6)
+            
+            
+            let walkAction = SKAction.sequence([moveByHalfXUp])
+            
+            var animationWithWalkAction = Array<SKAction>()
+            
+            
+            animationWithWalkAction.append(animateSprite)
+            animationWithWalkAction.append(walkAction)
+            
+            self.actionCompleted = false
+            
+            let repeatWalkForever = (SKAction.group(animationWithWalkAction))
+            
+            self.mainPlayerSprite.run(repeatWalkForever, completion: {() -> Void in
+                
+                self.actionCompleted = true
+                self.totalTimePassedEndGameAnimation+=0.6
+                
+                if(self.totalTimePassedEndGameAnimation > 6.0){
+                    
+                    self.mainPlayerSprite.removeAllActions()
+                    
+                    self.finishEndGameAnimation = true
+                }
+                
+            })
+            
+            
+            
+        }
+        
+
+        
+        
         
     }
     
