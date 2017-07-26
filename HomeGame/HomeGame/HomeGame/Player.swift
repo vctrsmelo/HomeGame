@@ -192,7 +192,7 @@ class Player: GKEntity {
             
         jumpFinished = 0
             
-        
+        print(positionToJump.x)
         let animateSprite = SKAction.animate(with: self.jumpTextures, timePerFrame: 0.2)
         let moveByHalfXUp = SKAction.moveBy(x: positionToJump.x/2, y: positionToJump.y, duration: 0.4)
         let moveByHalfXDown = SKAction.moveBy(x: positionToJump.x/2, y: -positionToJump.y, duration: 0.4)

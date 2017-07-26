@@ -253,10 +253,14 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func initControllerInterface(){
         
-        ball.fillColor = .brown
-        base.fillColor = .cyan
-        ball.zPosition = 1
-        base.zPosition = 1
+        base.lineWidth = 10
+        
+        base.strokeColor = .gray
+        ball.fillColor = .lightGray
+        //base.fillColor = .cyan
+        ball.zPosition = 2
+        base.zPosition = 2
+        ball.strokeColor = ball.fillColor
         
         ball.isHidden = true
         base.isHidden = true
