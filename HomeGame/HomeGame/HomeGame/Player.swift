@@ -139,21 +139,16 @@ class Player: GKEntity {
             
             var animationWithWalkAction = Array<SKAction>()
             
-                let frameRate =  20// fps
-                let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: duration/6)
-                let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: duration)
-                
-                
-                let walkAction = SKAction.sequence([moveByHalfXUp])
-                
-                var animationWithWalkAction = Array<SKAction>()
-                
+            
                 animationWithWalkAction.append(animateSprite)
                 animationWithWalkAction.append(walkAction)
             
             self.actionCompleted = false
             
-            self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
+            self.mainPlayerSprite.run(SKAction.group(animationWithWalkAction), completion: {() -> Void in
+                
+                
+                
                 
                 self.mainPlayerSprite.zPosition = 0
                 self.actionCompleted = true
