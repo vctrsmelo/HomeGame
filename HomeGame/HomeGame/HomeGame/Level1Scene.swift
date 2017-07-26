@@ -58,8 +58,13 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     var endGameReached = false
     
+    var firstTimeEnteredEndGame = true
     
     
+    var fog:[SKEmitterNode] = []
+    
+    
+    var snow:SKEmitterNode!
     // Camera manager integration
     
     
@@ -82,7 +87,25 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         super.didMove(to: view)
         
+        self.snow = SKEmitterNode.init(fileNamed: "snowParticle")
+        self.snow.position.x = 8483
+        self.snow.position.y = 200
         
+        self.addChild(self.snow)
+        
+        self.fog.append(SKEmitterNode.init(fileNamed: "SmokeParticle")!)
+        
+        self.fog[0].position.x = 4150
+        self.fog[0].position.y = -30
+
+        
+        self.fog.append(SKEmitterNode.init(fileNamed: "SmokeParticle")!)
+        
+        self.fog[1].position.x = 6241
+        self.fog[1].position.y = 0
+        
+        self.addChild(self.fog[0])
+        self.addChild(self.fog[1])
         
         //let credits = SKScene(fileNamed: "CreditsScene")
        // self.view?.presentScene(credits)
@@ -677,75 +700,89 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         let DISTANCE: Double = 150
         
-        if (!base.isHidden && !(self.player?.stateMachine.currentState is JumpingState)){
+        if(!endGameReached){
             
-            if abs (ball.position.x - base.position.x) > 3 { //&& self.player?.stateMachine.currentState is StoppedState{
-               
-                    
-                self.player?.stateMachine.enter(MovingState.self)
-                player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
+            
+            if (!base.isHidden && !(self.player?.stateMachine.currentState is JumpingState)){
                 
-                
-                if abs (longPressLocation.x - base.position.x) >= CGFloat (DISTANCE){
-                    //if abs(ball.position.x - base.position.x) >= 40{
+                if abs (ball.position.x - base.position.x) > 3 { //&& self.player?.stateMachine.currentState is StoppedState{
                     
-                    player?.stateMachine.state(forClass: MovingState.self)?.distance = DISTANCE
                     
-                    //player?.stateMachine.state(forClass: MovingState.self)?.fast = true
+                    self.player?.stateMachine.enter(MovingState.self)
+                    player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
                     
-                    if ball.position.x > base.position.x{
-
-                        self.rightMov = true
-                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+                    
+                    if abs (longPressLocation.x - base.position.x) >= CGFloat (DISTANCE){
+                        //if abs(ball.position.x - base.position.x) >= 40{
+                        
+                        player?.stateMachine.state(forClass: MovingState.self)?.distance = DISTANCE
+                        
+                        //player?.stateMachine.state(forClass: MovingState.self)?.fast = true
+                        
+                        if ball.position.x > base.position.x{
+                            
+                            self.rightMov = true
+                            player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+                            
+                        }
+                        else{
+                            
+                            self.rightMov = false
+                            player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                            
+                        }
                         
                     }
                     else{
+                        //player?.stateMachine.state(forClass: MovingState.self)?.fast = false
+                        player?.stateMachine.state(forClass: MovingState.self)?.distance = abs (Double(longPressLocation.x - base.position.x))
                         
-                        self.rightMov = false
-                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                        if ball.position.x > base.position.x {
+                            
+                            self.rightMov = true
+                            player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+                            
+                        }
+                        else{
+                            self.rightMov = false
+                            player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                            
+                        }
                         
                     }
                     
                 }
-                else{
-                    //player?.stateMachine.state(forClass: MovingState.self)?.fast = false
-                    player?.stateMachine.state(forClass: MovingState.self)?.distance = abs (Double(longPressLocation.x - base.position.x))
                     
-                    if ball.position.x > base.position.x {
-
-                        self.rightMov = true
-                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
-                        
-                    }
-                    else{
-                        self.rightMov = false
-                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
-                        
-                    }
+                else if !(self.player?.stateMachine.currentState is JumpingState){
+                    
+                    player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+                    
                     
                 }
                 
             }
-                
-            else if !(self.player?.stateMachine.currentState is JumpingState){
-
-                player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
-                
-                
-            }
-            
         }
+        
+       
         
         player.update(deltaTime: currentTime)
         
         self.cameraManager.checkCameraPositionAndPerformMovement(node: player.mainPlayerSprite)
         
-        
         if(endGameReached){
+            
+            if(firstTimeEnteredEndGame){
+                
+                firstTimeEnteredEndGame = false
+                
+                player.mainPlayerSprite.removeAllActions()
+                
+            }
             
             player.performEndGameAnimation()
             
         }
+        
         
  
         //Water
@@ -768,7 +805,12 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.lateWaterUpdate(dt)
         self.lastFrameTime = currentTime
         
+        
+        
+        
+        
     }
     
+  
     
 }
