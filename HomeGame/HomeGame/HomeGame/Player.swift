@@ -36,10 +36,10 @@ class Player: GKEntity {
     var jumpTextures:[SKTexture] = []
     var runTextures:[SKTexture] = []
     
-    var test:SKTextureAtlas!
+    //var test:SKTextureAtlas!
     
     var positionToWalk = CGPoint(x: 30, y: 0)
-    var positionToJump = CGPoint(x: 27, y: 75)
+    var positionToJump = CGPoint(x: 120, y: 220)
     
     let initialPositionInScene = CGPoint(x:10, y:200)
 
@@ -172,11 +172,13 @@ class Player: GKEntity {
     
     func jump(positionDirection: positionEnum){
 
+        
+        
         if (jumpFinished == 1){
           if positionDirection == .left{
                 self.mainPlayerSprite.xScale = -spriteScale
                 if positionToJump.x != 0 {
-                    positionToJump.x = -27
+                    positionToJump.x = -120
                 }
                 
             }
@@ -362,6 +364,8 @@ class Player: GKEntity {
         mainPlayerSprite.physicsBody?.isDynamic = true
         
         mainPlayerSprite.physicsBody?.categoryBitMask = (1|2|3)
+        
+        mainPlayerSprite.physicsBody?.friction = 10.0
         
         mainPlayerSprite.setScale(spriteScale)
         

@@ -89,6 +89,7 @@ class CameraManager: AnyObject {
         
         
         
+        /*
             if(node.position.x <= (-1)){
             
                 passed = false
@@ -125,7 +126,16 @@ class CameraManager: AnyObject {
             cameraNode.position.y = node.position.y+100
             
         }
+ */
             
+        
+        if(node.position.x >= 0){
+            
+            cameraNode.position.y = node.position.y+100
+            cameraNode.position.x = node.position.x
+            
+        }
+        
         
         
     }
