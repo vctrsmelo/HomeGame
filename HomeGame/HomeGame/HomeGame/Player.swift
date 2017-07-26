@@ -28,12 +28,13 @@ class Player: GKEntity {
     
      var mainPlayerSprite:SKSpriteNode!
     
-    let spriteScale: CGFloat = 0.2
+    let spriteScale: CGFloat = 0.3
     
     var isAboveWater = true
     
     var walkTextures:[SKTexture] = []
     var jumpTextures:[SKTexture] = []
+    var runTextures:[SKTexture] = []
     
     var test:SKTextureAtlas!
     
@@ -62,6 +63,7 @@ class Player: GKEntity {
         self.initializeTextureForSpriteNode()
         self.initializeJumpTextures()
         self.initializeWalkTextures()
+        self.initializeRunTextures()
         
         let playerStopped = StoppedState(with: self)
         let playerMoving = MovingState(with: self)
@@ -106,62 +108,54 @@ class Player: GKEntity {
 
     func walk(positionDirection: positionEnum, duration: Double){
         
-        //if (String(describing: self.mainPlayerSprite.texture).range(of: "player_run_7") == nil){
+        let shouldRunDuration = 0.194
+        var isRunning = false
+        
+        if duration <= shouldRunDuration{
+            isRunning = true
+        }
+        
         if (animationEnded == 1 && jumpFinished == 1){
-            
             
             if positionDirection == .left {
                 
                 self.mainPlayerSprite.xScale = -spriteScale
                 if positionToWalk.x != 0 {
-                    positionToWalk.x = -70
+                    positionToWalk.x = -30
                 }
                 
             }
             else{
                 self.mainPlayerSprite.xScale = abs( self.mainPlayerSprite.xScale)
-               // if positionToWalk.x != 0  {
-                //    positionToWalk.x = 40
-               // }
                 positionToWalk.x = abs(positionToWalk.x)
                 
             }
             
             animationEnded = 0
-           
+            let animateSprite = isRunning ? SKAction.animate(with: self.runTextures, timePerFrame: duration/Double(runTextures.count)) : SKAction.animate(with: self.walkTextures, timePerFrame: duration/Double(walkTextures.count))
+            let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: duration)
             
             
-            //walk duration = 0.4
-            //run duration = 0.2
+            let walkAction = SKAction.sequence([moveByHalfXUp])
             
-           // print("Duratioooonnn" + String (duration))
+            var animationWithWalkAction = Array<SKAction>()
             
-                let frameRate =  20// fps
-                let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.07)
-                let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: 0.42)
-                
-                
-                let walkAction = SKAction.sequence([moveByHalfXUp])
-                
-                var animationWithWalkAction = Array<SKAction>()
-                
-                animationWithWalkAction.append(animateSprite)
-                animationWithWalkAction.append(walkAction)
+            animationWithWalkAction.append(animateSprite)
+            animationWithWalkAction.append(walkAction)
+        
+            animateSprite.timingMode = SKActionTimingMode.easeInEaseOut
+        
+            let walkFullActionGroup = SKAction.group(animationWithWalkAction)
             
-                animateSprite.timingMode = SKActionTimingMode.easeInEaseOut
+            self.actionCompleted = false
             
-                let walkFullActionGroup = SKAction.group(animationWithWalkAction)
+            self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
                 
-                self.actionCompleted = false
-                
-                self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
-                    
-                    self.mainPlayerSprite.zPosition = 0
-                    self.actionCompleted = true
-                    self.animationEnded =  1
-                })
-                
-            //}
+                self.mainPlayerSprite.zPosition = 0
+                self.actionCompleted = true
+                self.animationEnded =  1
+            })
+        
             
                 
         }
@@ -281,7 +275,7 @@ class Player: GKEntity {
     func initializeTextureForSpriteNode(){
           
         
-        mainPlayerSprite = SKSpriteNode(texture: SKTexture(imageNamed: "1"))
+        mainPlayerSprite = SKSpriteNode(texture: SKTexture(imageNamed: "Walking_1"))
         
         mainPlayerSprite.position = CGPoint(x: -220, y: -79.992 + 50)
         
@@ -292,37 +286,35 @@ class Player: GKEntity {
     
     func initializeJumpTextures(){
         
-        
-        //self.jumpTextures.append(SKTexture(imageNamed: "1"))
-        
         for i in 1...4{
             
             
-            self.jumpTextures.append(SKTexture(imageNamed: "pi\(i)"))
+            self.jumpTextures.append(SKTexture(imageNamed: "Jumping_\(i)"))
             
         }
         
-         self.jumpTextures.append(SKTexture(imageNamed: "1"))
+        self.jumpTextures.append(SKTexture(imageNamed: "Walking_1"))
         
     }
     
     
     func initializeWalkTextures(){
         
-        
-        
-        
-        // self.test = SKTextureAtlas(named: "WalkingSprites")
-        
-        
         for i in 2...7{
             
-            self.walkTextures.append(SKTexture(imageNamed: "\(i)"))
+            self.walkTextures.append(SKTexture(imageNamed: "Walking_\(i)"))
             
         }
         
-      
+    }
+    
+    func initializeRunTextures(){
         
+        for i in 1...4{
+            
+            self.runTextures.append(SKTexture(imageNamed: "Running_\(i)"))
+            
+        }
         
     }
 
@@ -336,7 +328,7 @@ class Player: GKEntity {
             
             self.mainPlayerSprite.removeAllActions()
             
-            self.mainPlayerSprite.texture = SKTexture.init(imageNamed: "1")
+            self.mainPlayerSprite.texture = SKTexture.init(imageNamed: "Walking_1")
             
             //self.player.setPlayerFrameToInitialState()
             return false
@@ -350,7 +342,7 @@ class Player: GKEntity {
     
     func initializePlayerPhysicsBody(){
         
-        mainPlayerSprite.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height)) //SKPhysicsBody(texture: SKTexture(imageNamed: "1"), size: CGSize(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height))
+        mainPlayerSprite.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height-15))
         
         mainPlayerSprite.physicsBody?.affectedByGravity = true
         
@@ -387,8 +379,6 @@ class Player: GKEntity {
     }
     override func update(deltaTime seconds: TimeInterval) {
         
-        
-        print(mainPlayerSprite.texture)
         self.stateMachine.update(deltaTime: seconds )
         
     }
