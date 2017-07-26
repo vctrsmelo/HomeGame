@@ -53,6 +53,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var xGreaterThanLenght = false
     var yGreaterThanLenght = false
     
+    var endGameReached = false
     
     
     
@@ -330,6 +331,17 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 print("morreu")
                 
             }
+            else if(obstacleNode.physicsBody?.contactTestBitMask == 5){
+                // end game ground touched
+                
+                
+                endGameReached = true
+                
+                print("end game")
+                
+                
+            }
+
             
         }
         
@@ -381,23 +393,28 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func handleTap(gesture: UITapGestureRecognizer){
         
-        player?.stateMachine.state(forClass: JumpingState.self)?.rightMovement = self.rightMov
         
-        tapLocation = gesture.location(in: self.view)
-        
-        player.changeState(stateClass: JumpingState.self)
-        
-        if(self.rightMov){
+        if(!endGameReached){
             
-            self.cameraManager.setRightSideCameraConfiguration()
-        }
-        else{
+            player?.stateMachine.state(forClass: JumpingState.self)?.rightMovement = self.rightMov
             
-            self.cameraManager.setLeftSideCameraConfigurations(node: self.player.mainPlayerSprite)
-        }
-        
-        if childNode(withName: "fallObj") != nil{
-            self.fallObj(obj: self.childNode(withName: "fallObj")!)
+            tapLocation = gesture.location(in: self.view)
+            
+            player.changeState(stateClass: JumpingState.self)
+            
+            if(self.rightMov){
+                
+                self.cameraManager.setRightSideCameraConfiguration()
+            }
+            else{
+                
+                self.cameraManager.setLeftSideCameraConfigurations(node: self.player.mainPlayerSprite)
+            }
+            
+            if childNode(withName: "fallObj") != nil{
+                self.fallObj(obj: self.childNode(withName: "fallObj")!)
+            }
+            
         }
         
         
@@ -406,29 +423,36 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     //controller methodss
     public func handleLongPress (gesture: UILongPressGestureRecognizer){
 
-        if longPressSetted{
-            return
-        }
         
-        
-        let position = gesture.location(in: self.view!)
-        self.longPressLocation = self.convertPoint(fromView: position)
-        if gesture.state == .began{
-            base.position = self.convertPoint(fromView: position)
-            ball.position = base.position
-            base.isHidden = false
-            ball.isHidden = false
+        if(!endGameReached){
             
-        }
-        
-        if gesture.state == .ended || gesture.state == .cancelled{
             
-            base.isHidden = true
-            ball.isHidden = true
+            if longPressSetted{
+                return
+            }
             
-            ball.position = base.position
-            player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
-            return
+            
+            let position = gesture.location(in: self.view!)
+            self.longPressLocation = self.convertPoint(fromView: position)
+            if gesture.state == .began{
+                base.position = self.convertPoint(fromView: position)
+                ball.position = base.position
+                base.isHidden = false
+                ball.isHidden = false
+                
+            }
+            
+            if gesture.state == .ended || gesture.state == .cancelled{
+                
+                base.isHidden = true
+                ball.isHidden = true
+                
+                ball.position = base.position
+                player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+                return
+                
+            }
+            
             
         }
         
@@ -437,34 +461,41 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     public func handlePan(gesture: UIPanGestureRecognizer){
 
-        let position = gesture.location(in: self.view!)
-
-        self.longPressLocation = self.convertPoint(fromView: position)
+        if(!endGameReached){
+            
+            
+            let position = gesture.location(in: self.view!)
+            
+            self.longPressLocation = self.convertPoint(fromView: position)
+            
+            if gesture.state == .began{
+                
+                base.position = self.convertPoint(fromView: position)
+                
+                
+                ball.position = base.position
+                base.isHidden = false
+                ball.isHidden = false
+                
+            }
+            
+            if gesture.state == .ended || gesture.state == .cancelled{
+                
+                base.isHidden = true
+                ball.isHidden = true
+                
+                ball.position = base.position
+                player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+                return
+                
+            }
+            
+            setJoystickPosition(to: self.convertPoint(fromView: position))
+            
         
-        if gesture.state == .began{
-            
-            base.position = self.convertPoint(fromView: position)
-            
-            
-            ball.position = base.position
-            base.isHidden = false
-            ball.isHidden = false
             
         }
         
-        if gesture.state == .ended || gesture.state == .cancelled{
-            
-            base.isHidden = true
-            ball.isHidden = true
-            
-            ball.position = base.position
-            player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
-            return
-            
-        }
-
-        setJoystickPosition(to: self.convertPoint(fromView: position))
-       
     }
     
     
@@ -622,6 +653,14 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         player.update(deltaTime: currentTime)
         
         self.cameraManager.checkCameraPositionAndPerformMovement(node: player.mainPlayerSprite)
+        
+        
+        if(endGameReached){
+            
+            player.performEndGameAnimation()
+            
+        }
+        
  
         //Water
         if !self.hasReferenceFrameTime{
