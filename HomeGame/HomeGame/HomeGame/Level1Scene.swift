@@ -158,7 +158,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
 
             self.removeChildren(in: [water2])
-            self.addChild(waterNode1)
+            self.addChild(waterNode2)
             
         }
         
@@ -182,7 +182,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             self.waterNode3.physicsBody?.allowsRotation = false
             
             self.removeChildren(in: [water3])
-            self.addChild(waterNode1)
+            self.addChild(waterNode3)
             
         }
 
