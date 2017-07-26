@@ -33,7 +33,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var waterNode1: SBDynamicWaterNode!
     var waterNode1Size: CGSize!
     var waterNode2: SBDynamicWaterNode!
+    var waterNode2Size: CGSize!
     var waterNode3: SBDynamicWaterNode!
+    var waterNode3Size: CGSize!
     let kFixedTimeStep: Double = Double(1.0/500)
     let kSurfaceHeight: Double = 235
     var splashWidth: Int!
@@ -112,12 +114,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         
         if let water1 = self.childNode(withName: "//water1") as? SKSpriteNode {
-            self.waterNode1 = SBDynamicWaterNode.init(width: Float(water1.size.width), numJoints: 100, surfaceHeight: Float(water1.size.height), fillColour: WATER_COLOR)
+            self.waterNode1 = SBDynamicWaterNode.init(width: Float(water1.size.width), numJoints: 100, surfaceHeight: Float(water1.size.height), fillColour: water1.color)
             self.waterNode1Size = water1.size
             self.waterNode1.position = CGPoint(x: water1.position.x, y: water1.position.y-water1.size.height/2)
             self.waterNode1.physicsBody = SKPhysicsBody(rectangleOf:CGSize(width: water1.size.width, height: 1))
             self.waterNode1.zPosition = water1.zPosition
-            self.waterNode1.setColour(water1.color)
             self.waterNode1.alpha = water1.alpha
             
             self.waterNode1.physicsBody?.collisionBitMask = 1
@@ -125,19 +126,68 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             self.waterNode1.physicsBody?.categoryBitMask = 1
             self.waterNode1.physicsBody?.isDynamic = true
             
-            self.waterNode1.name = "water"
+            self.waterNode1.name = "water1"
             
             self.waterNode1.physicsBody?.affectedByGravity = false
             self.waterNode1.physicsBody?.pinned = true
             self.waterNode1.physicsBody?.allowsRotation = false
             
-            self.setDefaultWaterValues() //water
-            
             self.removeChildren(in: [water1])
             self.addChild(waterNode1)
             
         }
+        
+        if let water2 = self.childNode(withName: "//water2") as? SKSpriteNode {
+            self.waterNode2 = SBDynamicWaterNode.init(width: Float(water2.size.width), numJoints: 100, surfaceHeight: Float(water2.size.height), fillColour: water2.color)
+            self.waterNode2Size = water2.size
+            self.waterNode2.position = CGPoint(x: water2.position.x, y: water2.position.y-water2.size.height/2)
+            self.waterNode2.physicsBody = SKPhysicsBody(rectangleOf:CGSize(width: water2.size.width, height: 1))
+            self.waterNode2.zPosition = water2.zPosition
+            self.waterNode2.alpha = water2.alpha
+            
+            self.waterNode2.physicsBody?.collisionBitMask = 1
+            self.waterNode2.physicsBody?.contactTestBitMask = 1
+            self.waterNode2.physicsBody?.categoryBitMask = 1
+            self.waterNode2.physicsBody?.isDynamic = true
+            
+            self.waterNode2.name = "water2"
+            
+            self.waterNode2.physicsBody?.affectedByGravity = false
+            self.waterNode2.physicsBody?.pinned = true
+            self.waterNode2.physicsBody?.allowsRotation = false
+            
 
+            self.removeChildren(in: [water2])
+            self.addChild(waterNode1)
+            
+        }
+        
+        if let water3 = self.childNode(withName: "//water3") as? SKSpriteNode {
+            self.waterNode3 = SBDynamicWaterNode.init(width: Float(water3.size.width), numJoints: 100, surfaceHeight: Float(water3.size.height), fillColour: water3.color)
+            self.waterNode3Size = water3.size
+            self.waterNode3.position = CGPoint(x: water3.position.x, y: water3.position.y-water3.size.height/2)
+            self.waterNode3.physicsBody = SKPhysicsBody(rectangleOf:CGSize(width: water3.size.width, height: 1))
+            self.waterNode3.zPosition = water3.zPosition
+            self.waterNode3.alpha = water3.alpha
+            
+            self.waterNode3.physicsBody?.collisionBitMask = 1
+            self.waterNode3.physicsBody?.contactTestBitMask = 1
+            self.waterNode3.physicsBody?.categoryBitMask = 1
+            self.waterNode3.physicsBody?.isDynamic = true
+            
+            self.waterNode3.name = "water3"
+            
+            self.waterNode3.physicsBody?.affectedByGravity = false
+            self.waterNode3.physicsBody?.pinned = true
+            self.waterNode3.physicsBody?.allowsRotation = false
+            
+            self.removeChildren(in: [water3])
+            self.addChild(waterNode1)
+            
+        }
+
+        self.setDefaultWaterValues() //water
+        
 
     }
     
@@ -173,7 +223,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         self.splashWidth = 20
         self.splashForceMultiplier = 0.125
-        self.waterNode1.setDefaultValues()
+        self.waterNode1?.setDefaultValues()
+        self.waterNode2?.setDefaultValues()
+        self.waterNode3?.setDefaultValues()
         
     }
 
