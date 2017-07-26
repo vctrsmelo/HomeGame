@@ -198,28 +198,61 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func fixedWaterUpdate(_ dt:TimeInterval){
         
-        self.waterNode1.update(dt)
-        
-        let location = Float(0.0) //Float(self.waterNode1.frame.size.width)
-        
-        if self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode1.position.y+CGFloat(self.waterNode1.surfaceHeight){
-            print("player X: \(self.player.mainPlayerSprite.position.x) Y: \(self.player.mainPlayerSprite.position.y)")
-            print("water X: \(self.waterNode1.position.x) Y: \(self.waterNode1.position.y)")
-
-            let waterMinX = self.waterNode1.position.x-self.waterNode1Size.width/2.0
-            self.player.isAboveWater = false
+        if (self.waterNode1) != nil {
+            self.waterNode1.update(dt)
+            let water1MinX = self.waterNode1.position.x-self.waterNode1Size.width/2.0
+            let playerIsOverWater1 = ((self.player.mainPlayerSprite.position.x - water1MinX) <= (water1MinX + self.waterNode1Size.width) && (self.player.mainPlayerSprite.position.x - water1MinX) > 0) ? true : false
             
-            self.waterNode1.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-waterMinX)), force: 20, width: 20)
+            if playerIsOverWater1 && self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode1.position.y+CGFloat(self.waterNode1.surfaceHeight){
+                
+                self.player.isAboveWater = false
+                self.waterNode1.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-water1MinX)), force: 20, width: 20)
+                return
+                
+            }
             
         }
         
         
+        if (self.waterNode2) != nil {
+            
+            self.waterNode2.update(dt)
+            let water2MinX = self.waterNode2.position.x-self.waterNode2Size.width/2.0
+            let playerIsOverWater2 = ((self.player.mainPlayerSprite.position.x - water2MinX) <= (water2MinX + self.waterNode2Size.width) && (self.player.mainPlayerSprite.position.x - water2MinX) > 0) ? true : false
+            
+            if playerIsOverWater2 && self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode2.position.y+CGFloat(self.waterNode2.surfaceHeight){
+                
+                self.player.isAboveWater = false
+                self.waterNode2.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-water2MinX)), force: 20, width: 20)
+                return
+                
+            }
+            
+        }
+        
+        if (self.waterNode3) != nil {
+            
+            self.waterNode3.update(dt)
+            let water3MinX = self.waterNode3.position.x-self.waterNode3Size.width/2.0
+            let playerIsOverWater3 = ((self.player.mainPlayerSprite.position.x - water3MinX) <= (water3MinX + self.waterNode2Size.width) && (self.player.mainPlayerSprite.position.x - water3MinX) > 0) ? true : false
+            
+            if playerIsOverWater3 && self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode3.position.y+CGFloat(self.waterNode3.surfaceHeight){
+                
+                self.player.isAboveWater = false
+                self.waterNode3.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-water3MinX)), force: 20, width: 20)
+                return
+                
+            }
+            
+        }
         
     }
     
     func lateWaterUpdate(_ dt: CFTimeInterval){
         
-        self.waterNode1.render()
+        self.waterNode1?.render()
+        self.waterNode2?.render()
+        self.waterNode3?.render()
         
     }
     
