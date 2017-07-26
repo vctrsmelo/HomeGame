@@ -28,6 +28,20 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var joystickGesture: UIGestureRecognizer!
     var longPressSetted = false
     
+    
+    //water
+    var waterNode1: SBDynamicWaterNode!
+    var waterNode1Size: CGSize!
+    var waterNode2: SBDynamicWaterNode!
+    var waterNode3: SBDynamicWaterNode!
+    let kFixedTimeStep: Double = Double(1.0/500)
+    let kSurfaceHeight: Double = 235
+    var splashWidth: Int!
+    var splashForceMultiplier: Double!
+    let WATER_COLOR = SKColor.blue
+    var hasReferenceFrameTime = false
+    var lastFrameTime: TimeInterval!
+    
     var tapLocation: CGPoint!
     
     var longPressLocation: CGPoint!
@@ -95,8 +109,75 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             view.isMultipleTouchEnabled = true
         }
         
+        
+        
+        if let water1 = self.childNode(withName: "//water1") as? SKSpriteNode {
+            self.waterNode1 = SBDynamicWaterNode.init(width: Float(water1.size.width), numJoints: 100, surfaceHeight: Float(water1.size.height), fillColour: WATER_COLOR)
+            self.waterNode1Size = water1.size
+            self.waterNode1.position = CGPoint(x: water1.position.x, y: water1.position.y-water1.size.height/2)
+            self.waterNode1.physicsBody = SKPhysicsBody(rectangleOf:CGSize(width: water1.size.width, height: 1))
+            self.waterNode1.zPosition = water1.zPosition
+            self.waterNode1.setColour(water1.color)
+            self.waterNode1.alpha = water1.alpha
+            
+            self.waterNode1.physicsBody?.collisionBitMask = 1
+            self.waterNode1.physicsBody?.contactTestBitMask = 1
+            self.waterNode1.physicsBody?.categoryBitMask = 1
+            self.waterNode1.physicsBody?.isDynamic = true
+            
+            self.waterNode1.name = "water"
+            
+            self.waterNode1.physicsBody?.affectedByGravity = false
+            self.waterNode1.physicsBody?.pinned = true
+            self.waterNode1.physicsBody?.allowsRotation = false
+            
+            self.setDefaultWaterValues() //water
+            
+            self.removeChildren(in: [water1])
+            self.addChild(waterNode1)
+            
+        }
+
+
     }
     
+    
+    func fixedWaterUpdate(_ dt:TimeInterval){
+        
+        self.waterNode1.update(dt)
+        
+        let location = Float(0.0) //Float(self.waterNode1.frame.size.width)
+        
+        if self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode1.position.y+CGFloat(self.waterNode1.surfaceHeight){
+            print("player X: \(self.player.mainPlayerSprite.position.x) Y: \(self.player.mainPlayerSprite.position.y)")
+            print("water X: \(self.waterNode1.position.x) Y: \(self.waterNode1.position.y)")
+
+            let waterMinX = self.waterNode1.position.x-self.waterNode1Size.width/2.0
+            self.player.isAboveWater = false
+            
+            self.waterNode1.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-waterMinX)), force: 20, width: 20)
+            
+        }
+        
+        
+        
+    }
+    
+    func lateWaterUpdate(_ dt: CFTimeInterval){
+        
+        self.waterNode1.render()
+        
+    }
+    
+    func setDefaultWaterValues(){
+        
+        self.splashWidth = 20
+        self.splashForceMultiplier = 0.125
+        self.waterNode1.setDefaultValues()
+        
+    }
+
+
     
     func setCameraConfigurations(){
         
@@ -221,14 +302,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         let rotateAnimFull = SKAction.repeat(animationFull, count: 3)
         let animWithFall = SKAction.sequence([rotateAnimFull, fallAction])
         
-        //let when = DispatchTime.now() + 0.5 // change 0.5 to desired number of seconds
-        //  DispatchQueue.main.asyncAfter(deadline: when) {
-        //obstacleNode?.physicsBody?.affectedByGravity = true
         obstacle.run(animWithFall)
-        //}
-        //
-        
-        
         
     }
     
@@ -430,156 +504,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
     }
     
-    //    func seeIfItWasTapped(touches:Set<UITouch> ) -> Bool{
-    //
-    //        let firstTouch = touches.first!
-    //
-    //        let lastTouch = touches[touches.index(touches.startIndex, offsetBy: touches.count-1)]
-    //
-    //        if abs (lastTouch.location(in: self).x) - abs(firstTouch.location(in: self).x) > CGFloat (tolerance)
-    //        {
-    //            return false
-    //        }
-    //
-    //        if abs (lastTouch.location(in: self).y) - abs(firstTouch.location(in: self).y) > CGFloat (tolerance)
-    //        {
-    //
-    //            return false
-    //        }
-    //
-    //        return true
-    //
-    //    }
-    //
-    //
-    //
-    //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //
-    //        print("began")
-    //
-    //    }
-    //
-    //    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //
-    //        player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
-    //        ball.removeFromParent()
-    //        base.removeFromParent()
-    //
-    //    }
-    //
-    //    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //
-    //        player?.stateMachine.enter(StoppedState.self)
-    //        ball.position = base.position
-    //
-    //
-    //    }
-    
-    
-    //
-    //    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //
-    //        player?.stateMachine.enter(MovingState.self)
-    //        player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
-    //
-    //        if base.isHidden{
-    //            base.isHidden = false
-    //            ball.isHidden = false
-    //        }
-    //
-    //        base.position = (touches.first?.location(in: self))!
-    //        ball.position = (touches.first?.location(in: self))!
-    //
-    //
-    //        for touch in touches
-    //        {
-    //
-    //            let location = touch.location(in: self)
-    //            let vector  = CGVector(dx: location.x - base.position.x, dy: location.y - base.position.y)
-    //            var angle = atan2(vector.dx, vector.dy)
-    //
-    //            let degree = GLKMathRadiansToDegrees(Float(angle))
-    //
-    //            let lenght: CGFloat = 40
-    //
-    //            var xDist: CGFloat! // = sin(angle) * lenght
-    //            var yDist: CGFloat! // = cos(angle) * lenght
-    //
-    //
-    //            print(degree + 180)
-    //            if abs(location.x - base.position.x) <= lenght
-    //            {
-    //                xDist = abs(location.x - base.position.x)
-    //                self.xGreaterThanLenght = false
-    //
-    //            }
-    //            else{
-    //                if location.x < base.position.x {
-    //                    xDist = -lenght
-    //
-    //                }
-    //                else
-    //                {
-    //                    xDist = lenght
-    //                }
-    //
-    //                self.xGreaterThanLenght = true
-    //            }
-    //
-    //            if abs(location.y - base.position.y) <= lenght
-    //            {
-    //                yDist = abs(location.y - base.position.y)
-    //                self.yGreaterThanLenght = false
-    //
-    //            }
-    //            else{
-    //                self.yGreaterThanLenght = true
-    //
-    //                if location.y > base.position.y{
-    //                    yDist = lenght
-    //                }
-    //                else {
-    //                    yDist = -lenght
-    //                }
-    //
-    //            }
-    //            if angle == 0 {
-    //
-    //                player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
-    //
-    //            }
-    //            else{
-    //
-    //
-    //
-    //                if sin(angle) > 0 { //moving to the right
-    //                    self.rightMov = true
-    //
-    //                }
-    //                else{ //moving to the left
-    //                    self.rightMov = false
-    //
-    //                    if !self.xGreaterThanLenght{
-    //                        xDist = -xDist
-    //                    }
-    //
-    //                }
-    //
-    //
-    //                if cos(angle) <  0{
-    //                    if !self.yGreaterThanLenght{
-    //                        yDist = -yDist
-    //                    }
-    //                }
-    //                ball.position = CGPoint(x: base.position.x + xDist, y:  base.position.y + yDist)
-    //
-    //            }
-    //
-    //
-    //        }
-    //    }
-    
-    
     override func update(_ currentTime: TimeInterval) {
         
         let DISTANCE: Double = 150
@@ -647,6 +571,26 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         self.cameraManager.checkCameraPositionAndPerformMovement(node: player.mainPlayerSprite)
  
+        //Water
+        if !self.hasReferenceFrameTime{
+            self.lastFrameTime = currentTime
+            self.hasReferenceFrameTime = true
+            return
+        }
+        let dt: TimeInterval = currentTime-self.lastFrameTime
+        
+        // Fixed Update
+        var accumulator: TimeInterval = 0;
+        accumulator += dt;
+        
+        while (accumulator >= kFixedTimeStep) {
+            self.fixedWaterUpdate(kFixedTimeStep)
+            accumulator -= kFixedTimeStep
+        }
+        
+        self.lateWaterUpdate(dt)
+        self.lastFrameTime = currentTime
+        
     }
     
     
