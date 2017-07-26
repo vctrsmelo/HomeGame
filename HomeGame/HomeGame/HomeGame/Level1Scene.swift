@@ -97,14 +97,16 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         self.fog.append(SKEmitterNode.init(fileNamed: "SmokeParticle")!)
         
-        self.fog[0].position.x = 4150
-        self.fog[0].position.y = -30
+        self.fog[0].position.x = 4450
+        self.fog[0].position.y = 60
+        self.fog[0].zPosition = 5
 
         
         self.fog.append(SKEmitterNode.init(fileNamed: "SmokeParticle")!)
         
-        self.fog[1].position.x = 6241
-        self.fog[1].position.y = 0
+        self.fog[1].position.x = 6341
+        self.fog[1].position.y = 60
+        self.fog[1].zPosition = 5
         
         self.addChild(self.fog[0])
         self.addChild(self.fog[1])
