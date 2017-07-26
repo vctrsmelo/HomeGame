@@ -234,7 +234,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
             self.waterNode3.update(dt)
             let water3MinX = self.waterNode3.position.x-self.waterNode3Size.width/2.0
-            let playerIsOverWater3 = ((self.player.mainPlayerSprite.position.x - water3MinX) <= (water3MinX + self.waterNode2Size.width) && (self.player.mainPlayerSprite.position.x - water3MinX) > 0) ? true : false
+            let playerIsOverWater3 = ((self.player.mainPlayerSprite.position.x - water3MinX) <= (water3MinX + self.waterNode3Size.width) && (self.player.mainPlayerSprite.position.x - water3MinX) > 0) ? true : false
             
             if playerIsOverWater3 && self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode3.position.y+CGFloat(self.waterNode3.surfaceHeight){
                 
@@ -310,7 +310,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        print("TA COLIDINDO")
         
         var playerColision = false
         
@@ -373,8 +372,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             }
             else if(obstacleNode.physicsBody?.contactTestBitMask == 3){
                 
-                
-                print("colidiu com a rocha")
                 
                 if ( obstacleNode.position.y  < playerNode.position.y  && playerNode.position.x  > obstacleNode.position.x - obstacleNode.frame.size.width/2 && playerNode.position.x < obstacleNode.position.x + obstacleNode.frame.size.width/2){
                     

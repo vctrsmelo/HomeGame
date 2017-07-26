@@ -127,7 +127,12 @@ class CameraManager: AnyObject {
             
         }
  */
-            
+        
+        //print("Y: \(node.position.y)")
+        
+        if(node.position.y < -111){
+            return
+        }
         
         if(node.position.x >= 0){
             
