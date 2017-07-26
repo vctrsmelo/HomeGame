@@ -16,6 +16,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     //model attributes
     var player: Player! = nil
+    var animationCompleted: [Bool] = [true, true, true]
     
     //player control interface
     let base: SKShapeNode = SKShapeNode(circleOfRadius: 50)
@@ -89,6 +90,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         self.initScenarioElements()
         self.initCharacterNodes()
+        
         self.initControllerInterface()
         
         if let view = self.view {
@@ -99,6 +101,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     
     func setCameraConfigurations(){
+        
         
         self.cameraManager = CameraManager(viewWidth: (self.view?.frame.width)!)
         
@@ -158,7 +161,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             }
             
         }
-        else if let name = contact.bodyB.node?.name{
+        if let name = contact.bodyB.node?.name{
             if name == "Player"{
                 playerNode = contact.bodyB.node
                 obstacleNode = contact.bodyA.node
@@ -184,8 +187,10 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             else if(obstacleNode.physicsBody?.contactTestBitMask == 3){
                 
                 if ( obstacleNode.position.y  < playerNode.position.y  && playerNode.position.x  > obstacleNode.position.x - obstacleNode.frame.size.width/2 && playerNode.position.x < obstacleNode.position.x + obstacleNode.frame.size.width/2){
-                    
-                    self.obstacleAnimation(obstacle: obstacleNode)
+                   
+                    if obstacleNode != nil {
+                        self.obstacleAnimation(obstacle: obstacleNode)
+                    }
                     
                 }
             }
@@ -206,6 +211,13 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func obstacleAnimation(obstacle: SKNode){
         //let wait = SKAction.wait(forDuration: 1.0)
+        
+        let nameArray = obstacle.name?.components(separatedBy: "_")
+        let obsNumber = Int((nameArray?[1])!)
+       
+        
+        if animationCompleted[obsNumber!] {
+        animationCompleted[obsNumber!] =  false
         let rot1 = SKAction.rotate(byAngle: -CGFloat(GLKMathDegreesToRadians(1)), duration: 0.1)
         let rot2 = rot1.reversed()
         let rot3 = SKAction.rotate(byAngle: CGFloat(GLKMathDegreesToRadians(1)), duration: 0.1)
@@ -224,11 +236,15 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         //let when = DispatchTime.now() + 0.5 // change 0.5 to desired number of seconds
         //  DispatchQueue.main.asyncAfter(deadline: when) {
         //obstacleNode?.physicsBody?.affectedByGravity = true
-        obstacle.run(animWithFall)
+        //obstacle.run(animWithFall, completion: <#T##() -> Void#>)
         //}
         //
+        obstacle.run(animWithFall, completion: {
+            obstacle.removeFromParent()
+            self.animationCompleted[obsNumber!] = true
+        })
         
-        
+        }
         
     }
     
@@ -247,8 +263,12 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         ball.position = base.position
         
-        self.addChild(base)
-        self.addChild(ball)
+        self.cameraManager.cameraNode.addChild(base)
+        self.cameraManager.cameraNode.addChild(ball)
+
+        
+        //self.addChild(base)
+        //self.addChild(ball)
         
         
     }
@@ -258,6 +278,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         player?.stateMachine.state(forClass: JumpingState.self)?.rightMovement = self.rightMov
         
         tapLocation = gesture.location(in: self.view)
+        
         
         player.changeState(stateClass: JumpingState.self)
         
@@ -276,10 +297,17 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         }
         
         
-        let position = gesture.location(in: self.view!)
-        self.longPressLocation = self.convertPoint(fromView: position)
+        var position = gesture.location(in: self.view!)
+        position = self.convertPoint(fromView: position)
+        position =  (camera?.convert(position, from: self))!
+   
+        self.longPressLocation = position
+        
         if gesture.state == .began{
-            base.position = self.convertPoint(fromView: position)
+            print("posicao do joystick")
+            print(position)
+            
+            base.position = position
             ball.position = base.position
             base.isHidden = false
             ball.isHidden = false
@@ -302,15 +330,15 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     public func handlePan(gesture: UIPanGestureRecognizer){
 
-        let position = gesture.location(in: self.view!)
+        var position = gesture.location(in: self.view!)
+        position = self.convertPoint(fromView: position)
+        position =  (camera?.convert(position, from: self))!
 
-        self.longPressLocation = self.convertPoint(fromView: position)
+        self.longPressLocation = position
         
         if gesture.state == .began{
             
-            base.position = self.convertPoint(fromView: position)
-            
-            
+            base.position = position
             ball.position = base.position
             base.isHidden = false
             ball.isHidden = false
@@ -327,8 +355,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             return
             
         }
-
-        setJoystickPosition(to: self.convertPoint(fromView: position))
+        
+        setJoystickPosition(to: position)
        
     }
     
@@ -635,7 +663,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         }
         
         player.update(deltaTime: currentTime)
-        
+        //self.cameraManager.cameraNode.position.x = player.mainPlayerSprite.position.x
+        //self.cameraManager.cameraNode.position.y = player.mainPlayerSprite.position.y
+
         self.cameraManager.checkCameraPositionAndPerformMovement(node: player.mainPlayerSprite)
  
     }

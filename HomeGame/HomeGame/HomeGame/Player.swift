@@ -102,16 +102,11 @@ class Player: GKEntity {
     }
 
     func walk(positionDirection: positionEnum, duration: Double){
-        
-        //if (String(describing: self.mainPlayerSprite.texture).range(of: "player_run_7") == nil){
         if (animationEnded == 1 && jumpFinished == 1){
-            
-            
             if positionDirection == .left {
-                
                 self.mainPlayerSprite.xScale = -0.1
                 if positionToWalk.x != 0 {
-                    positionToWalk.x = -70
+                    positionToWalk.x = -30
                 }
                 
             }
@@ -126,16 +121,11 @@ class Player: GKEntity {
             
             animationEnded = 0
            
-            
-            
-            //walk duration = 0.4
-            //run duration = 0.2
-            
-           // print("Duratioooonnn" + String (duration))
-            
+            print(duration)
+   
                 let frameRate =  20// fps
-                let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.07)
-                let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: 0.42)
+                let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: duration/6)
+                let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: duration)
                 
                 
                 let walkAction = SKAction.sequence([moveByHalfXUp])
@@ -177,7 +167,7 @@ class Player: GKEntity {
 
         if (jumpFinished == 1){
           if positionDirection == .left{
-                self.mainPlayerSprite.xScale = -0.2
+                self.mainPlayerSprite.xScale = -0.1
                 if positionToJump.x != 0 {
                     positionToJump.x = -250
                 }
@@ -189,6 +179,7 @@ class Player: GKEntity {
             }
             
         jumpFinished = 0
+            
         
         let animateSprite = SKAction.animate(with: self.jumpTextures, timePerFrame: 0.2)
         let moveByHalfXUp = SKAction.moveBy(x: positionToJump.x/2, y: positionToJump.y, duration: 0.4)
@@ -326,7 +317,7 @@ class Player: GKEntity {
     
     func checkTextureForInitialFrame()->Bool{
         
-        print(self.mainPlayerSprite.texture)
+        //print(self.mainPlayerSprite.texture)
         
         if ((String(describing: self.mainPlayerSprite.texture).range(of: "7")) == nil){
             
@@ -391,7 +382,7 @@ class Player: GKEntity {
     override func update(deltaTime seconds: TimeInterval) {
         
         
-        print(mainPlayerSprite.texture)
+       // print(mainPlayerSprite.texture)
         self.stateMachine.update(deltaTime: seconds )
         
     }
