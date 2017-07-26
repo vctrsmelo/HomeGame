@@ -17,6 +17,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     //model attributes
     var player: Player! = nil
     
+    
+    var animationCompleted = [true, true, true, true, true]
+    
     //player control interface
     let base: SKShapeNode = SKShapeNode(circleOfRadius: 50)
     let ball: SKShapeNode = SKShapeNode(circleOfRadius: 40)
@@ -140,7 +143,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        
+        print("TA COLIDINDO")
         
         var playerColision = false
         
@@ -156,17 +159,37 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 playerColision = true
             
             }
+            else{
+                let partName = name.components(separatedBy: "_")
+                if partName[0] == "obs" {
+                    playerNode = contact.bodyB.node
+                    obstacleNode = contact.bodyA.node
+                    playerColision = true
+                }
+                
+
+            }
             
         }
-        else if let name = contact.bodyB.node?.name{
+        else{
+            if let name = contact.bodyB.node?.name{
             if name == "Player"{
                 playerNode = contact.bodyB.node
                 obstacleNode = contact.bodyA.node
                 playerColision = true
             }
+            else{
+                
+                let partName = name.components(separatedBy: "_")
+                if partName[0] == "obs" {
+                    playerNode = contact.bodyA.node
+                    obstacleNode = contact.bodyB.node
+                    playerColision = true
+                }
+            }
         }
         
-        
+        }
         
         if(playerColision){
             
@@ -182,6 +205,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 // Ice cub - morre
             }
             else if(obstacleNode.physicsBody?.contactTestBitMask == 3){
+                
+                
+                print("colidiu com a rocha")
                 
                 if ( obstacleNode.position.y  < playerNode.position.y  && playerNode.position.x  > obstacleNode.position.x - obstacleNode.frame.size.width/2 && playerNode.position.x < obstacleNode.position.x + obstacleNode.frame.size.width/2){
                     
@@ -205,6 +231,15 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     
     func obstacleAnimation(obstacle: SKNode){
+        
+        let nameArray = obstacle.name?.components(separatedBy: "_")
+        let obsNumber = Int((nameArray?[1])!)
+
+        
+        if animationCompleted[obsNumber!] {
+            animationCompleted[obsNumber!] =  false
+        
+        
         //let wait = SKAction.wait(forDuration: 1.0)
         let rot1 = SKAction.rotate(byAngle: -CGFloat(GLKMathDegreesToRadians(1)), duration: 0.1)
         let rot2 = rot1.reversed()
@@ -224,10 +259,14 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         //let when = DispatchTime.now() + 0.5 // change 0.5 to desired number of seconds
         //  DispatchQueue.main.asyncAfter(deadline: when) {
         //obstacleNode?.physicsBody?.affectedByGravity = true
-        obstacle.run(animWithFall)
+        //obstacle.run(animWithFall)
         //}
         //
-        
+            obstacle.run(animWithFall, completion: {
+                obstacle.removeFromParent()
+                self.animationCompleted[obsNumber!] = true
+            })
+        }
         
         
     }
@@ -237,18 +276,22 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func initControllerInterface(){
         
-        ball.fillColor = .brown
-        base.fillColor = .cyan
-        ball.zPosition = 1
-        base.zPosition = 1
+        base.lineWidth = 10
+        
+        base.strokeColor = .gray
+        ball.fillColor = .lightGray
+        //base.fillColor = .cyan
+        ball.zPosition = 2
+        base.zPosition = 2
+        ball.strokeColor = ball.fillColor
         
         ball.isHidden = true
         base.isHidden = true
         
         ball.position = base.position
         
-        self.addChild(base)
-        self.addChild(ball)
+        self.cameraManager.cameraNode.addChild(base)
+        self.cameraManager.cameraNode.addChild(ball)
         
         
     }
@@ -285,10 +328,19 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         }
         
         
-        let position = gesture.location(in: self.view!)
-        self.longPressLocation = self.convertPoint(fromView: position)
+        //let position = gesture.location(in: self.view!)
+        //self.longPressLocation = self.convertPoint(fromView: position)
+        var position = gesture.location(in: self.view!)
+        position = self.convertPoint(fromView: position)
+        position =  (camera?.convert(position, from: self))!
+        
+        self.longPressLocation = position
+        
+
+        
+        
         if gesture.state == .began{
-            base.position = self.convertPoint(fromView: position)
+            base.position = position //self.convertPoint(fromView: position)
             ball.position = base.position
             base.isHidden = false
             ball.isHidden = false
@@ -311,13 +363,21 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     public func handlePan(gesture: UIPanGestureRecognizer){
 
-        let position = gesture.location(in: self.view!)
+        //let position = gesture.location(in: self.view!)
 
-        self.longPressLocation = self.convertPoint(fromView: position)
+        //self.longPressLocation = self.convertPoint(fromView: position)
+        
+        
+        
+        var position = gesture.location(in: self.view!)
+        position = self.convertPoint(fromView: position)
+        position =  (camera?.convert(position, from: self))!
+        self.longPressLocation = position
+
         
         if gesture.state == .began{
             
-            base.position = self.convertPoint(fromView: position)
+            base.position = position //self.convertPoint(fromView: position)
             
             
             ball.position = base.position
@@ -337,7 +397,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
         }
 
-        setJoystickPosition(to: self.convertPoint(fromView: position))
+        setJoystickPosition(to: position)
        
     }
     
