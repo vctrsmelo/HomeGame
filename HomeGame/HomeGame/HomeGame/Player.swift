@@ -46,6 +46,8 @@ class Player: GKEntity {
     
     var actionCompleted = true
     
+   // var currentDirection: positionEnum = .right
+   // var duration: Double = 0.0
     
     var bird:SKNode!
 
@@ -102,7 +104,17 @@ class Player: GKEntity {
     }
 
     func walk(positionDirection: positionEnum, duration: Double){
+        
+        
+        //if positionDirection == currentDirection{
+        //    self.duration = duration
+            
+       // }
+        
+        
         if (animationEnded == 1 && jumpFinished == 1){
+       //     self.currentDirection = positionDirection
+            
             if positionDirection == .left {
                 self.mainPlayerSprite.xScale = -0.1
                 if positionToWalk.x != 0 {
