@@ -22,10 +22,9 @@ class PlayerWonState: GKState {
     
     override func didEnter(from previousState: GKState?) {
         
-        
-        print("Ganhou")
-        
-        print("Chamar - Tela de you won")
+        let creditsScene = SKScene(fileNamed: "NewCreditsScene")
+        //        let playerParent = player.mainPlayerSprite.parent as! SKScene
+        GameViewController.instanceView?.presentScene(creditsScene)
         
         
     }
