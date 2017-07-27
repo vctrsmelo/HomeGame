@@ -42,6 +42,8 @@
 		ED11293A1F292FB100D67489 /* BearMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1129391F292FB100D67489 /* BearMother.swift */; };
 		ED11293C1F2961AB00D67489 /* FireFlyTest.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED11293B1F2961AB00D67489 /* FireFlyTest.sks */; };
 		ED11293E1F298A9A00D67489 /* LastAnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED11293D1F298A9A00D67489 /* LastAnimationManager.swift */; };
+		ED1129401F2A333E00D67489 /* ShootingStar.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED11293F1F2A333E00D67489 /* ShootingStar.sks */; };
+		EE3EED851F27D111006A4960 /* Level1Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EE3EED841F27D111006A4960 /* Level1Scene.sks */; };
 		EEBFA9361F1E48FD007DB093 /* SBDynamicWaterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */; };
 		EEBFA9391F1E4B76007DB093 /* Droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9371F1E4B76007DB093 /* Droplet.png */; };
 		EEBFA93A1F1E4B76007DB093 /* Droplets.fsh in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9381F1E4B76007DB093 /* Droplets.fsh */; };
@@ -91,6 +93,8 @@
 		ED1129391F292FB100D67489 /* BearMother.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearMother.swift; sourceTree = "<group>"; };
 		ED11293B1F2961AB00D67489 /* FireFlyTest.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireFlyTest.sks; sourceTree = "<group>"; };
 		ED11293D1F298A9A00D67489 /* LastAnimationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastAnimationManager.swift; sourceTree = "<group>"; };
+		ED11293F1F2A333E00D67489 /* ShootingStar.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShootingStar.sks; sourceTree = "<group>"; };
+		EE3EED841F27D111006A4960 /* Level1Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1Scene.sks; sourceTree = "<group>"; };
 		EEBFA9331F1E48FD007DB093 /* HomeGame-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeGame-Bridging-Header.h"; sourceTree = "<group>"; };
 		EEBFA9341F1E48FD007DB093 /* SBDynamicWaterNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDynamicWaterNode.h; sourceTree = "<group>"; };
 		EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDynamicWaterNode.m; sourceTree = "<group>"; };
@@ -211,6 +215,7 @@
 				ED1128EC1F1FE59000D67489 /* SmokeParticle.sks */,
 				ED1128ED1F1FE59000D67489 /* snowParticle.sks */,
 				ED11293B1F2961AB00D67489 /* FireFlyTest.sks */,
+				ED11293F1F2A333E00D67489 /* ShootingStar.sks */,
 			);
 			name = ParticlesEffects;
 			sourceTree = "<group>";
@@ -362,6 +367,8 @@
 				AE30A63B1F2921FA00879E56 /* NewCreditsScene.sks in Resources */,
 				AE30A6371F27B91100879E56 /* MainScene.sks in Resources */,
 				ED1128EE1F1FE59000D67489 /* SmokeParticle.sks in Resources */,
+				EE3EED851F27D111006A4960 /* Level1Scene.sks in Resources */,
+				ED1129401F2A333E00D67489 /* ShootingStar.sks in Resources */,
 				EEBFA93A1F1E4B76007DB093 /* Droplets.fsh in Resources */,
 				EEF933661F154836004EB520 /* Actions.sks in Resources */,
 			);
