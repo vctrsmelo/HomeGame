@@ -44,8 +44,8 @@ class MainScene: SKScene {
     func initMainSceneAttributes() -> Bool {
         initBackgroundAndHome()
         initMiddleground()
-        initPlayBtn("Button_play")
-        initCreditsBtn("Button_credits")
+        initPlayBtn("button_play")
+        initCreditsBtn("button_credits")
         
         return true
     }
@@ -124,7 +124,7 @@ class MainScene: SKScene {
         
         self.stone.zPosition = CGFloat(-80)
         
-        print("\(self.background.frame.minY)\n")
+//        print("\(self.background.frame.minY)\n")
     }
     
     func initPlayBtn(_ name: String) {
