@@ -449,6 +449,13 @@ class Player: GKEntity {
     override func update(deltaTime seconds: TimeInterval) {
         
         self.stateMachine.update(deltaTime: seconds )
+    
+        if(self.mainPlayerSprite.position.y < -130 && !(self.stateMachine.currentState is PlayerLostState)){
+            
+            self.stateMachine.enter(PlayerLostState)
+            print("PERDEU")
+            
+        }
         
     }
     

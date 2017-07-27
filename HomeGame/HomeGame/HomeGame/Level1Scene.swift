@@ -107,14 +107,16 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         /*
         self.fog.append(SKEmitterNode.init(fileNamed: "SmokeParticle")!)
         
-        self.fog[0].position.x = 4150
-        self.fog[0].position.y = -30
+        self.fog[0].position.x = 4450
+        self.fog[0].position.y = 60
+        self.fog[0].zPosition = 5
 
         
         self.fog.append(SKEmitterNode.init(fileNamed: "SmokeParticle")!)
         
-        self.fog[1].position.x = 6241
-        self.fog[1].position.y = 0
+        self.fog[1].position.x = 6341
+        self.fog[1].position.y = 60
+        self.fog[1].zPosition = 5
         
         self.addChild(self.fog[0])
         self.addChild(self.fog[1])
@@ -238,10 +240,10 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if (self.waterNode1) != nil {
             self.waterNode1.update(dt)
             let water1MinX = self.waterNode1.position.x-self.waterNode1Size.width/2.0
-            let playerIsOverWater1 = ((self.player.mainPlayerSprite.position.x - water1MinX) <= (water1MinX + self.waterNode1Size.width) && (self.player.mainPlayerSprite.position.x - water1MinX) > 0) ? true : false
+            let playerIsOverWater1 = (self.player.mainPlayerSprite.position.x <= (water1MinX + self.waterNode1Size.width) && (self.player.mainPlayerSprite.position.x - water1MinX) > 0) ? true : false
             
             if playerIsOverWater1 && self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode1.position.y+CGFloat(self.waterNode1.surfaceHeight){
-                
+                print("Veio water1")
                 self.player.isAboveWater = false
                 self.waterNode1.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-water1MinX)), force: 20, width: 20)
                 return
@@ -255,10 +257,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
             self.waterNode2.update(dt)
             let water2MinX = self.waterNode2.position.x-self.waterNode2Size.width/2.0
-            let playerIsOverWater2 = ((self.player.mainPlayerSprite.position.x - water2MinX) <= (water2MinX + self.waterNode2Size.width) && (self.player.mainPlayerSprite.position.x - water2MinX) > 0) ? true : false
+            
+            let playerIsOverWater2 = (self.player.mainPlayerSprite.position.x <= (self.waterNode2.position.x+self.waterNode2Size.width/2.0) && (self.player.mainPlayerSprite.position.x - water2MinX) > 0) ? true : false
             
             if playerIsOverWater2 && self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode2.position.y+CGFloat(self.waterNode2.surfaceHeight){
-                
+                print("Veio water2")
                 self.player.isAboveWater = false
                 self.waterNode2.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-water2MinX)), force: 20, width: 20)
                 return
@@ -271,10 +274,10 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
             self.waterNode3.update(dt)
             let water3MinX = self.waterNode3.position.x-self.waterNode3Size.width/2.0
-            let playerIsOverWater3 = ((self.player.mainPlayerSprite.position.x - water3MinX) <= (water3MinX + self.waterNode3Size.width) && (self.player.mainPlayerSprite.position.x - water3MinX) > 0) ? true : false
+            let playerIsOverWater3 = (self.player.mainPlayerSprite.position.x <= (water3MinX + self.waterNode3Size.width) && (self.player.mainPlayerSprite.position.x - water3MinX) > 0) ? true : false
             
             if playerIsOverWater3 && self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode3.position.y+CGFloat(self.waterNode3.surfaceHeight){
-                
+                print("Veio water3")
                 self.player.isAboveWater = false
                 self.waterNode3.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-water3MinX)), force: 20, width: 20)
                 return
