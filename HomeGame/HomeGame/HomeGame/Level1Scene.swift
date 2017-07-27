@@ -17,7 +17,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     //model attributes
     var player: Player! = nil
     
-    
+    var fallObjects: [SKNode] = []
+    var fallenFinished = true
     var animationCompleted = [true, true, true, true, true]
     
     //player control interface
@@ -82,7 +83,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         super.didMove(to: view)
         
-        
+       // let gameOverScene = SKScene(fileNamed: "GameOverScene")
+        //let playerParent = player.mainPlayerSprite.parent as! SKScene
+       // self.view?.presentScene(gameOverScene)
         
         //let credits = SKScene(fileNamed: "CreditsScene")
        // self.view?.presentScene(credits)
@@ -297,64 +300,86 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func fallObj (obj: SKNode){
        
+        //for obj in self.fallObjects{
+            let nameSep = obj.name?.components(separatedBy: "_")
+            let objNumber: Int = Int((nameSep?[1])!)!
+        let waitDuration: Double!
+        
+        switch objNumber {
+        case 0:
+            waitDuration = 0.7
+            break
+        case 1:
+            waitDuration = 3
+            break
+        case 2:
+            waitDuration = 0.5
+            break
+        default:
+            waitDuration = 0
+            break
+
+        }
+        
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate) //treme
-            let wait = SKAction.wait(forDuration: 1) //esperea 1 sec
-            let fall = SKAction.move(to: CGPoint(x: obj.position.x, y: -200), duration: 2) //cai
+            obj.zPosition = 0
+            let wait = SKAction.wait(forDuration: waitDuration) //esperea
+            let fall = SKAction.move(to: CGPoint(x: obj.position.x, y: -200), duration: 3) //cai
             let sequence = SKAction.sequence([wait, fall])
             obj.run(sequence, completion: { 
                   obj.removeFromParent()
+                if objNumber != 2 {
+                    self.fallObj(obj: self.fallObjects[objNumber + 1])
+                }
+
             })
           
-        
+        //}
         
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        print("TA COLIDINDO")
+    
         
         var playerColision = false
-        
         var playerNode:SKNode!
-        
         var obstacleNode:SKNode!
         
         if let name = contact.bodyA.node?.name{
             if name == "Player" {
-            
+                print("body a player")
+
                 playerNode = contact.bodyA.node
                 obstacleNode = contact.bodyB.node
                 playerColision = true
             
             }
-            else{
-                let partName = name.components(separatedBy: "_")
-                if partName[0] == "obs" {
-                    playerNode = contact.bodyB.node
-                    obstacleNode = contact.bodyA.node
-                    playerColision = true
-                }
-                
-
-            }
-            
+           // else{
+           //     let partName = name.components(separatedBy: "_")
+          //      if partName[0] == "obs" || name == "checkPoint"{
+            //        playerNode = contact.bodyB.node
+            //        obstacleNode = contact.bodyA.node
+            //        playerColision = true
+             //   }
+           // }
         }
-        else{
-            if let name = contact.bodyB.node?.name{
+        
+        if let name = contact.bodyB.node?.name{
             if name == "Player"{
+                print("body b player")
                 playerNode = contact.bodyB.node
                 obstacleNode = contact.bodyA.node
                 playerColision = true
             }
-            else{
-                
-                let partName = name.components(separatedBy: "_")
-                if partName[0] == "obs" {
-                    playerNode = contact.bodyA.node
-                    obstacleNode = contact.bodyB.node
-                    playerColision = true
-                }
-            }
-        }
+           // else{
+            //    let partName = name.components(separatedBy: "_")
+              //  if partName[0] == "obs"  || name == "checkPoint" {
+                //    playerNode = contact.bodyA.node
+                  //  obstacleNode = contact.bodyB.node
+                  //  playerColision = true
+              //  }
+           // }
+        
         
         }
         
@@ -399,6 +424,27 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 print("end game")
                 
                 
+            }
+            
+            else  if(obstacleNode.physicsBody?.contactTestBitMask == 22){
+                // entrou na cave
+                print("entrou na cave")
+                if childNode(withName: "fallObj_0") != nil && childNode(withName: "fallObj_1") != nil && childNode(withName: "fallObj_2") != nil{
+                self.fallObjects.append(childNode(withName: "fallObj_0")!)
+                self.fallObjects.append(childNode(withName: "fallObj_1")!)
+                self.fallObjects.append(childNode(withName: "fallObj_2")!)
+                
+                //if childNode(withName: "fallObj") != nil{
+                    self.fallObj(obj: fallObjects[0])
+                //}
+                
+                }
+                
+            }
+            
+            else  if(obstacleNode.physicsBody?.contactTestBitMask == 7){
+                print("nao desviou do objeto")
+                player.stateMachine.enter(PlayerLostState.self)
             }
 
             
@@ -494,9 +540,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 self.cameraManager.setLeftSideCameraConfigurations(node: self.player.mainPlayerSprite)
             }
             
-            if childNode(withName: "fallObj") != nil{
-                self.fallObj(obj: self.childNode(withName: "fallObj")!)
-            }
+            
             
         }
         

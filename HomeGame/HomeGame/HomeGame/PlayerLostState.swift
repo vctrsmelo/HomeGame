@@ -21,5 +21,12 @@ class PlayerLostState: GKState {
         self.player = player
         super.init()
     }
+    
+    
+    override func didEnter(from previousState: GKState?) {
+        let gameOverScene = SKScene(fileNamed: "GameOverScene")
+        let playerParent = player.mainPlayerSprite.parent as! SKScene
+        playerParent.view?.presentScene(gameOverScene)
+    }
 
 }

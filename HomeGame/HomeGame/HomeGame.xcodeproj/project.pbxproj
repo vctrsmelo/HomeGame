@@ -18,6 +18,8 @@
 		8D8DF91E1F169B3600CF6A97 /* PlayerLostState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */; };
 		8DE3551A1F26790100FB3C56 /* CreditsScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8DE355191F26790100FB3C56 /* CreditsScene.sks */; };
 		8DE3551C1F267A7D00FB3C56 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE3551B1F267A7D00FB3C56 /* CreditsScene.swift */; };
+		8DE355201F2A23E500FB3C56 /* GameOverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8DE3551F1F2A23E500FB3C56 /* GameOverScene.sks */; };
+		8DE355221F2A23F600FB3C56 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE355211F2A23F600FB3C56 /* GameOverScene.swift */; };
 		AE30A62F1F1D29E500879E56 /* LevelButtonPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE30A62E1F1D29E500879E56 /* LevelButtonPopView.swift */; };
 		AE75D7C31F156B0400F37A5A /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C21F156B0400F37A5A /* MovementComponent.swift */; };
 		AE75D7C51F156B4A00F37A5A /* JumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */; };
@@ -59,6 +61,8 @@
 		8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerLostState.swift; sourceTree = "<group>"; };
 		8DE355191F26790100FB3C56 /* CreditsScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CreditsScene.sks; sourceTree = "<group>"; };
 		8DE3551B1F267A7D00FB3C56 /* CreditsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
+		8DE3551F1F2A23E500FB3C56 /* GameOverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOverScene.sks; sourceTree = "<group>"; };
+		8DE355211F2A23F600FB3C56 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		AE30A62E1F1D29E500879E56 /* LevelButtonPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelButtonPopView.swift; sourceTree = "<group>"; };
 		AE75D7C21F156B0400F37A5A /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		AE75D7C41F156B4A00F37A5A /* JumpComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpComponent.swift; sourceTree = "<group>"; };
@@ -251,6 +255,8 @@
 				8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */,
 				8DE355191F26790100FB3C56 /* CreditsScene.sks */,
 				8DE3551B1F267A7D00FB3C56 /* CreditsScene.swift */,
+				8DE3551F1F2A23E500FB3C56 /* GameOverScene.sks */,
+				8DE355211F2A23F600FB3C56 /* GameOverScene.swift */,
 			);
 			path = HomeGame;
 			sourceTree = "<group>";
@@ -287,7 +293,7 @@
 				TargetAttributes = {
 					EEF9335D1F154836004EB520 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = Y93HUJS49V;
+						DevelopmentTeam = HXG58UK739;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -317,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEBFA9391F1E4B76007DB093 /* Droplet.png in Resources */,
+				8DE355201F2A23E500FB3C56 /* GameOverScene.sks in Resources */,
 				EEF9336D1F154836004EB520 /* Main.storyboard in Resources */,
 				ED0A2E2A1F15491E0058E8D3 /* HomeScene.sks in Resources */,
 				8DE3551A1F26790100FB3C56 /* CreditsScene.sks in Resources */,
@@ -363,6 +370,7 @@
 				8D8DF91C1F169B1400CF6A97 /* PlayerWonState.swift in Sources */,
 				8D8DF90E1F1559BA00CF6A97 /* Player.swift in Sources */,
 				ED0A2E341F15536F0058E8D3 /* ScenarioObjects.swift in Sources */,
+				8DE355221F2A23F600FB3C56 /* GameOverScene.swift in Sources */,
 				8D8DF91E1F169B3600CF6A97 /* PlayerLostState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,7 +496,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = Y93HUJS49V;
+				DEVELOPMENT_TEAM = HXG58UK739;
 				INFOPLIST_FILE = HomeGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -507,7 +515,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = Y93HUJS49V;
+				DEVELOPMENT_TEAM = HXG58UK739;
 				INFOPLIST_FILE = HomeGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
