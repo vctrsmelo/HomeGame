@@ -62,7 +62,7 @@ class LastAnimationManager{
     
     private func initPhysicsBody(){
         
-        self.animationMainNode.physicsBody = SKPhysicsBody.init(texture: self.animationMainNode.texture!, size: self.animationMainNode.size)
+        self.animationMainNode.physicsBody = SKPhysicsBody.init(texture: self.animationMainNode.texture!, size: CGSize.init(width: self.animationMainNode.size.width, height: self.animationMainNode.size.height-20) )
         
         self.animationMainNode.physicsBody?.affectedByGravity = true
         self.animationMainNode.physicsBody?.pinned = false
@@ -112,7 +112,7 @@ class LastAnimationManager{
                 
                 self.totalTimeAnimationIsPerformed+=1
                 
-                if(self.totalTimeAnimationIsPerformed>=7){
+                if(self.totalTimeAnimationIsPerformed>=8){
                     
                     self.animationMainNode.removeAllActions()
                     self.lastAnimationEnded = true

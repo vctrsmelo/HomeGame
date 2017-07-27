@@ -18,11 +18,14 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var player: Player! = nil
     
     
+    
     var animationCompleted = [true, true, true, true, true]
     
     //player control interface
     let base: SKShapeNode = SKShapeNode(circleOfRadius: 50)
     let ball: SKShapeNode = SKShapeNode(circleOfRadius: 40)
+    
+    var oneTimeShootingStarAnimation = false
     
     //controller attributes
     var tap: UITapGestureRecognizer!
@@ -77,6 +80,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     var cameraManager:CameraManager!
     
+    var shottingStar:SKEmitterNode!
+    
     override func sceneDidLoad() {
         
         
@@ -91,11 +96,15 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     override func didMove(to view: SKView) {
         
         
-        
         super.didMove(to: view)
         
+        self.shottingStar = SKEmitterNode.init(fileNamed: "ShootingStar")
+        self.shottingStar.position.x = 10400
+        self.shottingStar.position.y = 300
         
-        self.lastAnimationManager = LastAnimationManager()
+        addChild(self.shottingStar)
+
+       
         
         self.snow = SKEmitterNode.init(fileNamed: "snowParticle")
         self.snow.position.x = 8420
@@ -231,6 +240,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
 
         self.setDefaultWaterValues() //water
         
+         self.lastAnimationManager = LastAnimationManager()
+        
 
     }
     
@@ -336,7 +347,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         mother = BearMother()
         
-        mother.mainMotherSprite.position.x = 9580
+        mother.mainMotherSprite.position.x = 9620
         self.addChild(mother.mainMotherSprite)
         mother.mainMotherSprite.zPosition = 1
         
@@ -446,6 +457,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 
                 
             }
+            else if(obstacleNode.name == "Mother"){
+                
+                self.player.finishEndGameAnimation = true
+                
+            }
 
             
         }
@@ -522,6 +538,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func handleTap(gesture: UITapGestureRecognizer){
         
+        
+        //self.movementShootingStar()
         
         if(!endGameReached){
             
@@ -807,6 +825,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 firstTimeEnteredEndGame = false
                 
                 player.mainPlayerSprite.removeAllActions()
+                self.base.isHidden = true
+                self.ball.isHidden = true
+
                 
             //    self.cameraManager.performZoomToEndGame()
                 
@@ -819,7 +840,13 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
             mother.animateMotherToSonDirection()
             
-            player.performEndGameAnimation()
+            if(!self.firstEndGameAnimationIsFinished()){
+            
+                
+                player.performEndGameAnimation()
+                
+                
+            }
             
             if(self.firstEndGameAnimationIsFinished()){
                 
@@ -828,8 +855,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                     firstEndedFirstAnimation = false
                     
                     // hidden joystick
-                    self.base.isHidden = true
-                    self.ball.isHidden = true
                     
                     self.removeFirstAnimationNodesFromScreenAndPrepareNextAnimation()
                  // run second animation
@@ -839,9 +864,18 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 
                 // then run third animation
             
+                
+                if(!self.oneTimeShootingStarAnimation){
+                    
+                    self.movementShootingStar()
+
+                }
+                
                 self.executeThirdAnimation()
                 
                 if(self.lastAnimationManager.allTheGameAnimationsAreFinished()){
+                    
+                    self.movementShootingStar()
                     
                     player.stateMachine.enter(PlayerWonState.self)
 
@@ -917,5 +951,18 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.lastAnimationManager.performShakingHeadAnimation()
     }
     
+    func movementShootingStar(){
+        
+        self.shottingStar.run(SKAction.move(to: CGPoint.init(x: self.player.mainPlayerSprite.position.x-380, y: self.player.mainPlayerSprite.position.y+120), duration: 0.8), completion: {() -> Void in
+            
+           self.oneTimeShootingStarAnimation = true
+            
+        })
+
+        
+        
+        //self.shottingStar.run(SKAction.move(by: CGVector.init(dx: -100, dy: -100), duration: 6))
+        
+    }
     
 }

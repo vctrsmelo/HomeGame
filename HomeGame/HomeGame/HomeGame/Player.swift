@@ -461,7 +461,7 @@ class Player: GKEntity {
     
     func changePhysicsBody(){
         
-        self.mainPlayerSprite.physicsBody = SKPhysicsBody.init(texture: SKTexture.init(imageNamed: "Walking_1"), size: self.mainPlayerSprite.size)
+        self.mainPlayerSprite.physicsBody = SKPhysicsBody.init(texture: SKTexture.init(imageNamed: "Walking_1"), size: CGSize.init(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height-10))
         
     }
     

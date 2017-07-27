@@ -36,6 +36,7 @@
 		ED11293A1F292FB100D67489 /* BearMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1129391F292FB100D67489 /* BearMother.swift */; };
 		ED11293C1F2961AB00D67489 /* FireFlyTest.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED11293B1F2961AB00D67489 /* FireFlyTest.sks */; };
 		ED11293E1F298A9A00D67489 /* LastAnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED11293D1F298A9A00D67489 /* LastAnimationManager.swift */; };
+		ED1129401F2A333E00D67489 /* ShootingStar.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED11293F1F2A333E00D67489 /* ShootingStar.sks */; };
 		EE3EED851F27D111006A4960 /* Level1Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EE3EED841F27D111006A4960 /* Level1Scene.sks */; };
 		EEBFA9361F1E48FD007DB093 /* SBDynamicWaterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */; };
 		EEBFA9391F1E4B76007DB093 /* Droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9371F1E4B76007DB093 /* Droplet.png */; };
@@ -80,6 +81,7 @@
 		ED1129391F292FB100D67489 /* BearMother.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearMother.swift; sourceTree = "<group>"; };
 		ED11293B1F2961AB00D67489 /* FireFlyTest.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireFlyTest.sks; sourceTree = "<group>"; };
 		ED11293D1F298A9A00D67489 /* LastAnimationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastAnimationManager.swift; sourceTree = "<group>"; };
+		ED11293F1F2A333E00D67489 /* ShootingStar.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShootingStar.sks; sourceTree = "<group>"; };
 		EE3EED841F27D111006A4960 /* Level1Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1Scene.sks; sourceTree = "<group>"; };
 		EEBFA9331F1E48FD007DB093 /* HomeGame-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeGame-Bridging-Header.h"; sourceTree = "<group>"; };
 		EEBFA9341F1E48FD007DB093 /* SBDynamicWaterNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDynamicWaterNode.h; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				ED1128EC1F1FE59000D67489 /* SmokeParticle.sks */,
 				ED1128ED1F1FE59000D67489 /* snowParticle.sks */,
 				ED11293B1F2961AB00D67489 /* FireFlyTest.sks */,
+				ED11293F1F2A333E00D67489 /* ShootingStar.sks */,
 			);
 			name = ParticlesEffects;
 			sourceTree = "<group>";
@@ -296,7 +299,7 @@
 				TargetAttributes = {
 					EEF9335D1F154836004EB520 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = Y93HUJS49V;
+						DevelopmentTeam = HXG58UK739;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -336,6 +339,7 @@
 				EEF933721F154836004EB520 /* LaunchScreen.storyboard in Resources */,
 				ED1128EE1F1FE59000D67489 /* SmokeParticle.sks in Resources */,
 				EE3EED851F27D111006A4960 /* Level1Scene.sks in Resources */,
+				ED1129401F2A333E00D67489 /* ShootingStar.sks in Resources */,
 				EEBFA93A1F1E4B76007DB093 /* Droplets.fsh in Resources */,
 				EEF933661F154836004EB520 /* Actions.sks in Resources */,
 			);
@@ -500,7 +504,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = Y93HUJS49V;
+				DEVELOPMENT_TEAM = HXG58UK739;
 				INFOPLIST_FILE = HomeGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -519,7 +523,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = Y93HUJS49V;
+				DEVELOPMENT_TEAM = HXG58UK739;
 				INFOPLIST_FILE = HomeGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

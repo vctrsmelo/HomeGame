@@ -150,9 +150,9 @@ class BearMother{
         
         var mother_texture  = SKTexture.init(imageNamed: "Stop_Fliped_Mother")
       
+        self.mainMotherSprite.zPosition = 0
         
-        
-        self.mainMotherSprite.physicsBody = SKPhysicsBody.init(texture: mother_texture, size: self.mainMotherSprite.size)
+        self.mainMotherSprite.physicsBody = SKPhysicsBody.init(texture: mother_texture, size: CGSize.init(width: self.mainMotherSprite.size.width, height: self.mainMotherSprite.size.height - 10))
         
     }
     
