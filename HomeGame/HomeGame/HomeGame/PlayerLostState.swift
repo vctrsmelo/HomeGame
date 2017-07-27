@@ -14,19 +14,15 @@ class PlayerLostState: GKState {
     
     let player: Player!
     
-    
-    
-    
     init(with player: Player) {
         self.player = player
         super.init()
     }
     
-    
     override func didEnter(from previousState: GKState?) {
         let gameOverScene = SKScene(fileNamed: "GameOverScene")
-        let playerParent = player.mainPlayerSprite.parent as! SKScene
-        playerParent.view?.presentScene(gameOverScene)
+//        let playerParent = player.mainPlayerSprite.parent as! SKScene
+        GameViewController.instanceView?.presentScene(gameOverScene)
     }
 
 }
