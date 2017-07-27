@@ -293,7 +293,7 @@ class Player: GKEntity {
         
         mainPlayerSprite = SKSpriteNode(texture: SKTexture(imageNamed: "Walking_1"))
         
-        mainPlayerSprite.position = CGPoint(x: -220, y: -79.992 + 50)
+        mainPlayerSprite.position = CGPoint(x: 7367, y: -79.992 + 50)
         
         mainPlayerSprite.zPosition = 0
         
@@ -419,11 +419,13 @@ class Player: GKEntity {
                 self.endGameAnimationCompleted = true
                 self.totalTimePassedEndGameAnimation+=0.6
                 
-                if(self.totalTimePassedEndGameAnimation > 6.0){
+                if(self.totalTimePassedEndGameAnimation > 4.8){
                     
                     self.mainPlayerSprite.removeAllActions()
                     
                     self.finishEndGameAnimation = true
+                    
+                    self.mainPlayerSprite.texture = SKTexture.init(imageNamed: "Walking_1")
                 }
                 
             })
@@ -447,6 +449,12 @@ class Player: GKEntity {
     override func update(deltaTime seconds: TimeInterval) {
         
         self.stateMachine.update(deltaTime: seconds )
+        
+    }
+    
+    func changePhysicsBody(){
+        
+        self.mainPlayerSprite.physicsBody = SKPhysicsBody.init(texture: SKTexture.init(imageNamed: "Walking_1"), size: self.mainPlayerSprite.size)
         
     }
     

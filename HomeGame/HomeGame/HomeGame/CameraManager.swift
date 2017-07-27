@@ -146,6 +146,11 @@ class CameraManager: AnyObject {
     }
     
     
+    func performZoomToEndGame(){
+        
+        self.cameraNode.run(SKAction.scale(to: 0.68, duration: 3))
+        
+    }
     
     
 }

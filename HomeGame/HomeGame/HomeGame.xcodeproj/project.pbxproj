@@ -33,6 +33,9 @@
 		ED1128EE1F1FE59000D67489 /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED1128EC1F1FE59000D67489 /* SmokeParticle.sks */; };
 		ED1128EF1F1FE59000D67489 /* snowParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED1128ED1F1FE59000D67489 /* snowParticle.sks */; };
 		ED1129181F22951000D67489 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1129171F22951000D67489 /* CameraManager.swift */; };
+		ED11293A1F292FB100D67489 /* BearMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1129391F292FB100D67489 /* BearMother.swift */; };
+		ED11293C1F2961AB00D67489 /* FireFlyTest.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED11293B1F2961AB00D67489 /* FireFlyTest.sks */; };
+		ED11293E1F298A9A00D67489 /* LastAnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED11293D1F298A9A00D67489 /* LastAnimationManager.swift */; };
 		EE3EED851F27D111006A4960 /* Level1Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EE3EED841F27D111006A4960 /* Level1Scene.sks */; };
 		EEBFA9361F1E48FD007DB093 /* SBDynamicWaterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */; };
 		EEBFA9391F1E4B76007DB093 /* Droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9371F1E4B76007DB093 /* Droplet.png */; };
@@ -74,6 +77,9 @@
 		ED1128EC1F1FE59000D67489 /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
 		ED1128ED1F1FE59000D67489 /* snowParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = snowParticle.sks; sourceTree = "<group>"; };
 		ED1129171F22951000D67489 /* CameraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		ED1129391F292FB100D67489 /* BearMother.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearMother.swift; sourceTree = "<group>"; };
+		ED11293B1F2961AB00D67489 /* FireFlyTest.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireFlyTest.sks; sourceTree = "<group>"; };
+		ED11293D1F298A9A00D67489 /* LastAnimationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastAnimationManager.swift; sourceTree = "<group>"; };
 		EE3EED841F27D111006A4960 /* Level1Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1Scene.sks; sourceTree = "<group>"; };
 		EEBFA9331F1E48FD007DB093 /* HomeGame-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeGame-Bridging-Header.h"; sourceTree = "<group>"; };
 		EEBFA9341F1E48FD007DB093 /* SBDynamicWaterNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDynamicWaterNode.h; sourceTree = "<group>"; };
@@ -184,6 +190,7 @@
 			children = (
 				ED1128EC1F1FE59000D67489 /* SmokeParticle.sks */,
 				ED1128ED1F1FE59000D67489 /* snowParticle.sks */,
+				ED11293B1F2961AB00D67489 /* FireFlyTest.sks */,
 			);
 			name = ParticlesEffects;
 			sourceTree = "<group>";
@@ -235,12 +242,14 @@
 				EEF933631F154836004EB520 /* GameScene.sks */,
 				EEF933651F154836004EB520 /* Actions.sks */,
 				EEF933671F154836004EB520 /* GameScene.swift */,
+				ED11293D1F298A9A00D67489 /* LastAnimationManager.swift */,
 				EEF933691F154836004EB520 /* GameViewController.swift */,
 				EEF9336B1F154836004EB520 /* Main.storyboard */,
 				EEF9336E1F154836004EB520 /* Assets.xcassets */,
 				EEF933701F154836004EB520 /* LaunchScreen.storyboard */,
 				EEF933731F154836004EB520 /* Info.plist */,
 				8D8DF90D1F1559BA00CF6A97 /* Player.swift */,
+				ED1129391F292FB100D67489 /* BearMother.swift */,
 				8D8DF90F1F155A8200CF6A97 /* StoppedState.swift */,
 				8D8DF9111F155A9800CF6A97 /* MovingState.swift */,
 				8D8DF9131F155AB100CF6A97 /* JumpingState.swift */,
@@ -322,6 +331,7 @@
 				8DE3551A1F26790100FB3C56 /* CreditsScene.sks in Resources */,
 				EEF933641F154836004EB520 /* GameScene.sks in Resources */,
 				ED1128EF1F1FE59000D67489 /* snowParticle.sks in Resources */,
+				ED11293C1F2961AB00D67489 /* FireFlyTest.sks in Resources */,
 				EEF9336F1F154836004EB520 /* Assets.xcassets in Resources */,
 				EEF933721F154836004EB520 /* LaunchScreen.storyboard in Resources */,
 				ED1128EE1F1FE59000D67489 /* SmokeParticle.sks in Resources */,
@@ -342,6 +352,7 @@
 				AE75D7C71F156C4300F37A5A /* FallComponent.swift in Sources */,
 				AE75D7C51F156B4A00F37A5A /* JumpComponent.swift in Sources */,
 				AE75D7C31F156B0400F37A5A /* MovementComponent.swift in Sources */,
+				ED11293E1F298A9A00D67489 /* LastAnimationManager.swift in Sources */,
 				ED1129181F22951000D67489 /* CameraManager.swift in Sources */,
 				8D8DF9101F155A8200CF6A97 /* StoppedState.swift in Sources */,
 				EEF933681F154836004EB520 /* GameScene.swift in Sources */,
@@ -362,6 +373,7 @@
 				EEF933621F154836004EB520 /* AppDelegate.swift in Sources */,
 				8D8DF91C1F169B1400CF6A97 /* PlayerWonState.swift in Sources */,
 				8D8DF90E1F1559BA00CF6A97 /* Player.swift in Sources */,
+				ED11293A1F292FB100D67489 /* BearMother.swift in Sources */,
 				ED0A2E341F15536F0058E8D3 /* ScenarioObjects.swift in Sources */,
 				8D8DF91E1F169B3600CF6A97 /* PlayerLostState.swift in Sources */,
 			);

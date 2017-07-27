@@ -31,6 +31,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var joystickGesture: UIGestureRecognizer!
     var longPressSetted = false
     
+    // mother 
+    
+    var mother:BearMother!
     
     //water
     var waterNode1: SBDynamicWaterNode!
@@ -59,7 +62,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var endGameReached = false
     
     var firstTimeEnteredEndGame = true
-    
+    var firstEndedFirstAnimation = true
     
     var fog:[SKEmitterNode] = []
     
@@ -67,6 +70,10 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var snow:SKEmitterNode!
     // Camera manager integration
     
+    
+    //Last animation manager
+    
+    var lastAnimationManager:LastAnimationManager!
     
     var cameraManager:CameraManager!
     
@@ -88,13 +95,16 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         super.didMove(to: view)
         
         
+        self.lastAnimationManager = LastAnimationManager()
         
         self.snow = SKEmitterNode.init(fileNamed: "snowParticle")
-        self.snow.position.x = 8483
+        self.snow.position.x = 8420
         self.snow.position.y = 200
         
         self.addChild(self.snow)
         
+        
+        /*
         self.fog.append(SKEmitterNode.init(fileNamed: "SmokeParticle")!)
         
         self.fog[0].position.x = 4150
@@ -109,7 +119,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.addChild(self.fog[0])
         self.addChild(self.fog[1])
         
-    
+    */
  
         //let credits = SKScene(fileNamed: "CreditsScene")
        // self.view?.presentScene(credits)
@@ -318,6 +328,15 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         player = Player()
         self.addChild(player.mainPlayerSprite)
         player.mainPlayerSprite.zPosition = 1
+        
+        /** Initializing mother **/
+        
+        mother = BearMother()
+        
+        mother.mainMotherSprite.position.x = 9580
+        self.addChild(mother.mainMotherSprite)
+        mother.mainMotherSprite.zPosition = 1
+        
         
     }
     
@@ -773,17 +792,58 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         self.cameraManager.checkCameraPositionAndPerformMovement(node: player.mainPlayerSprite)
         
+       
+        
         if(endGameReached){
             
             if(firstTimeEnteredEndGame){
+                
+                self.player.changePhysicsBody()
+                self.mother.changePhysicsBody()
                 
                 firstTimeEnteredEndGame = false
                 
                 player.mainPlayerSprite.removeAllActions()
                 
+            //    self.cameraManager.performZoomToEndGame()
+                
             }
             
+            if(self.mother.sonAndMotherMatchedPosition){
+                
+                self.cameraManager.performZoomToEndGame()
+            }
+            
+            mother.animateMotherToSonDirection()
+            
             player.performEndGameAnimation()
+            
+            if(self.firstEndGameAnimationIsFinished()){
+                
+                if(firstEndedFirstAnimation){
+                    
+                    firstEndedFirstAnimation = false
+                    
+                    // hidden joystick
+                    self.base.isHidden = true
+                    self.ball.isHidden = true
+                    
+                    self.removeFirstAnimationNodesFromScreenAndPrepareNextAnimation()
+                 // run second animation
+                    self.executeSecondAnimation()
+                }
+                
+                
+                // then run third animation
+            
+                self.executeThirdAnimation()
+                
+                if(self.lastAnimationManager.allTheGameAnimationsAreFinished()){
+                    
+                    player.stateMachine.enter(PlayerWonState.self)
+
+                }
+            }
             
         }
         
@@ -810,11 +870,49 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.lastFrameTime = currentTime
         
         
-        
-        
-        
     }
     
   
+    func firstEndGameAnimationIsFinished()->Bool{
+        
+        return self.player.finishEndGameAnimation
+        
+    }
+    
+    func removeFirstAnimationNodesFromScreenAndPrepareNextAnimation(){
+        
+        let playerNodeToBeRemoved = self.childNode(withName: "Player")
+        let motherBearToBeRemoved = self.childNode(withName: "Mother")
+        
+        
+        var correctedXForNextAnimation = (motherBearToBeRemoved?.position.x)! - (playerNodeToBeRemoved?.position.x)!
+        
+        correctedXForNextAnimation += (playerNodeToBeRemoved?.position.x)!
+        
+        let correctedYForNextAnimation = motherBearToBeRemoved?.position.y
+        
+        
+        self.lastAnimationManager.prepareMainNodeForAnimation(px: correctedXForNextAnimation, py: correctedYForNextAnimation!)
+        
+        
+        motherBearToBeRemoved?.removeFromParent()
+        playerNodeToBeRemoved?.removeFromParent()
+        
+        
+        self.addChild(self.lastAnimationManager.animationMainNode)
+        
+    }
+    
+    func executeSecondAnimation(){
+        
+        self.lastAnimationManager.performOneTimeOnlyEndAnimation()
+        
+    }
+    
+    func executeThirdAnimation(){
+        
+        self.lastAnimationManager.performShakingHeadAnimation()
+    }
+    
     
 }
