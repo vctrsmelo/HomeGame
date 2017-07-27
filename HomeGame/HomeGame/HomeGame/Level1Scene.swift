@@ -113,7 +113,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.addChild(self.snow)
         
         
-        /*
+        
         self.fog.append(SKEmitterNode.init(fileNamed: "SmokeParticle")!)
         
         self.fog[0].position.x = 4450
@@ -130,7 +130,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.addChild(self.fog[0])
         self.addChild(self.fog[1])
         
-    */
  
         //let credits = SKScene(fileNamed: "CreditsScene")
        // self.view?.presentScene(credits)

@@ -41,7 +41,7 @@ class Player: GKEntity {
     var positionToWalk = CGPoint(x: 30, y: 0)
     var positionToJump = CGPoint(x: 120, y: 220)
     
-    let initialPositionInScene = CGPoint(x:10, y:200)
+    let initialPositionInScene = CGPoint(x:-210, y:-69)
 
     let jumpTextureNumber = 60
     let walkTextureNumber = 8
@@ -293,7 +293,7 @@ class Player: GKEntity {
         
         mainPlayerSprite = SKSpriteNode(texture: SKTexture(imageNamed: "Walking_1"))
         
-        mainPlayerSprite.position = CGPoint(x: 7367, y: -79.992 + 50)
+        mainPlayerSprite.position = initialPositionInScene //CGPoint(x: 7367, y: -79.992 + 50)
         
         mainPlayerSprite.zPosition = 0
         
@@ -453,7 +453,6 @@ class Player: GKEntity {
         if(self.mainPlayerSprite.position.y < -130 && !(self.stateMachine.currentState is PlayerLostState)){
             
             self.stateMachine.enter(PlayerLostState)
-            print("PERDEU")
             
         }
         
