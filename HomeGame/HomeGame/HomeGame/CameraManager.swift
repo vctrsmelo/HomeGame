@@ -127,7 +127,12 @@ class CameraManager: AnyObject {
             
         }
  */
-            
+        
+        print("Y: \(node.position.y)")
+        
+        if(node.position.y < -123){
+            return
+        }
         
         if(node.position.x >= 0){
             
@@ -141,6 +146,11 @@ class CameraManager: AnyObject {
     }
     
     
+    func performZoomToEndGame(){
+        
+        self.cameraNode.run(SKAction.scale(to: 0.68, duration: 3))
+        
+    }
     
     
 }

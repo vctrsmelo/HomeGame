@@ -57,6 +57,8 @@ class Player: GKEntity {
     
     var totalTimePassedEndGameAnimation = 0.0
     
+    var endGameAnimationCompleted = true
+    
     //var runEnded =  1
     
     override init() {
@@ -291,7 +293,7 @@ class Player: GKEntity {
         
         mainPlayerSprite = SKSpriteNode(texture: SKTexture(imageNamed: "Walking_1"))
         
-        mainPlayerSprite.position = CGPoint(x: -220, y: -79.992 + 50)
+        mainPlayerSprite.position = CGPoint(x: 7367, y: -79.992 + 50)
         
         mainPlayerSprite.zPosition = 0
         
@@ -393,7 +395,7 @@ class Player: GKEntity {
     func performEndGameAnimation(){
         
         
-        if(self.actionCompleted && !finishEndGameAnimation){
+        if(self.endGameAnimationCompleted && !finishEndGameAnimation){
             
             
             let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.6/Double(walkTextures.count))
@@ -408,20 +410,22 @@ class Player: GKEntity {
             animationWithWalkAction.append(animateSprite)
             animationWithWalkAction.append(walkAction)
             
-            self.actionCompleted = false
+            self.endGameAnimationCompleted = false
             
             let repeatWalkForever = (SKAction.group(animationWithWalkAction))
             
             self.mainPlayerSprite.run(repeatWalkForever, completion: {() -> Void in
                 
-                self.actionCompleted = true
+                self.endGameAnimationCompleted = true
                 self.totalTimePassedEndGameAnimation+=0.6
                 
-                if(self.totalTimePassedEndGameAnimation > 6.0){
+                if(self.totalTimePassedEndGameAnimation > 4.8){
                     
                     self.mainPlayerSprite.removeAllActions()
                     
                     self.finishEndGameAnimation = true
+                    
+                    self.mainPlayerSprite.texture = SKTexture.init(imageNamed: "Walking_1")
                 }
                 
             })
@@ -445,6 +449,19 @@ class Player: GKEntity {
     override func update(deltaTime seconds: TimeInterval) {
         
         self.stateMachine.update(deltaTime: seconds )
+    
+        if(self.mainPlayerSprite.position.y < -130 && !(self.stateMachine.currentState is PlayerLostState)){
+            
+            self.stateMachine.enter(PlayerLostState)
+            print("PERDEU")
+            
+        }
+        
+    }
+    
+    func changePhysicsBody(){
+        
+        self.mainPlayerSprite.physicsBody = SKPhysicsBody.init(texture: SKTexture.init(imageNamed: "Walking_1"), size: self.mainPlayerSprite.size)
         
     }
     

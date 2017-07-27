@@ -20,5 +20,17 @@ class PlayerWonState: GKState {
     }
     
     
+    override func didEnter(from previousState: GKState?) {
+        
+        
+        print("Ganhou")
+        
+        print("Chamar - Tela de you won")
+        
+        
+    }
+    
+    
+    
 
 }

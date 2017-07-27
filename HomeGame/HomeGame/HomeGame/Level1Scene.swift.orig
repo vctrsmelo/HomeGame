@@ -17,7 +17,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     //model attributes
     var player: Player! = nil
     
-    
+    var fallObjects: [SKNode] = []
+    var fallenFinished = true
     var animationCompleted = [true, true, true, true, true]
     
     //player control interface
@@ -31,6 +32,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var joystickGesture: UIGestureRecognizer!
     var longPressSetted = false
     
+    // mother 
+    
+    var mother:BearMother!
     
     //water
     var waterNode1: SBDynamicWaterNode!
@@ -58,10 +62,19 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     var endGameReached = false
     
+    var firstTimeEnteredEndGame = true
+    var firstEndedFirstAnimation = true
+    
+    var fog:[SKEmitterNode] = []
     
     
+    var snow:SKEmitterNode!
     // Camera manager integration
     
+    
+    //Last animation manager
+    
+    var lastAnimationManager:LastAnimationManager!
     
     var cameraManager:CameraManager!
     
@@ -82,8 +95,41 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         super.didMove(to: view)
         
+<<<<<<< HEAD
+       // let gameOverScene = SKScene(fileNamed: "GameOverScene")
+        //let playerParent = player.mainPlayerSprite.parent as! SKScene
+       // self.view?.presentScene(gameOverScene)
+=======
+        
+        self.lastAnimationManager = LastAnimationManager()
+        
+        self.snow = SKEmitterNode.init(fileNamed: "snowParticle")
+        self.snow.position.x = 8420
+        self.snow.position.y = 200
+        
+        self.addChild(self.snow)
         
         
+        /*
+        self.fog.append(SKEmitterNode.init(fileNamed: "SmokeParticle")!)
+        
+        self.fog[0].position.x = 4450
+        self.fog[0].position.y = 60
+        self.fog[0].zPosition = 5
+
+        
+        self.fog.append(SKEmitterNode.init(fileNamed: "SmokeParticle")!)
+        
+        self.fog[1].position.x = 6341
+        self.fog[1].position.y = 60
+        self.fog[1].zPosition = 5
+        
+        self.addChild(self.fog[0])
+        self.addChild(self.fog[1])
+>>>>>>> 3488b04d3e0d654446c092c037ef98b622fe444b
+        
+    */
+ 
         //let credits = SKScene(fileNamed: "CreditsScene")
        // self.view?.presentScene(credits)
         
@@ -198,28 +244,62 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func fixedWaterUpdate(_ dt:TimeInterval){
         
-        self.waterNode1.update(dt)
-        
-        let location = Float(0.0) //Float(self.waterNode1.frame.size.width)
-        
-        if self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode1.position.y+CGFloat(self.waterNode1.surfaceHeight){
-            print("player X: \(self.player.mainPlayerSprite.position.x) Y: \(self.player.mainPlayerSprite.position.y)")
-            print("water X: \(self.waterNode1.position.x) Y: \(self.waterNode1.position.y)")
-
-            let waterMinX = self.waterNode1.position.x-self.waterNode1Size.width/2.0
-            self.player.isAboveWater = false
+        if (self.waterNode1) != nil {
+            self.waterNode1.update(dt)
+            let water1MinX = self.waterNode1.position.x-self.waterNode1Size.width/2.0
+            let playerIsOverWater1 = (self.player.mainPlayerSprite.position.x <= (water1MinX + self.waterNode1Size.width) && (self.player.mainPlayerSprite.position.x - water1MinX) > 0) ? true : false
             
-            self.waterNode1.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-waterMinX)), force: 20, width: 20)
+            if playerIsOverWater1 && self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode1.position.y+CGFloat(self.waterNode1.surfaceHeight){
+                print("Veio water1")
+                self.player.isAboveWater = false
+                self.waterNode1.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-water1MinX)), force: 20, width: 20)
+                return
+                
+            }
             
         }
         
         
+        if (self.waterNode2) != nil {
+            
+            self.waterNode2.update(dt)
+            let water2MinX = self.waterNode2.position.x-self.waterNode2Size.width/2.0
+            
+            let playerIsOverWater2 = (self.player.mainPlayerSprite.position.x <= (self.waterNode2.position.x+self.waterNode2Size.width/2.0) && (self.player.mainPlayerSprite.position.x - water2MinX) > 0) ? true : false
+            
+            if playerIsOverWater2 && self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode2.position.y+CGFloat(self.waterNode2.surfaceHeight){
+                print("Veio water2")
+                self.player.isAboveWater = false
+                self.waterNode2.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-water2MinX)), force: 20, width: 20)
+                return
+                
+            }
+            
+        }
+        
+        if (self.waterNode3) != nil {
+            
+            self.waterNode3.update(dt)
+            let water3MinX = self.waterNode3.position.x-self.waterNode3Size.width/2.0
+            let playerIsOverWater3 = (self.player.mainPlayerSprite.position.x <= (water3MinX + self.waterNode3Size.width) && (self.player.mainPlayerSprite.position.x - water3MinX) > 0) ? true : false
+            
+            if playerIsOverWater3 && self.player.isAboveWater && self.player.mainPlayerSprite.position.y < self.waterNode3.position.y+CGFloat(self.waterNode3.surfaceHeight){
+                print("Veio water3")
+                self.player.isAboveWater = false
+                self.waterNode3.splashAt(x: Float(abs(self.player.mainPlayerSprite.position.x-water3MinX)), force: 20, width: 20)
+                return
+                
+            }
+            
+        }
         
     }
     
     func lateWaterUpdate(_ dt: CFTimeInterval){
         
-        self.waterNode1.render()
+        self.waterNode1?.render()
+        self.waterNode2?.render()
+        self.waterNode3?.render()
         
     }
     
@@ -259,69 +339,103 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.addChild(player.mainPlayerSprite)
         player.mainPlayerSprite.zPosition = 1
         
+        /** Initializing mother **/
+        
+        mother = BearMother()
+        
+        mother.mainMotherSprite.position.x = 9580
+        self.addChild(mother.mainMotherSprite)
+        mother.mainMotherSprite.zPosition = 1
+        
+        
     }
     
     
     func fallObj (obj: SKNode){
        
+        //for obj in self.fallObjects{
+            let nameSep = obj.name?.components(separatedBy: "_")
+            let objNumber: Int = Int((nameSep?[1])!)!
+        let waitDuration: Double!
+        
+        switch objNumber {
+        case 0:
+            waitDuration = 0.7
+            break
+        case 1:
+            waitDuration = 3
+            break
+        case 2:
+            waitDuration = 0.5
+            break
+        default:
+            waitDuration = 0
+            break
+
+        }
+        
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate) //treme
-            let wait = SKAction.wait(forDuration: 1) //esperea 1 sec
-            let fall = SKAction.move(to: CGPoint(x: obj.position.x, y: -200), duration: 2) //cai
+            obj.zPosition = 0
+            let wait = SKAction.wait(forDuration: waitDuration) //esperea
+            let fall = SKAction.move(to: CGPoint(x: obj.position.x, y: -200), duration: 3) //cai
             let sequence = SKAction.sequence([wait, fall])
             obj.run(sequence, completion: { 
                   obj.removeFromParent()
+                if objNumber != 2 {
+                    self.fallObj(obj: self.fallObjects[objNumber + 1])
+                }
+
             })
           
-        
+        //}
         
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        print("TA COLIDINDO")
+<<<<<<< HEAD
+    
+=======
+>>>>>>> 3488b04d3e0d654446c092c037ef98b622fe444b
         
         var playerColision = false
-        
         var playerNode:SKNode!
-        
         var obstacleNode:SKNode!
         
         if let name = contact.bodyA.node?.name{
             if name == "Player" {
-            
+                print("body a player")
+
                 playerNode = contact.bodyA.node
                 obstacleNode = contact.bodyB.node
                 playerColision = true
             
             }
-            else{
-                let partName = name.components(separatedBy: "_")
-                if partName[0] == "obs" {
-                    playerNode = contact.bodyB.node
-                    obstacleNode = contact.bodyA.node
-                    playerColision = true
-                }
-                
-
-            }
-            
+           // else{
+           //     let partName = name.components(separatedBy: "_")
+          //      if partName[0] == "obs" || name == "checkPoint"{
+            //        playerNode = contact.bodyB.node
+            //        obstacleNode = contact.bodyA.node
+            //        playerColision = true
+             //   }
+           // }
         }
-        else{
-            if let name = contact.bodyB.node?.name{
+        
+        if let name = contact.bodyB.node?.name{
             if name == "Player"{
+                print("body b player")
                 playerNode = contact.bodyB.node
                 obstacleNode = contact.bodyA.node
                 playerColision = true
             }
-            else{
-                
-                let partName = name.components(separatedBy: "_")
-                if partName[0] == "obs" {
-                    playerNode = contact.bodyA.node
-                    obstacleNode = contact.bodyB.node
-                    playerColision = true
-                }
-            }
-        }
+           // else{
+            //    let partName = name.components(separatedBy: "_")
+              //  if partName[0] == "obs"  || name == "checkPoint" {
+                //    playerNode = contact.bodyA.node
+                  //  obstacleNode = contact.bodyB.node
+                  //  playerColision = true
+              //  }
+           // }
+        
         
         }
         
@@ -340,8 +454,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             }
             else if(obstacleNode.physicsBody?.contactTestBitMask == 3){
                 
-                
-                print("colidiu com a rocha")
                 
                 if ( obstacleNode.position.y  < playerNode.position.y  && playerNode.position.x  > obstacleNode.position.x - obstacleNode.frame.size.width/2 && playerNode.position.x < obstacleNode.position.x + obstacleNode.frame.size.width/2){
                     
@@ -366,6 +478,27 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 print("end game")
                 
                 
+            }
+            
+            else  if(obstacleNode.physicsBody?.contactTestBitMask == 22){
+                // entrou na cave
+                print("entrou na cave")
+                if childNode(withName: "fallObj_0") != nil && childNode(withName: "fallObj_1") != nil && childNode(withName: "fallObj_2") != nil{
+                self.fallObjects.append(childNode(withName: "fallObj_0")!)
+                self.fallObjects.append(childNode(withName: "fallObj_1")!)
+                self.fallObjects.append(childNode(withName: "fallObj_2")!)
+                
+                //if childNode(withName: "fallObj") != nil{
+                    self.fallObj(obj: fallObjects[0])
+                //}
+                
+                }
+                
+            }
+            
+            else  if(obstacleNode.physicsBody?.contactTestBitMask == 7){
+                print("nao desviou do objeto")
+                player.stateMachine.enter(PlayerLostState.self)
             }
 
             
@@ -401,7 +534,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         let rotateAnimFull = SKAction.repeat(animationFull, count: 3)
         let animWithFall = SKAction.sequence([rotateAnimFull, fallAction])
         
-<<<<<<< HEAD
         //let when = DispatchTime.now() + 0.5 // change 0.5 to desired number of seconds
         //  DispatchQueue.main.asyncAfter(deadline: when) {
         //obstacleNode?.physicsBody?.affectedByGravity = true
@@ -414,9 +546,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             })
         }
         
-=======
-        obstacle.run(animWithFall)
->>>>>>> 6a35df54a346ab4a00bbc6a59d4b9534c778877c
         
     }
     
@@ -465,9 +594,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 self.cameraManager.setLeftSideCameraConfigurations(node: self.player.mainPlayerSprite)
             }
             
-            if childNode(withName: "fallObj") != nil{
-                self.fallObj(obj: self.childNode(withName: "fallObj")!)
-            }
+            
             
         }
         
@@ -477,8 +604,10 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     //controller methodss
     public func handleLongPress (gesture: UILongPressGestureRecognizer){
 
+        if longPressSetted || endGameReached{
+            return
+        }
         
-<<<<<<< HEAD
         
         //let position = gesture.location(in: self.view!)
         //self.longPressLocation = self.convertPoint(fromView: position)
@@ -496,37 +625,17 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             ball.position = base.position
             base.isHidden = false
             ball.isHidden = false
-=======
-        if(!endGameReached){
->>>>>>> 6a35df54a346ab4a00bbc6a59d4b9534c778877c
             
+        }
+        
+        if gesture.state == .ended || gesture.state == .cancelled{
             
-            if longPressSetted{
-                return
-            }
+            base.isHidden = true
+            ball.isHidden = true
             
-            
-            let position = gesture.location(in: self.view!)
-            self.longPressLocation = self.convertPoint(fromView: position)
-            if gesture.state == .began{
-                base.position = self.convertPoint(fromView: position)
-                ball.position = base.position
-                base.isHidden = false
-                ball.isHidden = false
-                
-            }
-            
-            if gesture.state == .ended || gesture.state == .cancelled{
-                
-                base.isHidden = true
-                ball.isHidden = true
-                
-                ball.position = base.position
-                player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
-                return
-                
-            }
-            
+            ball.position = base.position
+            player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+            return
             
         }
         
@@ -535,7 +644,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     public func handlePan(gesture: UIPanGestureRecognizer){
 
-<<<<<<< HEAD
+        if endGameReached{
+            return
+        }
         //let position = gesture.location(in: self.view!)
 
         //self.longPressLocation = self.convertPoint(fromView: position)
@@ -551,49 +662,27 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if gesture.state == .began{
             
             base.position = position //self.convertPoint(fromView: position)
-=======
-        if(!endGameReached){
             
->>>>>>> 6a35df54a346ab4a00bbc6a59d4b9534c778877c
             
-            let position = gesture.location(in: self.view!)
-            
-            self.longPressLocation = self.convertPoint(fromView: position)
-            
-            if gesture.state == .began{
-                
-                base.position = self.convertPoint(fromView: position)
-                
-                
-                ball.position = base.position
-                base.isHidden = false
-                ball.isHidden = false
-                
-            }
-            
-            if gesture.state == .ended || gesture.state == .cancelled{
-                
-                base.isHidden = true
-                ball.isHidden = true
-                
-                ball.position = base.position
-                player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
-                return
-                
-            }
-            
-            setJoystickPosition(to: self.convertPoint(fromView: position))
-            
-        
+            ball.position = base.position
+            base.isHidden = false
+            ball.isHidden = false
             
         }
-<<<<<<< HEAD
+        
+        if gesture.state == .ended || gesture.state == .cancelled{
+            
+            base.isHidden = true
+            ball.isHidden = true
+            
+            ball.position = base.position
+            player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+            return
+            
+        }
 
         setJoystickPosition(to: position)
        
-=======
-        
->>>>>>> 6a35df54a346ab4a00bbc6a59d4b9534c778877c
     }
     
     
@@ -689,75 +778,130 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         let DISTANCE: Double = 150
         
-        if (!base.isHidden && !(self.player?.stateMachine.currentState is JumpingState)){
+        if(!endGameReached){
             
-            if abs (ball.position.x - base.position.x) > 3 { //&& self.player?.stateMachine.currentState is StoppedState{
-               
-                    
-                self.player?.stateMachine.enter(MovingState.self)
-                player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
+            
+            if (!base.isHidden && !(self.player?.stateMachine.currentState is JumpingState)){
                 
-                
-                if abs (longPressLocation.x - base.position.x) >= CGFloat (DISTANCE){
-                    //if abs(ball.position.x - base.position.x) >= 40{
+                if abs (ball.position.x - base.position.x) > 3 { //&& self.player?.stateMachine.currentState is StoppedState{
                     
-                    player?.stateMachine.state(forClass: MovingState.self)?.distance = DISTANCE
                     
-                    //player?.stateMachine.state(forClass: MovingState.self)?.fast = true
+                    self.player?.stateMachine.enter(MovingState.self)
+                    player?.stateMachine.state(forClass: MovingState.self)?.stop = 0
                     
-                    if ball.position.x > base.position.x{
-
-                        self.rightMov = true
-                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+                    
+                    if abs (longPressLocation.x - base.position.x) >= CGFloat (DISTANCE){
+                        //if abs(ball.position.x - base.position.x) >= 40{
+                        
+                        player?.stateMachine.state(forClass: MovingState.self)?.distance = DISTANCE
+                        
+                        //player?.stateMachine.state(forClass: MovingState.self)?.fast = true
+                        
+                        if ball.position.x > base.position.x{
+                            
+                            self.rightMov = true
+                            player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+                            
+                        }
+                        else{
+                            
+                            self.rightMov = false
+                            player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                            
+                        }
                         
                     }
                     else{
+                        //player?.stateMachine.state(forClass: MovingState.self)?.fast = false
+                        player?.stateMachine.state(forClass: MovingState.self)?.distance = abs (Double(longPressLocation.x - base.position.x))
                         
-                        self.rightMov = false
-                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                        if ball.position.x > base.position.x {
+                            
+                            self.rightMov = true
+                            player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
+                            
+                        }
+                        else{
+                            self.rightMov = false
+                            player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
+                            
+                        }
                         
                     }
                     
                 }
-                else{
-                    //player?.stateMachine.state(forClass: MovingState.self)?.fast = false
-                    player?.stateMachine.state(forClass: MovingState.self)?.distance = abs (Double(longPressLocation.x - base.position.x))
                     
-                    if ball.position.x > base.position.x {
-
-                        self.rightMov = true
-                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = true
-                        
-                    }
-                    else{
-                        self.rightMov = false
-                        player?.stateMachine.state(forClass: MovingState.self)?.rightMovement = false
-                        
-                    }
+                else if !(self.player?.stateMachine.currentState is JumpingState){
+                    
+                    player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+                    
                     
                 }
                 
             }
-                
-            else if !(self.player?.stateMachine.currentState is JumpingState){
-
-                player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
-                
-                
-            }
-            
         }
+        
+       
         
         player.update(deltaTime: currentTime)
         
         self.cameraManager.checkCameraPositionAndPerformMovement(node: player.mainPlayerSprite)
         
+       
         
         if(endGameReached){
             
+            if(firstTimeEnteredEndGame){
+                
+                self.player.changePhysicsBody()
+                self.mother.changePhysicsBody()
+                
+                firstTimeEnteredEndGame = false
+                
+                player.mainPlayerSprite.removeAllActions()
+                
+            //    self.cameraManager.performZoomToEndGame()
+                
+            }
+            
+            if(self.mother.sonAndMotherMatchedPosition){
+                
+                self.cameraManager.performZoomToEndGame()
+            }
+            
+            mother.animateMotherToSonDirection()
+            
             player.performEndGameAnimation()
             
+            if(self.firstEndGameAnimationIsFinished()){
+                
+                if(firstEndedFirstAnimation){
+                    
+                    firstEndedFirstAnimation = false
+                    
+                    // hidden joystick
+                    self.base.isHidden = true
+                    self.ball.isHidden = true
+                    
+                    self.removeFirstAnimationNodesFromScreenAndPrepareNextAnimation()
+                 // run second animation
+                    self.executeSecondAnimation()
+                }
+                
+                
+                // then run third animation
+            
+                self.executeThirdAnimation()
+                
+                if(self.lastAnimationManager.allTheGameAnimationsAreFinished()){
+                    
+                    player.stateMachine.enter(PlayerWonState.self)
+
+                }
+            }
+            
         }
+        
         
  
         //Water
@@ -780,6 +924,49 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.lateWaterUpdate(dt)
         self.lastFrameTime = currentTime
         
+        
+    }
+    
+  
+    func firstEndGameAnimationIsFinished()->Bool{
+        
+        return self.player.finishEndGameAnimation
+        
+    }
+    
+    func removeFirstAnimationNodesFromScreenAndPrepareNextAnimation(){
+        
+        let playerNodeToBeRemoved = self.childNode(withName: "Player")
+        let motherBearToBeRemoved = self.childNode(withName: "Mother")
+        
+        
+        var correctedXForNextAnimation = (motherBearToBeRemoved?.position.x)! - (playerNodeToBeRemoved?.position.x)!
+        
+        correctedXForNextAnimation += (playerNodeToBeRemoved?.position.x)!
+        
+        let correctedYForNextAnimation = motherBearToBeRemoved?.position.y
+        
+        
+        self.lastAnimationManager.prepareMainNodeForAnimation(px: correctedXForNextAnimation, py: correctedYForNextAnimation!)
+        
+        
+        motherBearToBeRemoved?.removeFromParent()
+        playerNodeToBeRemoved?.removeFromParent()
+        
+        
+        self.addChild(self.lastAnimationManager.animationMainNode)
+        
+    }
+    
+    func executeSecondAnimation(){
+        
+        self.lastAnimationManager.performOneTimeOnlyEndAnimation()
+        
+    }
+    
+    func executeThirdAnimation(){
+        
+        self.lastAnimationManager.performShakingHeadAnimation()
     }
     
     
