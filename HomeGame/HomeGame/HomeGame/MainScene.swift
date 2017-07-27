@@ -12,6 +12,7 @@ import GameplayKit
 class MainScene: SKScene {
     
     var background: SKSpriteNode!
+    var home:       SKSpriteNode!
     var sea:        SKSpriteNode!
     var iceberg:    SKSpriteNode!
     var stone:      SKSpriteNode!
@@ -31,6 +32,7 @@ class MainScene: SKScene {
             print("Init Sucess!")
             
             self.addChild(self.background)
+            self.addChild(self.home)
             self.addChild(self.sea)
             self.addChild(self.iceberg)
             self.addChild(self.stone)
@@ -40,16 +42,17 @@ class MainScene: SKScene {
     }
     
     func initMainSceneAttributes() -> Bool {
-        initBackground()
+        initBackgroundAndHome()
         initMiddleground()
-        initPlayBtn()
-        initCreditsBtn()
+        initPlayBtn("button_play")
+        initCreditsBtn("button_credits")
         
         return true
     }
     
-    func initBackground() {
+    func initBackgroundAndHome() {
         /* Initialize background with texture */
+        // init BACKGROUND
         let backgroundTexture = SKTexture(imageNamed: "Prancheta 2")
 
         let viewWidth = self.view?.bounds.width
@@ -60,6 +63,16 @@ class MainScene: SKScene {
         
         self.background.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.background.zPosition = CGFloat(-100)
+        
+        // init HOME
+        let homeTexture = SKTexture(imageNamed: "Ativo 1")
+        
+        let homeSize = CGSize(width: viewWidth!/3, height: viewHeight!/5)
+        
+        self.home = SKSpriteNode(texture: homeTexture, size: homeSize)
+        
+        self.home.anchorPoint = CGPoint(x: 0.5, y: -0.5)
+        self.home.zPosition = CGFloat(-99)
     }
     
     func initMiddleground() {
@@ -110,16 +123,21 @@ class MainScene: SKScene {
         self.stone.position = CGPoint(x: stonePosX, y: stonePosY)
         
         self.stone.zPosition = CGFloat(-80)
+        
+        print("\(self.background.frame.minY)\n")
     }
     
-    func initPlayBtn() {
+    func initPlayBtn(_ name: String) {
         /* Initialize play button */
-        let playBtnTexture = SKTexture(imageNamed: "Button_play")
-        let playBtnSize = CGSize(width: 150, height: 60)
+        let playBtnTexture = SKTexture(imageNamed: name)
+        
+        let viewWidth = self.view?.bounds.width
+        let viewHeight = self.view?.bounds.height
+        let playBtnSize = CGSize(width: viewWidth!/6, height: viewHeight!/12.5)
         
         self.playbtn = SKSpriteNode(texture: playBtnTexture, size: playBtnSize)
         
-        self.playbtn.anchorPoint = CGPoint(x: 1.01, y: -0.2)
+        self.playbtn.anchorPoint = CGPoint(x: 1.15, y: -1.1)
         
         let playbtnPosX = background.frame.midX
         let playbtnPosY = background.frame.minY
@@ -128,14 +146,17 @@ class MainScene: SKScene {
         self.playbtn.zPosition = CGFloat(100)
     }
     
-    func initCreditsBtn() {
+    func initCreditsBtn(_ name: String) {
         /* Initialize credits button */
-        let creditsBtnTexture = SKTexture(imageNamed: "Button_credits")
-        let creditsBtnSize = CGSize(width: 150, height: 60)
+        let creditsBtnTexture = SKTexture(imageNamed: name)
+
+        let viewWidth = self.view?.bounds.width
+        let viewHeight = self.view?.bounds.height
+        let creditsBtnSize = CGSize(width: viewWidth!/6, height: viewHeight!/12.5)
         
         self.creditsbtn = SKSpriteNode(texture: creditsBtnTexture, size: creditsBtnSize)
         
-        self.creditsbtn.anchorPoint = CGPoint(x: -0.01, y: -0.2)
+        self.creditsbtn.anchorPoint = CGPoint(x: 0.0, y: -1.1)
         
         let creditsbtnPosX = background.frame.midX
         let creditsbtnPosY = background.frame.minY
@@ -150,10 +171,20 @@ class MainScene: SKScene {
         let creditsScene = SKScene(fileNamed: "NewCreditsScene")
         
         if self.playbtn.contains((touches.first?.location(in: self))!){
-            self.view?.presentScene(gamescene)
+            self.playbtn.removeFromParent()
+            initPlayBtn("button_select_play")
+            self.addChild(playbtn)
+            SKAction.wait(forDuration: 1.0)
+            
+            self.view?.presentScene(gamescene!, transition: SKTransition.fade(withDuration: 1.0))
         }
         else if self.creditsbtn.contains((touches.first?.location(in: self))!){
-            self.view?.presentScene(creditsScene!, transition: SKTransition.fade(with: .white, duration: 1.5))
+            self.creditsbtn.removeFromParent()
+            initCreditsBtn("button_select_credits")
+            self.addChild(creditsbtn)
+            SKAction.wait(forDuration: 1.0)
+            
+            self.view?.presentScene(creditsScene!, transition: SKTransition.fade(withDuration: 1.0))
         }
     }
 }
