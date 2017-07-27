@@ -44,8 +44,8 @@ class MainScene: SKScene {
     func initMainSceneAttributes() -> Bool {
         initBackgroundAndHome()
         initMiddleground()
-        initPlayBtn("button_play")
-        initCreditsBtn("button_credits")
+        initPlayBtn("Button_play")
+        initCreditsBtn("Button_credits")
         
         return true
     }
