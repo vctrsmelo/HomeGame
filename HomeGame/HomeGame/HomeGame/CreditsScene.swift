@@ -229,17 +229,6 @@ class CreditsScene: SKScene {
             iceberg.shadowCastBitMask = 1
             iceberg.lightingBitMask = 1
             
-            /*
-             let light = SKLightNode()
-             
-             light.falloff = 0
-             light.isEnabled = true
-             light.shadowColor = .black
-             light.position = iceberg.position
-             light.zPosition = iceberg.zPosition + 1
-             light.categoryBitMask = 1
-             addChild(light)
-             */
         }
     }
     

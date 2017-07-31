@@ -23,9 +23,7 @@ class PlayerWonState: GKState {
     override func didEnter(from previousState: GKState?) {
         
         let creditsScene = SKScene(fileNamed: "NewCreditsScene")
-        //        let playerParent = player.mainPlayerSprite.parent as! SKScene
-        GameViewController.instanceView?.presentScene(creditsScene)
-        
+        GameViewController.sharedView.presentScene(creditsScene)
         
     }
     

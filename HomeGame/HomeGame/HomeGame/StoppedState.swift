@@ -40,12 +40,6 @@ class StoppedState: GKState {
     
     override func update(deltaTime seconds: TimeInterval) {
         
-        //print("stopped!!!")
-        
-        //if (player?.checkTextureForInitialFrame())!{
-            
-          //  player?.stopMainPlayerSpriteAnimation()
-        //}
     }
 
 }
