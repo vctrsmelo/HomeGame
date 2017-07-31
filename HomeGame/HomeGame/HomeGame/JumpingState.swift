@@ -21,20 +21,8 @@ class JumpingState: GKState {
 
     override func didEnter(from previousState: GKState?) {
         
-        //let pontoTeste = CGPoint(x: 100, y: 100)
-        //let impluse = SKAction.move(to: pontoTeste, duration: 10)
-        //player?.nodeTest.run(impluse, completion: {
-        //    self.player?.stateMachine.enter(StoppedState.self)
-       // })
-        
          player?.component(ofType: JumpComponent.self)?.rightMovement = self.rightMovement
          player?.component(ofType: JumpComponent.self)?.jumpAnimate()
-        
-        
-        
-        //player
-       
-   
     
     }
     

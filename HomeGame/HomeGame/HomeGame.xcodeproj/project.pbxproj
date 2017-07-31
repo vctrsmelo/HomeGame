@@ -47,9 +47,7 @@
 		EEBFA9391F1E4B76007DB093 /* Droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9371F1E4B76007DB093 /* Droplet.png */; };
 		EEBFA93A1F1E4B76007DB093 /* Droplets.fsh in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9381F1E4B76007DB093 /* Droplets.fsh */; };
 		EEF933621F154836004EB520 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF933611F154836004EB520 /* AppDelegate.swift */; };
-		EEF933641F154836004EB520 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEF933631F154836004EB520 /* GameScene.sks */; };
 		EEF933661F154836004EB520 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEF933651F154836004EB520 /* Actions.sks */; };
-		EEF933681F154836004EB520 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF933671F154836004EB520 /* GameScene.swift */; };
 		EEF9336A1F154836004EB520 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF933691F154836004EB520 /* GameViewController.swift */; };
 		EEF9336D1F154836004EB520 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEF9336B1F154836004EB520 /* Main.storyboard */; };
 		EEF9336F1F154836004EB520 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEF9336E1F154836004EB520 /* Assets.xcassets */; };
@@ -100,9 +98,7 @@
 		EEBFA9381F1E4B76007DB093 /* Droplets.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Droplets.fsh; sourceTree = "<group>"; };
 		EEF9335E1F154836004EB520 /* HomeGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF933611F154836004EB520 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EEF933631F154836004EB520 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		EEF933651F154836004EB520 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		EEF933671F154836004EB520 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		EEF933691F154836004EB520 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		EEF9336C1F154836004EB520 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EEF9336E1F154836004EB520 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,7 +126,7 @@
 			name = MainScene;
 			sourceTree = "<group>";
 		};
-		AE75D7C01F15685500F37A5A /* LevelSceneComponents */ = {
+		AE75D7C01F15685500F37A5A /* Level1Components */ = {
 			isa = PBXGroup;
 			children = (
 				AE75D7C21F156B0400F37A5A /* MovementComponent.swift */,
@@ -138,7 +134,7 @@
 				AE75D7C81F18019A00F37A5A /* StopComponent.swift */,
 				AE75D7C61F156C4300F37A5A /* FallComponent.swift */,
 			);
-			name = LevelSceneComponents;
+			name = Level1Components;
 			sourceTree = "<group>";
 		};
 		AE75D7C11F15692400F37A5A /* HomeSceneElements */ = {
@@ -150,25 +146,12 @@
 			name = HomeSceneElements;
 			sourceTree = "<group>";
 		};
-		ED0A2E391F155A310058E8D3 /* LevelScenes */ = {
+		ED0A2E391F155A310058E8D3 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
-				ED0A2E311F1551EB0058E8D3 /* Level1Scene.swift */,
-				8DE355271F2A465C00FB3C56 /* Level1Scene.sks */,
-				AE75D7C01F15685500F37A5A /* LevelSceneComponents */,
-				ED0A2E3C1F155B000058E8D3 /* LevelScenesElements */,
+				EEF4284E1F2BAC27002698F2 /* Level1 */,
 			);
-			name = LevelScenes;
-			sourceTree = "<group>";
-		};
-		ED0A2E3A1F155A870058E8D3 /* Scenes */ = {
-			isa = PBXGroup;
-			children = (
-				AE30A6351F27B8D100879E56 /* MainScene */,
-				ED0A2E3B1F155ADF0058E8D3 /* HomeScene */,
-				ED0A2E391F155A310058E8D3 /* LevelScenes */,
-			);
-			name = Scenes;
+			name = Levels;
 			sourceTree = "<group>";
 		};
 		ED0A2E3B1F155ADF0058E8D3 /* HomeScene */ = {
@@ -238,6 +221,21 @@
 			name = WaterExtension;
 			sourceTree = "<group>";
 		};
+		EEF4284E1F2BAC27002698F2 /* Level1 */ = {
+			isa = PBXGroup;
+			children = (
+				ED0A2E311F1551EB0058E8D3 /* Level1Scene.swift */,
+				8DE355271F2A465C00FB3C56 /* Level1Scene.sks */,
+				8D8DF90D1F1559BA00CF6A97 /* Player.swift */,
+				ED1129391F292FB100D67489 /* BearMother.swift */,
+				8DE3551F1F2A23E500FB3C56 /* GameOverScene.sks */,
+				8DE355211F2A23F600FB3C56 /* GameOverScene.swift */,
+				AE75D7C01F15685500F37A5A /* Level1Components */,
+				ED0A2E3C1F155B000058E8D3 /* LevelScenesElements */,
+			);
+			name = Level1;
+			sourceTree = "<group>";
+		};
 		EEF933551F154836004EB520 = {
 			isa = PBXGroup;
 			children = (
@@ -261,18 +259,16 @@
 				ED1128EB1F1FE57200D67489 /* ParticlesEffects */,
 				EEBFA9321F1E48C6007DB093 /* WaterExtension */,
 				ED0A2E3D1F155B260058E8D3 /* UserDefaults */,
-				ED0A2E3A1F155A870058E8D3 /* Scenes */,
-				EEF933631F154836004EB520 /* GameScene.sks */,
+				AE30A6351F27B8D100879E56 /* MainScene */,
+				ED0A2E3B1F155ADF0058E8D3 /* HomeScene */,
+				ED0A2E391F155A310058E8D3 /* Levels */,
 				EEF933651F154836004EB520 /* Actions.sks */,
-				EEF933671F154836004EB520 /* GameScene.swift */,
 				ED11293D1F298A9A00D67489 /* LastAnimationManager.swift */,
 				EEF933691F154836004EB520 /* GameViewController.swift */,
 				EEF9336B1F154836004EB520 /* Main.storyboard */,
 				EEF9336E1F154836004EB520 /* Assets.xcassets */,
 				EEF933701F154836004EB520 /* LaunchScreen.storyboard */,
 				EEF933731F154836004EB520 /* Info.plist */,
-				8D8DF90D1F1559BA00CF6A97 /* Player.swift */,
-				ED1129391F292FB100D67489 /* BearMother.swift */,
 				8D8DF90F1F155A8200CF6A97 /* StoppedState.swift */,
 				8D8DF9111F155A9800CF6A97 /* MovingState.swift */,
 				8D8DF9131F155AB100CF6A97 /* JumpingState.swift */,
@@ -283,8 +279,6 @@
 				8D8DF91D1F169B3600CF6A97 /* PlayerLostState.swift */,
 				8DE355191F26790100FB3C56 /* CreditsScene.sks */,
 				8DE3551B1F267A7D00FB3C56 /* CreditsScene.swift */,
-				8DE3551F1F2A23E500FB3C56 /* GameOverScene.sks */,
-				8DE355211F2A23F600FB3C56 /* GameOverScene.swift */,
 				AE30A63A1F2921FA00879E56 /* NewCreditsScene.sks */,
 			);
 			path = HomeGame;
@@ -356,7 +350,6 @@
 				EEF9336D1F154836004EB520 /* Main.storyboard in Resources */,
 				ED0A2E2A1F15491E0058E8D3 /* HomeScene.sks in Resources */,
 				8DE3551A1F26790100FB3C56 /* CreditsScene.sks in Resources */,
-				EEF933641F154836004EB520 /* GameScene.sks in Resources */,
 				ED1128EF1F1FE59000D67489 /* snowParticle.sks in Resources */,
 				ED11293C1F2961AB00D67489 /* FireFlyTest.sks in Resources */,
 				EEF9336F1F154836004EB520 /* Assets.xcassets in Resources */,
@@ -386,7 +379,6 @@
 				ED1129181F22951000D67489 /* CameraManager.swift in Sources */,
 				8D8DF9101F155A8200CF6A97 /* StoppedState.swift in Sources */,
 				AE30A6391F27B99A00879E56 /* MainScene.swift in Sources */,
-				EEF933681F154836004EB520 /* GameScene.swift in Sources */,
 				8DE3551C1F267A7D00FB3C56 /* CreditsScene.swift in Sources */,
 				AE75D7C91F18019A00F37A5A /* StopComponent.swift in Sources */,
 				AE30A62F1F1D29E500879E56 /* LevelButtonPopView.swift in Sources */,

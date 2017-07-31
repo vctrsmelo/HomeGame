@@ -4,7 +4,6 @@
 //
 //  Created by Douglas Gehring on 26/07/17.
 //  Copyright © 2017 Victor S Melo. All rights reserved.
-//
 
 import SpriteKit
 
