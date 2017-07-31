@@ -93,7 +93,6 @@ class BearMother{
                     
                     self.mainMotherSprite.texture = SKTexture.init(imageNamed: "Stop_Mother")
                     
-                    //self.headMovementAnimation()
                 }
                 
             })
@@ -148,7 +147,7 @@ class BearMother{
     
     func changePhysicsBody(){
         
-        var mother_texture  = SKTexture.init(imageNamed: "Stop_Fliped_Mother")
+        let mother_texture  = SKTexture.init(imageNamed: "Stop_Fliped_Mother")
       
         self.mainMotherSprite.zPosition = 0
         

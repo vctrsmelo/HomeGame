@@ -48,14 +48,14 @@ class GameOverScene: SKScene {
         
         if  self.PlayAgainButotn.contains((touches.first?.location(in: self))!){
             if let level1 = SKScene(fileNamed: "Level1Scene"){
-                GameViewController.instanceView?.presentScene(level1)
+                GameViewController.sharedView.presentScene(level1)
             }
         }
         
         else{
             if self.MenuButton.contains((touches.first?.location(in: self))!) {
                 if let home = SKScene(fileNamed: "MainScene"){
-                    GameViewController.instanceView?.presentScene(home)
+                    GameViewController.sharedView.presentScene(home)
                 }
             }
         }

@@ -46,7 +46,7 @@
 #pragma mark - Update
 /**
  Step the time of the simulation
- @param dt: delta time since last update
+ @param dt delta time since last update
  */
 -(void)update:(CFTimeInterval)dt;
 
@@ -54,15 +54,15 @@
 #pragma mark - Splash
 /**
  Make a splash
- @param xLocation: Location of the splash
- @param force: Force of the splash
+ @param xLocation Location of the splash
+ @param force Force of the splash
  */
 -(void)splashAtX:(float)xLocation force:(CGFloat)force;
 /**
  Make a splash
- @param xLocation: Location of the splash
- @param force: Force of the splash
- @param width: The width of the splash. Set to higher values to simulate objects with a larger surface area
+ @param xLocation Location of the splash
+ @param force Force of the splash
+ @param width The width of the splash. Set to higher values to simulate objects with a larger surface area
  */
 -(void)splashAtX:(float)xLocation force:(CGFloat)force width:(float)width;
 

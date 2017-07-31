@@ -12,28 +12,25 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 
-    static var instanceView: SKView!
+    
+    static var sharedView: SKView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            GameViewController.instanceView = view
-            // Load the SKScene from 'GameScene.sks'
+            GameViewController.sharedView = view
             if let scene = SKScene(fileNamed: "MainScene") {
-                // Set the scale mode to scale to fit the window
-                //scene.scaleMode = .aspectFill
-                // Present the scene
                 view.presentScene(scene)
             }
             
             view.ignoresSiblingOrder = true
-//            view.showsPhysics = true
-//            view.showsFPS = true
-//            view.showsNodeCount = true
+            //            view.showsPhysics = true
+            //            view.showsFPS = true
+            //            view.showsNodeCount = true
         }
     }
-
+    
     override var shouldAutorotate: Bool {
         return true
     }
@@ -48,7 +45,6 @@ class GameViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
     }
 
     override var prefersStatusBarHidden: Bool {

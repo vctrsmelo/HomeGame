@@ -20,13 +20,10 @@ enum positionEnum {
 
 
 class Player: GKEntity {
-    
-    
-    //let nodeTest = SKSpriteNode.init(color: .red, size: CGSize(width: 50, height: 50))
-    
+        
     var stateMachine: GKStateMachine!
     
-     var mainPlayerSprite:SKSpriteNode!
+    var mainPlayerSprite:SKSpriteNode!
     
     let spriteScale: CGFloat = 0.3
     
@@ -61,8 +58,6 @@ class Player: GKEntity {
     
     var endGameAnimationCompleted = true
     
-    //var runEnded =  1
-    
     override init() {
         super.init()
         
@@ -91,15 +86,8 @@ class Player: GKEntity {
        
         self.stateMachine = GKStateMachine(states: [playerMoving, playerJumping, playerStopped, playerLoser, playerWinner])
         self.stateMachine.enter(StoppedState.self)
-        
-        
-        
-   
+     
     }
-    
-    
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -154,28 +142,14 @@ class Player: GKEntity {
             
             self.mainPlayerSprite.run(SKAction.group(animationWithWalkAction), completion: {() -> Void in
                 
-                
-                
-                
                 self.mainPlayerSprite.zPosition = 0
                 self.actionCompleted = true
                 self.animationEnded =  1
             })
-        
-            
-                
+     
         }
         
     }
-   
-
-    
-    
-    
-    
-    
-    
-    
     
     func jump(positionDirection: positionEnum){
 
@@ -198,18 +172,9 @@ class Player: GKEntity {
         
         let animateSprite = SKAction.animate(with: self.jumpTextures, timePerFrame: 0.2)
           
-            let moveByHalfXUp = SKAction.applyForce(CGVector(dx: self.positionToJump.x, dy: self.positionToJump.y), at: self.mainPlayerSprite.position, duration: 0.2)
-            let moveByHalfXDown = SKAction.applyForce(CGVector(dx: self.positionToJump.x, dy: self.positionToJump.y), at: self.mainPlayerSprite.position, duration: 0.2)
+        let moveByHalfXUp = SKAction.applyForce(CGVector(dx: self.positionToJump.x, dy: self.positionToJump.y), at: self.mainPlayerSprite.position, duration: 0.2)
+        let moveByHalfXDown = SKAction.applyForce(CGVector(dx: self.positionToJump.x, dy: self.positionToJump.y), at: self.mainPlayerSprite.position, duration: 0.2)
             
-            
-        /*
-        let moveByHalfXUp = SKAction.moveBy(x: positionToJump.x/2, y: positionToJump.y, duration: 0.4)
-        let moveByHalfXDown = SKAction.moveBy(x: positionToJump.x/2, y: -positionToJump.y, duration: 0.4)
-        */
- 
- 
-        //self.mainPlayerSprite.physicsBody?.affectedByGravity = false
-        
         let walkAction = SKAction.sequence([moveByHalfXUp, moveByHalfXDown])
         
         var animationWithJumpAction = Array<SKAction>()
@@ -223,7 +188,7 @@ class Player: GKEntity {
         self.mainPlayerSprite.run(jumpFullActionGroup, completion:{
             self.stateMachine.enter(StoppedState.self)
             self.jumpFinished = 1
-            //self.mainPlayerSprite.physicsBody?.affectedByGravity = true
+            
         })
             
             
@@ -231,64 +196,6 @@ class Player: GKEntity {
         
         
     }
-    
-    
-    /*
-    func run(positionDirection: positionEnum){
-        
-        
-        
-        if (runEnded == 1 && jumpFinished == 1){
-            
-            
-            if positionDirection == .left {
-                self.mainPlayerSprite.xScale = -0.2
-                if positionToWalk.x != 0 {
-                    positionToWalk.x = -40
-                }
-                
-                
-            }
-            else{
-                self.mainPlayerSprite.xScale = abs ( self.mainPlayerSprite.xScale)
-                positionToWalk.x = abs (self.positionToWalk.x)
-
-            }
-            
-            
-            self.runEnded = 0
-        
-            let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.1)
-            let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: 0.2)
-            let moveByHalfXDown = SKAction.moveBy(x: positionToWalk.x, y: -positionToWalk.y, duration: 0.2)
-            
-            
-            let walkAction = SKAction.sequence([moveByHalfXUp, moveByHalfXDown])
-            
-            var animationWithWalkAction = Array<SKAction>()
-            
-            animationWithWalkAction.append(animateSprite)
-            animationWithWalkAction.append(walkAction)
-            
-            let walkFullActionGroup = SKAction.group(animationWithWalkAction)
-            
-            self.actionCompleted = false
-                self.mainPlayerSprite.run(walkFullActionGroup, completion:{
-                    
-                    self.runEnded = 1
-                    
-                })
-            
-            self.mainPlayerSprite.run(walkFullActionGroup, completion: {() -> Void in
-                
-                self.actionCompleted = true
-            })
-
-        
-        }
-        
-    }
- */
     
     func initializeTextureForSpriteNode(){
           
@@ -454,7 +361,7 @@ class Player: GKEntity {
     
         if(self.mainPlayerSprite.position.y < -130 && !(self.stateMachine.currentState is PlayerLostState)){
             
-            self.stateMachine.enter(PlayerLostState)
+            self.stateMachine.enter(PlayerLostState.self)
             
         }
         

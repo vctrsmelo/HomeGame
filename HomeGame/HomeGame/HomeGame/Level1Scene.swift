@@ -73,13 +73,12 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     
     var snow:SKEmitterNode!
-    // Camera manager integration
-    
-    
+
     //Last animation manager
-    
     var lastAnimationManager:LastAnimationManager!
+    var shottingStar:SKEmitterNode!
     
+    // Camera manager integration
     var cameraManager:CameraManager!
     
     var shottingStar:SKEmitterNode!
@@ -417,14 +416,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 playerColision = true
             
             }
-           // else{
-           //     let partName = name.components(separatedBy: "_")
-          //      if partName[0] == "obs" || name == "checkPoint"{
-            //        playerNode = contact.bodyB.node
-            //        obstacleNode = contact.bodyA.node
-            //        playerColision = true
-             //   }
-           // }
+            
         }
         
         if let name = contact.bodyB.node?.name{
@@ -434,15 +426,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 obstacleNode = contact.bodyA.node
                 playerColision = true
             }
-           // else{
-            //    let partName = name.components(separatedBy: "_")
-              //  if partName[0] == "obs"  || name == "checkPoint" {
-                //    playerNode = contact.bodyA.node
-                  //  obstacleNode = contact.bodyB.node
-                  //  playerColision = true
-              //  }
-           // }
-        
         
         }
         
@@ -545,13 +528,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         let animationFull = SKAction.sequence(animationAction)
         let rotateAnimFull = SKAction.repeat(animationFull, count: 3)
         let animWithFall = SKAction.sequence([rotateAnimFull, fallAction])
-        
-        //let when = DispatchTime.now() + 0.5 // change 0.5 to desired number of seconds
-        //  DispatchQueue.main.asyncAfter(deadline: when) {
-        //obstacleNode?.physicsBody?.affectedByGravity = true
-        //obstacle.run(animWithFall)
-        //}
-        //
+
             obstacle.run(animWithFall, completion: {
                 obstacle.removeFromParent()
                 self.animationCompleted[obsNumber!] = true
@@ -588,9 +565,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func handleTap(gesture: UITapGestureRecognizer){
         
-        
-        //self.movementShootingStar()
-        
         if(!endGameReached){
             
             
@@ -624,9 +598,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             return
         }
         
-        
-        //let position = gesture.location(in: self.view!)
-        //self.longPressLocation = self.convertPoint(fromView: position)
         var position = gesture.location(in: self.view!)
         position = self.convertPoint(fromView: position)
         position =  (camera?.convert(position, from: self))!
@@ -637,7 +608,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         
         if gesture.state == .began{
-            base.position = position //self.convertPoint(fromView: position)
+            base.position = position
             ball.position = base.position
             base.isHidden = false
             ball.isHidden = false
@@ -663,11 +634,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if endGameReached{
             return
         }
-        //let position = gesture.location(in: self.view!)
-
-        //self.longPressLocation = self.convertPoint(fromView: position)
-        
-        
         
         var position = gesture.location(in: self.view!)
         position = self.convertPoint(fromView: position)
@@ -677,7 +643,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         if gesture.state == .began{
             
-            base.position = position //self.convertPoint(fromView: position)
+            base.position = position
             
             
             ball.position = base.position
@@ -731,12 +697,10 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         let vector  = CGVector(dx: location.x - base.position.x, dy: location.y - base.position.y)
         let angle = atan2(vector.dx, vector.dy)
         
-        //let degree = GLKMathRadiansToDegrees(Float(angle))
-        
         let LENGHT: CGFloat = 40
         
-        var xDist: CGFloat! // = sin(angle) * lenght
-        var yDist: CGFloat! // = cos(angle) * lenght
+        var xDist: CGFloat!
+        var yDist: CGFloat!
         
         if abs(location.x - base.position.x) <= LENGHT
         {
@@ -873,8 +837,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                         
                         player?.stateMachine.state(forClass: MovingState.self)?.distance = DISTANCE
                         
-                        //player?.stateMachine.state(forClass: MovingState.self)?.fast = true
-                        
                         if ball.position.x > base.position.x{
                             
                             self.rightMov = true
@@ -890,7 +852,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                         
                     }
                     else{
-                        //player?.stateMachine.state(forClass: MovingState.self)?.fast = false
+
                         player?.stateMachine.state(forClass: MovingState.self)?.distance = abs (Double(longPressLocation.x - base.position.x))
                         
                         self.distanceJoystickFinger = abs (Double(longPressLocation.x - base.position.x))
@@ -950,9 +912,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 self.base.isHidden = true
                 self.ball.isHidden = true
 
-                
-            //    self.cameraManager.performZoomToEndGame()
-                
             }
             
             if(self.mother.sonAndMotherMatchedPosition){
@@ -976,11 +935,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                     
                     firstEndedFirstAnimation = false
                     
-                    // hidden joystick
-                    
                     self.removeFirstAnimationNodesFromScreenAndPrepareNextAnimation()
-                 // run second animation
                     self.executeSecondAnimation()
+                    
                 }
                 
                 
@@ -996,8 +953,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 self.executeThirdAnimation()
                 
                 if(self.lastAnimationManager.allTheGameAnimationsAreFinished()){
-                    
-                    //self.movementShootingStar()
                     
                     player.stateMachine.enter(PlayerWonState.self)
 
@@ -1080,10 +1035,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
            self.oneTimeShootingStarAnimation = true
             
         })
-
-        
-        
-        //self.shottingStar.run(SKAction.move(by: CGVector.init(dx: -100, dy: -100), duration: 6))
         
     }
     

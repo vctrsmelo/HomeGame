@@ -33,12 +33,6 @@ class JumpingState: GKState {
 
          player?.component(ofType: JumpComponent.self)?.rightMovement = self.rightMovement
          player?.component(ofType: JumpComponent.self)?.jumpAnimate()
-        
-        
-        
-        //player
-       
-   
     
     }
     
