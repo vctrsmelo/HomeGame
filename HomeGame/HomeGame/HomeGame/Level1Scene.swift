@@ -87,6 +87,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var cameraManager:CameraManager!
     
     var distanceJoystickFinger: Double!
+
+    // MARK: sounds declaration
+    var backgroundSound: SKAudioNode!
     
     override func sceneDidLoad() {
         
@@ -440,7 +443,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if(playerColision){
             
             // MARK: BACKGROUND SOUND END
-            backgroundSound!.run(SKAction.stop())
+            backgroundSound.run(SKAction.stop())
             
             if(obstacleNode.physicsBody?.contactTestBitMask == 1){
                 
