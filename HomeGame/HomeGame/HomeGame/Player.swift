@@ -41,6 +41,8 @@ class Player: GKEntity {
     var positionToWalk = CGPoint(x: 30, y: 0)
     var positionToJump = CGPoint(x: 120, y: 220)
     
+    
+    
     let initialPositionInScene = CGPoint(x:-210, y:-69)
 
     let jumpTextureNumber = 60
@@ -182,14 +184,14 @@ class Player: GKEntity {
         if (jumpFinished == 1){
           if positionDirection == .left{
                 self.mainPlayerSprite.xScale = -spriteScale
-                if positionToJump.x != 0 {
-                    positionToJump.x = -120
-                }
+                //if positionToJump.x != 0 {
+                  //  positionToJump.x = -120
+                //}
                 
             }
             else{
                 self.mainPlayerSprite.xScale = abs (self.mainPlayerSprite.xScale)
-                positionToJump.x = abs (positionToJump.x)
+                //positionToJump.x = abs (positionToJump.x)
             }
             
         jumpFinished = 0

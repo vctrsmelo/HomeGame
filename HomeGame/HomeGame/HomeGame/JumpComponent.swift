@@ -13,6 +13,10 @@ import GameplayKit
 class JumpComponent: GKComponent {
     var rightMovement: Bool!
 //    var node: SKNode
+    
+    
+    var distance: Double!
+    
     var player: Player {
         return self.entity as! Player
     }
@@ -28,10 +32,18 @@ class JumpComponent: GKComponent {
     
     func jumpAnimate(){
         
+        
+        //
+        
+        
+        
         if rightMovement{
+            player.positionToJump.x = CGFloat (distance)
             player.jump(positionDirection: .right )
+            
         }
         else{
+            player.positionToJump.x =  CGFloat (-distance)
             player.jump(positionDirection: .left)
 
         }

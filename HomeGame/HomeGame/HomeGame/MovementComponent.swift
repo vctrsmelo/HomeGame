@@ -30,7 +30,7 @@ class MovementComponent: GKComponent {
     }
     
     func movement (){
-        let duration = distance * -0.002 + 0.494
+        let duration = distance * -0.002 + 0.4
         
         
         if rightMovement  {

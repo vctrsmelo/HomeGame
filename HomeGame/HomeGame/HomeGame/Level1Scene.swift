@@ -84,6 +84,12 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     var shottingStar:SKEmitterNode!
     
+    
+    
+    
+    
+    var distanceJoystickFinger: Double!
+    
     override func sceneDidLoad() {
         
         
@@ -587,6 +593,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         if(!endGameReached){
             
+            
+            player.stateMachine.state(forClass: JumpingState.self)?.distance = self.distanceJoystickFinger
             player?.stateMachine.state(forClass: JumpingState.self)?.rightMovement = self.rightMov
             
             tapLocation = gesture.location(in: self.view)
@@ -859,6 +867,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                     
                     
                     if abs (longPressLocation.x - base.position.x) >= CGFloat (DISTANCE){
+                        
+                        self.distanceJoystickFinger = DISTANCE
                         //if abs(ball.position.x - base.position.x) >= 40{
                         
                         player?.stateMachine.state(forClass: MovingState.self)?.distance = DISTANCE
@@ -882,6 +892,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                     else{
                         //player?.stateMachine.state(forClass: MovingState.self)?.fast = false
                         player?.stateMachine.state(forClass: MovingState.self)?.distance = abs (Double(longPressLocation.x - base.position.x))
+                        
+                        self.distanceJoystickFinger = abs (Double(longPressLocation.x - base.position.x))
+
                         
                         if ball.position.x > base.position.x {
                             
@@ -907,6 +920,13 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 }
                 
             }
+            else if ball.isHidden{
+                
+                self.distanceJoystickFinger = 0
+                
+            }
+            
+            
         }
         
        
