@@ -67,6 +67,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var firstTimeEnteredEndGame = true
     var firstEndedFirstAnimation = true
     
+    var alreadyEnteredInCave = false
+    
     var fog:[SKEmitterNode] = []
     
     
@@ -483,7 +485,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 self.player.finishEndGameAnimation = true
                 
             }
-            
+            /*
             else  if(obstacleNode.physicsBody?.contactTestBitMask == 22){
                 // entrou na cave
                 print("entrou na cave")
@@ -498,7 +500,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 
                 }
                 
-            }
+            }*/
             
             else  if(obstacleNode.physicsBody?.contactTestBitMask == 7){
                 print("nao desviou do objeto")
@@ -692,6 +694,30 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     }
     
     
+    func checkIfUserInCave() {
+        
+        if player.mainPlayerSprite.position.x >= 4900 && !alreadyEnteredInCave {
+            print("entrou na cave")
+            alreadyEnteredInCave = true
+            if childNode(withName: "fallObj_0") != nil && childNode(withName: "fallObj_1") != nil && childNode(withName: "fallObj_2") != nil{
+                self.fallObjects.append(childNode(withName: "fallObj_0")!)
+                self.fallObjects.append(childNode(withName: "fallObj_1")!)
+                self.fallObjects.append(childNode(withName: "fallObj_2")!)
+                
+                //if childNode(withName: "fallObj") != nil{
+                self.fallObj(obj: fallObjects[0])
+                //}
+                
+            }
+
+            
+            
+        }
+        
+    }
+    
+    
+    
     private func setJoystickPosition(to location : CGPoint){
         
         let vector  = CGVector(dx: location.x - base.position.x, dy: location.y - base.position.y)
@@ -780,12 +806,48 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
     }
     
+    
+    func dealWithRotation() {
+        
+        if player.mainPlayerSprite.position.x > 1964.1656 && player.mainPlayerSprite.position.x < 2131.72729492188 {
+           
+                player.mainPlayerSprite.zRotation = CGFloat(GLKMathDegreesToRadians(18))
+            
+        }
+        
+        else if player.mainPlayerSprite.position.x > 6769.2255 && player.mainPlayerSprite.position.x < 7454.0771484375 {
+         
+                    player.mainPlayerSprite.zRotation = CGFloat(GLKMathDegreesToRadians(10))
+
+        }
+        else {
+            player.mainPlayerSprite.zRotation = 0
+        }
+        
+        
+    }
+    
+    
+    
     override func update(_ currentTime: TimeInterval) {
         
         let DISTANCE: Double = 150
         
+        
+        //LOCATIONS TO ROTATE
+        //1964.1656 - 2131.72729492188
+        //6769.2255859375 - 7454.0771484375
+
+        
+        
+        
+        
+        
+        
         if(!endGameReached){
             
+            self.checkIfUserInCave()
+            self.dealWithRotation()
             
             if (!base.isHidden && !(self.player?.stateMachine.currentState is JumpingState)){
                 
