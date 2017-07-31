@@ -81,7 +81,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     // Camera manager integration
     var cameraManager:CameraManager!
     
-    var shottingStar:SKEmitterNode!
+    
     
     
     
@@ -442,7 +442,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 // ou
                 // Ice cub - morre
             }
-            else if(obstacleNode.physicsBody?.contactTestBitMask == 3){
+            else if(obstacleNode.physicsBody?.contactTestBitMask == 31){
                 
                 
                 if ( obstacleNode.position.y  < playerNode.position.y  && playerNode.position.x  > obstacleNode.position.x - obstacleNode.frame.size.width/2 && playerNode.position.x < obstacleNode.position.x + obstacleNode.frame.size.width/2){

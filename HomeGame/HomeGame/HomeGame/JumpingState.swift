@@ -14,7 +14,7 @@ class JumpingState: GKState {
     weak var player: Player?
     var rightMovement: Bool!
     
-    var distance: Double!
+    var distance: Double = 0
     
     init(with player: Player) {
         self.player = player

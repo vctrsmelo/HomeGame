@@ -15,7 +15,7 @@ class JumpComponent: GKComponent {
 //    var node: SKNode
     
     
-    var distance: Double!
+    var distance: Double = 0
     
     var player: Player {
         return self.entity as! Player
@@ -38,6 +38,9 @@ class JumpComponent: GKComponent {
         
         
         if rightMovement{
+            
+            
+            
             player.positionToJump.x = CGFloat (distance)
             player.jump(positionDirection: .right )
             
