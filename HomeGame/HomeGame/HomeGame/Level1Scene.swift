@@ -81,13 +81,10 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     // Camera manager integration
     var cameraManager:CameraManager!
     
-    
-    
-    
-    
-    
-    
     var distanceJoystickFinger: Double!
+
+    // MARK: sounds declaration
+    var backgroundSound: SKAudioNode!
     
     override func sceneDidLoad() {
         
@@ -104,6 +101,12 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         
         super.didMove(to: view)
+        
+        // MARK: SOUNDS INIT
+        
+        backgroundSound = SKAudioNode(fileNamed: "backgroundSound.wav")
+        self.addChild(backgroundSound)
+        
         
         self.shottingStar = SKEmitterNode.init(fileNamed: "ShootingStar")
         self.shottingStar.position.x = 10400
@@ -430,6 +433,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         }
         
         if(playerColision){
+            
+            // MARK: BACKGROUND SOUND END
+            backgroundSound.run(SKAction.stop())
             
             if(obstacleNode.physicsBody?.contactTestBitMask == 1){
                 
@@ -823,7 +829,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             self.checkIfUserInCave()
             self.dealWithRotation()
             
+            
             if (!base.isHidden && !(self.player?.stateMachine.currentState is JumpingState)){
+                
                 
                 if abs (ball.position.x - base.position.x) > 3 { //&& self.player?.stateMachine.currentState is StoppedState{
                     
