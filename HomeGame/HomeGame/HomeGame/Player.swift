@@ -36,7 +36,7 @@ class Player: GKEntity {
     //var test:SKTextureAtlas!
     
     var positionToWalk = CGPoint(x: 30, y: 0)
-    var positionToJump = CGPoint(x: 120, y: 220)
+    var positionToJump = CGPoint(x: 120, y: 280)
     
     
     

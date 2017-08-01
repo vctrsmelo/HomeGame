@@ -134,8 +134,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.fog[1].position.y = 60
         self.fog[1].zPosition = 5
         
-        self.addChild(self.fog[0])
-        self.addChild(self.fog[1])
+        //self.addChild(self.fog[0])
+        //self.addChild(self.fog[1])
         
  
         //let credits = SKScene(fileNamed: "CreditsScene")
@@ -557,6 +557,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         ball.position = base.position
         
+        base.zPosition = 100
+        ball.zPosition = 100
         self.cameraManager.cameraNode.addChild(base)
         self.cameraManager.cameraNode.addChild(ball)
         
