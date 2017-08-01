@@ -136,12 +136,13 @@ class Player: GKEntity {
             
             // MARK: MOVINGSOUND
 //            print("\nwill enter if")
+            let sound: SKAudioNode!
             if isRunning {
-                let sound = SKAudioNode(fileNamed: "run.mp3")
+                sound = SKAudioNode(fileNamed: "run.mp3")
                 movingSound = sound
             }
             else {
-                let sound = SKAudioNode(fileNamed: "walkstop().mp3")
+                sound = SKAudioNode(fileNamed: "walk.mp3")
                 movingSound = sound
             }
 
@@ -168,7 +169,7 @@ class Player: GKEntity {
                 self.animationEnded =  1
                 
                 // MARK: PLAYER MOVING SOUND STOP
-                self.movingSound.run(SKAction.stop())
+                sound.run(SKAction.stop())
 
             })
      
