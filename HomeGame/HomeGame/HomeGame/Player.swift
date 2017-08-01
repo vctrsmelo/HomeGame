@@ -20,7 +20,12 @@ enum positionEnum {
 
 
 class Player: GKEntity {
-        
+    
+    // MARK: WALK AND RUN SOUNDS
+    let runSound = SKAudioNode()
+    let walkSound = SKAudioNode()
+    var movingSound = SKAudioNode()
+    
     var stateMachine: GKStateMachine!
     
     var mainPlayerSprite:SKSpriteNode!
@@ -129,6 +134,22 @@ class Player: GKEntity {
             let animateSprite = isRunning ? SKAction.animate(with: self.runTextures, timePerFrame: duration/Double(runTextures.count)) : SKAction.animate(with: self.walkTextures, timePerFrame: duration/Double(walkTextures.count))
             let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: duration)
             
+            // MARK: MOVINGSOUND
+//            print("\nwill enter if")
+            if isRunning {
+                let sound = SKAudioNode(fileNamed: "run.mp3")
+                movingSound = sound
+            }
+            else {
+                let sound = SKAudioNode(fileNamed: "walkstop().mp3")
+                movingSound = sound
+            }
+
+            // MARK: PLAYER MOVING SOUND
+            let playerScene = self.mainPlayerSprite.parent
+            
+            playerScene?.addChild(self.movingSound)
+
             
             let walkAction = SKAction.sequence([moveByHalfXUp])
             
@@ -145,6 +166,10 @@ class Player: GKEntity {
                 self.mainPlayerSprite.zPosition = 0
                 self.actionCompleted = true
                 self.animationEnded =  1
+                
+                // MARK: PLAYER MOVING SOUND STOP
+                self.movingSound.run(SKAction.stop())
+
             })
      
         }

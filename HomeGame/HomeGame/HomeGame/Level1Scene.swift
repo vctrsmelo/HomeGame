@@ -9,10 +9,15 @@
 import SpriteKit
 import GameplayKit
 import AudioToolbox
+import AVFoundation
+
 class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     
     var scenarioObjects:[ScenarioObjects]!
     var characterNodes:[CharacterNode]!
+    
+    // MARK: SOUNDS declaration
+    var backgroundSound: SKAudioNode!
     
     //model attributes
     var player: Player! = nil
@@ -82,9 +87,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var cameraManager:CameraManager!
     
     var distanceJoystickFinger: Double!
-
-    // MARK: sounds declaration
-    var backgroundSound: SKAudioNode!
     
     override func sceneDidLoad() {
         
@@ -99,14 +101,13 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     override func didMove(to view: SKView) {
         
-        
         super.didMove(to: view)
         
-        // MARK: SOUNDS INIT
-        
-        backgroundSound = SKAudioNode(fileNamed: "backgroundSound.wav")
-        self.addChild(backgroundSound)
-        
+        // MARK: SOUNDS INIT AND PLAY (ASYNCHRONOUS!!!! that's why we need another variable)
+        let sound = SKAudioNode(fileNamed: "backgroundSound.wav")
+        self.backgroundSound = sound
+        self.addChild(sound)
+
         
         self.shottingStar = SKEmitterNode.init(fileNamed: "ShootingStar")
         self.shottingStar.position.x = 10400
@@ -435,7 +436,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if(playerColision){
             
             // MARK: BACKGROUND SOUND END
-            backgroundSound.run(SKAction.stop())
+            backgroundSound!.run(SKAction.stop())
             
             if(obstacleNode.physicsBody?.contactTestBitMask == 1){
                 
@@ -887,8 +888,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 else if !(self.player?.stateMachine.currentState is JumpingState){
                     
                     player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
-                    
-                    
+                                        
                 }
                 
             }
