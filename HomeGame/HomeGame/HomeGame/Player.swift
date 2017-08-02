@@ -22,10 +22,9 @@ enum positionEnum {
 class Player: GKEntity {
     
     // MARK: WALK AND RUN SOUNDS
-    let runSound = SKAudioNode()
-    let walkSound = SKAudioNode()
-    var movingSound = SKAudioNode()
-    
+    var runningSound = SKAudioNode(fileNamed: "run.mp3")
+    var walkingSound = SKAudioNode(fileNamed: "walk.mp3")
+    var addedSounds = false
     var stateMachine: GKStateMachine!
     
     var mainPlayerSprite:SKSpriteNode!
@@ -91,7 +90,7 @@ class Player: GKEntity {
        
         self.stateMachine = GKStateMachine(states: [playerMoving, playerJumping, playerStopped, playerLoser, playerWinner])
         self.stateMachine.enter(StoppedState.self)
-     
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -103,6 +102,13 @@ class Player: GKEntity {
         self.stateMachine.enter(stateClass)
 
 
+    }
+    
+    func stopMovingSound(){
+        
+        self.walkingSound.run(SKAction.stop())
+        self.runningSound.run(SKAction.stop())
+        
     }
 
     func walk(positionDirection: positionEnum, duration: Double){
@@ -131,46 +137,36 @@ class Player: GKEntity {
             }
             
             animationEnded = 0
+            
             let animateSprite = isRunning ? SKAction.animate(with: self.runTextures, timePerFrame: duration/Double(runTextures.count)) : SKAction.animate(with: self.walkTextures, timePerFrame: duration/Double(walkTextures.count))
+            
+            
+            if !addedSounds{
+                mainPlayerSprite.scene?.addChild(self.walkingSound)
+                mainPlayerSprite.scene?.addChild(self.runningSound)
+                stopMovingSound()
+                addedSounds = true
+                
+            }
+            
+            let audio = isRunning ? runningSound : walkingSound
+            audio.run(SKAction.play())
+
             let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: duration)
-            
-            // MARK: MOVINGSOUND
-//            print("\nwill enter if")
-            let sound: SKAudioNode!
-            if isRunning {
-                sound = SKAudioNode(fileNamed: "run.mp3")
-                movingSound = sound
-            }
-            else {
-                sound = SKAudioNode(fileNamed: "walk.mp3")
-                movingSound = sound
-            }
-
-            // MARK: PLAYER MOVING SOUND
-            let playerScene = self.mainPlayerSprite.parent
-            
-            playerScene?.addChild(self.movingSound)
-
             
             let walkAction = SKAction.sequence([moveByHalfXUp])
             
             var animationWithWalkAction = Array<SKAction>()
-            
-            
-                animationWithWalkAction.append(animateSprite)
-                animationWithWalkAction.append(walkAction)
+            animationWithWalkAction.append(animateSprite)
+            animationWithWalkAction.append(walkAction)
             
             self.actionCompleted = false
-            
             self.mainPlayerSprite.run(SKAction.group(animationWithWalkAction), completion: {() -> Void in
                 
                 self.mainPlayerSprite.zPosition = 0
                 self.actionCompleted = true
                 self.animationEnded =  1
                 
-                // MARK: PLAYER MOVING SOUND STOP
-                sound.run(SKAction.stop())
-
             })
      
         }

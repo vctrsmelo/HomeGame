@@ -515,10 +515,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         let nameArray = obstacle.name?.components(separatedBy: "_")
         let obsNumber = Int((nameArray?[1])!)
 
-        
         if animationCompleted[obsNumber!] {
             animationCompleted[obsNumber!] =  false
-        
         
         //let wait = SKAction.wait(forDuration: 1.0)
         let rot1 = SKAction.rotate(byAngle: -CGFloat(GLKMathDegreesToRadians(1)), duration: 0.1)
@@ -542,11 +540,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             })
         }
         
-        
     }
-    
-    
-    
     
     func initControllerInterface(){
         
@@ -576,7 +570,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         if(!endGameReached){
             
-            
+            player?.stopMovingSound()
             player.stateMachine.state(forClass: JumpingState.self)?.distance = self.distanceJoystickFinger
             player?.stateMachine.state(forClass: JumpingState.self)?.rightMovement = self.rightMov
             
@@ -631,6 +625,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
             ball.position = base.position
             player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+            player?.stopMovingSound()
             return
             
         }
@@ -659,6 +654,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             base.isHidden = false
             ball.isHidden = false
             
+            
         }
         
         if gesture.state == .ended || gesture.state == .cancelled{
@@ -668,6 +664,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
             ball.position = base.position
             player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+            player?.stopMovingSound()
             return
             
         }
