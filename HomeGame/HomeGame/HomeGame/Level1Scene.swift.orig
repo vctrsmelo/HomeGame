@@ -103,15 +103,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         super.didMove(to: view)
         
-<<<<<<< HEAD
-        
-=======
         // MARK: SOUNDS INIT AND PLAY (ASYNCHRONOUS!!!! that's why we need another variable)
         let sound = SKAudioNode(fileNamed: "backgroundSound.wav")
         self.backgroundSound = sound
         self.addChild(sound)
 
->>>>>>> 4bb94314c535a56c89e5265eb6fa7a67620c7e24
         
         self.shottingStar = SKEmitterNode.init(fileNamed: "ShootingStar")
         self.shottingStar.position.x = 10400
