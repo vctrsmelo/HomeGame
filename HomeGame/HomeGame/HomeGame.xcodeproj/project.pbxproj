@@ -46,6 +46,9 @@
 		EEBFA9361F1E48FD007DB093 /* SBDynamicWaterNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */; };
 		EEBFA9391F1E4B76007DB093 /* Droplet.png in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9371F1E4B76007DB093 /* Droplet.png */; };
 		EEBFA93A1F1E4B76007DB093 /* Droplets.fsh in Resources */ = {isa = PBXBuildFile; fileRef = EEBFA9381F1E4B76007DB093 /* Droplets.fsh */; };
+		EEEE69321F324D4500D04C6C /* backgroundSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = EEEE692F1F324D4500D04C6C /* backgroundSound.wav */; };
+		EEEE69331F324D4500D04C6C /* run.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EEEE69301F324D4500D04C6C /* run.mp3 */; };
+		EEEE69341F324D4500D04C6C /* walk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EEEE69311F324D4500D04C6C /* walk.mp3 */; };
 		EEF933621F154836004EB520 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF933611F154836004EB520 /* AppDelegate.swift */; };
 		EEF933661F154836004EB520 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEF933651F154836004EB520 /* Actions.sks */; };
 		EEF9336A1F154836004EB520 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF933691F154836004EB520 /* GameViewController.swift */; };
@@ -96,6 +99,9 @@
 		EEBFA9351F1E48FD007DB093 /* SBDynamicWaterNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDynamicWaterNode.m; sourceTree = "<group>"; };
 		EEBFA9371F1E4B76007DB093 /* Droplet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Droplet.png; sourceTree = "<group>"; };
 		EEBFA9381F1E4B76007DB093 /* Droplets.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Droplets.fsh; sourceTree = "<group>"; };
+		EEEE692F1F324D4500D04C6C /* backgroundSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = backgroundSound.wav; sourceTree = "<group>"; };
+		EEEE69301F324D4500D04C6C /* run.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = run.mp3; sourceTree = "<group>"; };
+		EEEE69311F324D4500D04C6C /* walk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = walk.mp3; sourceTree = "<group>"; };
 		EEF9335E1F154836004EB520 /* HomeGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF933611F154836004EB520 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EEF933651F154836004EB520 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -221,6 +227,16 @@
 			name = WaterExtension;
 			sourceTree = "<group>";
 		};
+		EEEE692E1F324D0300D04C6C /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				EEEE692F1F324D4500D04C6C /* backgroundSound.wav */,
+				EEEE69301F324D4500D04C6C /* run.mp3 */,
+				EEEE69311F324D4500D04C6C /* walk.mp3 */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
 		EEF4284E1F2BAC27002698F2 /* Level1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +271,7 @@
 		EEF933601F154836004EB520 /* HomeGame */ = {
 			isa = PBXGroup;
 			children = (
+				EEEE692E1F324D0300D04C6C /* Sounds */,
 				ED1129161F2294FB00D67489 /* CameraManager */,
 				ED1128EB1F1FE57200D67489 /* ParticlesEffects */,
 				EEBFA9321F1E48C6007DB093 /* WaterExtension */,
@@ -352,14 +369,17 @@
 				8DE3551A1F26790100FB3C56 /* CreditsScene.sks in Resources */,
 				ED1128EF1F1FE59000D67489 /* snowParticle.sks in Resources */,
 				ED11293C1F2961AB00D67489 /* FireFlyTest.sks in Resources */,
+				EEEE69321F324D4500D04C6C /* backgroundSound.wav in Resources */,
 				EEF9336F1F154836004EB520 /* Assets.xcassets in Resources */,
 				EEF933721F154836004EB520 /* LaunchScreen.storyboard in Resources */,
 				AE30A63B1F2921FA00879E56 /* NewCreditsScene.sks in Resources */,
 				AE30A6371F27B91100879E56 /* MainScene.sks in Resources */,
+				EEEE69331F324D4500D04C6C /* run.mp3 in Resources */,
 				8DE355281F2A465C00FB3C56 /* Level1Scene.sks in Resources */,
 				ED1128EE1F1FE59000D67489 /* SmokeParticle.sks in Resources */,
 				ED1129401F2A333E00D67489 /* ShootingStar.sks in Resources */,
 				EEBFA93A1F1E4B76007DB093 /* Droplets.fsh in Resources */,
+				EEEE69341F324D4500D04C6C /* walk.mp3 in Resources */,
 				EEF933661F154836004EB520 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
