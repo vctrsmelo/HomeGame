@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
         if let view = self.view as! SKView? {
             GameViewController.sharedView = view
             if let scene = SKScene(fileNamed: "MainScene") {
-                view.presentScene(scene)
+                GameViewController.sharedView.presentScene(scene)
             }
             
             view.ignoresSiblingOrder = true

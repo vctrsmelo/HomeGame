@@ -13,6 +13,8 @@ import AVFoundation
 
 class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     
+    var playerLost = false
+    
     var scenarioObjects:[ScenarioObjects]!
     var characterNodes:[CharacterNode]!
     
@@ -504,7 +506,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
             else  if(obstacleNode.physicsBody?.contactTestBitMask == 7){
                 print("nao desviou do objeto")
-                player.stateMachine.enter(PlayerLostState.self)
+                if !(player.stateMachine.currentState is PlayerLostState) {
+                    playerLost = true
+                }
             }
 
             
@@ -572,7 +576,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func handleTap(gesture: UITapGestureRecognizer){
         
-        if(!endGameReached){
+        if(!endGameReached && !playerLost){
             
             player?.stopMovingSound()
             player.stateMachine.state(forClass: JumpingState.self)?.distance = self.distanceJoystickFinger
@@ -601,7 +605,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     //controller methodss
     public func handleLongPress (gesture: UILongPressGestureRecognizer){
 
-        if longPressSetted || endGameReached{
+        if longPressSetted || endGameReached || playerLost{
             return
         }
         
@@ -639,7 +643,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     public func handlePan(gesture: UIPanGestureRecognizer){
 
-        if endGameReached{
+        if endGameReached || playerLost{
             return
         }
         
@@ -815,6 +819,11 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     
     override func update(_ currentTime: TimeInterval) {
+        
+        if playerLost{
+            player?.stateMachine.enter(PlayerLostState.self)
+            return
+        }
         
         let DISTANCE: Double = 150
         
