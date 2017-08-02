@@ -9,10 +9,15 @@
 import SpriteKit
 import GameplayKit
 import AudioToolbox
+import AVFoundation
+
 class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelegate{
     
     var scenarioObjects:[ScenarioObjects]!
     var characterNodes:[CharacterNode]!
+    
+    // MARK: SOUNDS declaration
+    var backgroundSound: SKAudioNode!
     
     //model attributes
     var player: Player! = nil
@@ -81,12 +86,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     // Camera manager integration
     var cameraManager:CameraManager!
     
-    
-    
-    
-    
-    
-    
     var distanceJoystickFinger: Double!
     
     override func sceneDidLoad() {
@@ -102,10 +101,13 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     override func didMove(to view: SKView) {
         
-        
         super.didMove(to: view)
         
-        
+        // MARK: SOUNDS INIT AND PLAY (ASYNCHRONOUS!!!! that's why we need another variable)
+        let sound = SKAudioNode(fileNamed: "backgroundSound.wav")
+        self.backgroundSound = sound
+        self.addChild(sound)
+
         
         self.shottingStar = SKEmitterNode.init(fileNamed: "ShootingStar")
         self.shottingStar.position.x = 10400
@@ -136,8 +138,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.fog[1].position.y = 60
         self.fog[1].zPosition = 5
         
-        self.addChild(self.fog[0])
-        self.addChild(self.fog[1])
+        //self.addChild(self.fog[0])
+        //self.addChild(self.fog[1])
         
  
         //let credits = SKScene(fileNamed: "CreditsScene")
@@ -437,6 +439,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         if(playerColision){
             
+            // MARK: BACKGROUND SOUND END
+            backgroundSound!.run(SKAction.stop())
+            
             if(obstacleNode.physicsBody?.contactTestBitMask == 1){
                 
                 // Chao escorrega
@@ -514,10 +519,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         let nameArray = obstacle.name?.components(separatedBy: "_")
         let obsNumber = Int((nameArray?[1])!)
 
-        
         if animationCompleted[obsNumber!] {
             animationCompleted[obsNumber!] =  false
-        
         
         //let wait = SKAction.wait(forDuration: 1.0)
         let rot1 = SKAction.rotate(byAngle: -CGFloat(GLKMathDegreesToRadians(1)), duration: 0.1)
@@ -541,11 +544,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             })
         }
         
-        
     }
-    
-    
-    
     
     func initControllerInterface(){
         
@@ -563,6 +562,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         ball.position = base.position
         
+        base.zPosition = 100
+        ball.zPosition = 100
         self.cameraManager.cameraNode.addChild(base)
         self.cameraManager.cameraNode.addChild(ball)
         
@@ -573,7 +574,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         if(!endGameReached){
             
-            
+            player?.stopMovingSound()
             player.stateMachine.state(forClass: JumpingState.self)?.distance = self.distanceJoystickFinger
             player?.stateMachine.state(forClass: JumpingState.self)?.rightMovement = self.rightMov
             
@@ -628,6 +629,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
             ball.position = base.position
             player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+            player?.stopMovingSound()
             return
             
         }
@@ -656,6 +658,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             base.isHidden = false
             ball.isHidden = false
             
+            
         }
         
         if gesture.state == .ended || gesture.state == .cancelled{
@@ -665,6 +668,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             
             ball.position = base.position
             player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
+            player?.stopMovingSound()
             return
             
         }
@@ -829,7 +833,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             self.checkIfUserInCave()
             self.dealWithRotation()
             
+            
             if (!base.isHidden && !(self.player?.stateMachine.currentState is JumpingState)){
+                
                 
                 if abs (ball.position.x - base.position.x) > 3 { //&& self.player?.stateMachine.currentState is StoppedState{
                     
@@ -885,8 +891,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 else if !(self.player?.stateMachine.currentState is JumpingState){
                     
                     player?.stateMachine.state(forClass: MovingState.self)?.stop = 1
-                    
-                    
+                                        
                 }
                 
             }
