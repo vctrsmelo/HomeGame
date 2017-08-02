@@ -105,6 +105,8 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         super.didMove(to: view)
         
+        
+        
         self.shottingStar = SKEmitterNode.init(fileNamed: "ShootingStar")
         self.shottingStar.position.x = 10400
         self.shottingStar.position.y = 300
@@ -348,6 +350,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         player = Player()
         self.addChild(player.mainPlayerSprite)
         player.mainPlayerSprite.zPosition = 1
+        player.initializePlayerPhysicsBody()
         
         /** Initializing mother **/
         
@@ -357,6 +360,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         self.addChild(mother.mainMotherSprite)
         mother.mainMotherSprite.zPosition = 1
         
+        
+        //addChild(player.nodo)
+        //addChild(player.nodo2)
         
     }
     
@@ -385,7 +391,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         }
         
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate) //treme
-            obj.zPosition = 0
+            obj.zPosition = player.mainPlayerSprite.zPosition
             let wait = SKAction.wait(forDuration: waitDuration) //esperea
             let fall = SKAction.move(to: CGPoint(x: obj.position.x, y: -200), duration: 3) //cai
             let sequence = SKAction.sequence([wait, fall])
@@ -781,18 +787,21 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func dealWithRotation() {
         
-        if player.mainPlayerSprite.position.x > 1964.1656 && player.mainPlayerSprite.position.x < 2131.72729492188 {
-           
-                player.mainPlayerSprite.zRotation = CGFloat(GLKMathDegreesToRadians(18))
+        if player.mainPlayerSprite.position.x > 1990 && player.mainPlayerSprite.position.x < 2100 {
+            
+            
+            
+                player.mainPlayerSprite.zRotation = CGFloat(GLKMathDegreesToRadians(20))
             
         }
         
-        else if player.mainPlayerSprite.position.x > 6769.2255 && player.mainPlayerSprite.position.x < 7454.0771484375 {
-         
-                    player.mainPlayerSprite.zRotation = CGFloat(GLKMathDegreesToRadians(10))
+        else if player.mainPlayerSprite.position.x > 6800 && player.mainPlayerSprite.position.x < 7454.0771484375 {
+            player.mainPlayerSprite.zRotation = CGFloat(GLKMathDegreesToRadians(10))
 
         }
         else {
+            
+            
             player.mainPlayerSprite.zRotation = 0
         }
         
@@ -804,7 +813,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     override func update(_ currentTime: TimeInterval) {
         
         let DISTANCE: Double = 150
-        
         
         //LOCATIONS TO ROTATE
         //1964.1656 - 2131.72729492188

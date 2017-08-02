@@ -35,18 +35,15 @@ class JumpComponent: GKComponent {
         
         //
         
-        
+        let posToJump = 0.8 * distance
         
         if rightMovement{
-            
-            
-            
-            player.positionToJump.x = CGFloat (distance)
+            player.positionToJump.x = CGFloat (posToJump)
             player.jump(positionDirection: .right )
             
         }
         else{
-            player.positionToJump.x =  CGFloat (-distance)
+            player.positionToJump.x =  CGFloat (-posToJump)
             player.jump(positionDirection: .left)
 
         }

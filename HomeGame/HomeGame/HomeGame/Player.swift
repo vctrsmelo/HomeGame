@@ -9,9 +9,6 @@
 import UIKit
 import GameplayKit
 
-
-
-
 enum positionEnum {
     case left
     case right
@@ -20,7 +17,10 @@ enum positionEnum {
 
 
 class Player: GKEntity {
-        
+    
+    var nodo: SKShapeNode!
+    var nodo2: SKShapeNode!
+    
     var stateMachine: GKStateMachine!
     
     var mainPlayerSprite:SKSpriteNode!
@@ -36,7 +36,7 @@ class Player: GKEntity {
     //var test:SKTextureAtlas!
     
     var positionToWalk = CGPoint(x: 30, y: 0)
-    var positionToJump = CGPoint(x: 120, y: 220)
+    var positionToJump = CGPoint(x: 120, y: 200)
     
     
     
@@ -62,6 +62,7 @@ class Player: GKEntity {
         super.init()
         
         self.initializeTextureForSpriteNode()
+        //self.initializePlayerPhysicsBody()
         self.initializeJumpTextures()
         self.initializeWalkTextures()
         self.initializeRunTextures()
@@ -73,7 +74,6 @@ class Player: GKEntity {
         let playerWinner = PlayerWonState(with: self)
         let playerLoser = PlayerLostState(with: self)
 
-        self.initializePlayerPhysicsBody()
         
         let jumpComp = JumpComponent()
         let moveComp = MovementComponent()
@@ -205,8 +205,6 @@ class Player: GKEntity {
         mainPlayerSprite.position = initialPositionInScene //CGPoint(x: 7367, y: -79.992 + 50)
         
         mainPlayerSprite.zPosition = 0
-        
-        self.initializePlayerPhysicsBody()
     }
     
     func initializeJumpTextures(){
@@ -267,7 +265,72 @@ class Player: GKEntity {
     
     func initializePlayerPhysicsBody(){
         
-        mainPlayerSprite.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height-15))
+        mainPlayerSprite.setScale(spriteScale)
+        
+       // let scalePhysics =  SKAction.scale(to: spriteScale, duration: 5)
+       // mainPlayerSprite.run(scalePhysics)
+    
+        //let physicsBody2 = SKPhysicsBody(rectangleOf: CGSize(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height-15), center: CGPoint.init(x: mainPlayerSprite.anchorPoint.x - 10, y: mainPlayerSprite.anchorPoint.y))
+        
+        let rect = CGRect.init(x: -194, y: -70, width: 23, height: 20)
+        let rect2 = CGRect.init(x:initialPositionInScene.x-35, y:initialPositionInScene.y-20, width: 81.6000061035156 - 30, height: 46.5 - 7)
+        
+        
+        let bottomLeft = rect.origin;
+        let bottomRight = CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y);
+        
+        let topRight = CGPoint(x: rect.origin.x + rect.size.width, y:
+                                           rect.origin.y + rect.size.height);
+        
+        let bottomLeft2 = rect2.origin;
+        let bottomRight2 = CGPoint(x: rect2.origin.x + rect2.size.width, y: rect2.origin.y);
+        let topLeft2 = CGPoint(x: rect2.origin.x, y: rect2.origin.y + rect2.size.height);
+        
+        let cena = Level1Scene()
+        
+        let path = UIBezierPath()
+        
+
+        path.move(to: cena.convert(bottomLeft2, to: mainPlayerSprite))
+        //path.addLine(to: bottomRight)
+        //path.addLine(to: topRight)
+        path.addLine(to: cena.convert(topLeft2, to: mainPlayerSprite))
+        path.addLine(to: cena.convert(topRight, to: mainPlayerSprite))
+        path.addLine(to: cena.convert(bottomRight, to: mainPlayerSprite))//(to: bottomRight)
+        path.addLine(to: cena.convert(bottomLeft, to: mainPlayerSprite))//(to: bottomLeft)
+        path.addLine(to: cena.convert(bottomRight2, to: mainPlayerSprite))//bottomRight2)
+        path.addLine(to: cena.convert(bottomLeft2, to: mainPlayerSprite))//(to: bottomLeft2)
+       // path.stroke()
+        //mainPlayerSprite.setScale(spriteScale)
+
+       
+       // let physicsBody = SKPhysicsBody.init(edgeLoopFrom: path.cgPath)
+       // let physics3 = SKPhysicsBody.init(texture: mainPlayerSprite.texture!, alphaThreshold: 0.5, size: mainPlayerSprite.size)
+        
+        //let physicsBody5 = SKPhysicsBody(circleOfRadius: min(mainPlayerSprite.size.height, mainPlayerSprite.size.width)*0.55)
+        
+        let physics3 = SKPhysicsBody.init(texture: mainPlayerSprite.texture!, size: CGSize.init(width: self.mainPlayerSprite.size.width, height: self.mainPlayerSprite.size.height-10))
+        
+        mainPlayerSprite.physicsBody = physics3
+        mainPlayerSprite.physicsBody?.mass = 0.1
+      
+
+
+        
+               /*
+        let tst = SKShapeNode.init(path: path.cgPath)
+        tst.strokeColor = .black
+        tst.lineWidth = 2
+        let tst2 = SKShapeNode.init(rect: rect)
+        nodo = tst
+        nodo2 = tst2
+        
+        nodo.zPosition = 3
+        //nodo.fillColor = .red
+        nodo2.zPosition = -1
+        nodo2.fillColor = .blue
+        */
+        
         
         mainPlayerSprite.physicsBody?.affectedByGravity = true
         
@@ -281,7 +344,6 @@ class Player: GKEntity {
         
         mainPlayerSprite.physicsBody?.friction = 10.0
         
-        mainPlayerSprite.setScale(spriteScale)
         
         mainPlayerSprite.name="Player"
   
