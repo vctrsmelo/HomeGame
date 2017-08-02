@@ -441,9 +441,6 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
         
         if(playerColision){
             
-            // MARK: BACKGROUND SOUND END
-            backgroundSound!.run(SKAction.stop())
-            
             if(obstacleNode.physicsBody?.contactTestBitMask == 1){
                 
                 // Chao escorrega
@@ -451,6 +448,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             }
             else if(obstacleNode.physicsBody?.contactTestBitMask == 2){
                 
+                // MARK: BACKGROUND SOUND END
+                backgroundSound!.run(SKAction.stop())
+
                 // Agua - morre
                 // ou
                 // Ice cub - morre
@@ -467,7 +467,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
                 
             else if (obstacleNode.physicsBody?.contactTestBitMask == 4){
                 
-                
+                // MARK: BACKGROUND SOUND END
+                backgroundSound!.run(SKAction.stop())
+
                 player?.stateMachine.enter(PlayerWonState.self)
                 print("morreu")
                 
@@ -475,7 +477,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             else if(obstacleNode.physicsBody?.contactTestBitMask == 5){
                 // end game ground touched
                 
-                
+                // MARK: BACKGROUND SOUND END
+                backgroundSound!.run(SKAction.stop())
+
                 endGameReached = true
                 
                 print("end game")
@@ -505,6 +509,9 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
             }*/
             
             else  if(obstacleNode.physicsBody?.contactTestBitMask == 7){
+                // MARK: BACKGROUND SOUND END
+                backgroundSound!.run(SKAction.stop())
+
                 print("nao desviou do objeto")
                 if !(player.stateMachine.currentState is PlayerLostState) {
                     playerLost = true
