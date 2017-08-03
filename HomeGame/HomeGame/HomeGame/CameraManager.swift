@@ -26,6 +26,8 @@ class CameraManager: AnyObject {
     
     var passed = false
     
+    var introAnimation = false
+    
     init(viewWidth:CGFloat) {
         
         cameraNode = SKCameraNode()
@@ -128,7 +130,7 @@ class CameraManager: AnyObject {
         }
  */
         
-        if(node.position.y < -123){
+        if(node.position.y < -123 && !introAnimation){
             return
         }
         
@@ -144,11 +146,82 @@ class CameraManager: AnyObject {
     }
     
     
+    
+    func checkCameraPositionAndPerformMovementIntroAnimation(node:SKNode){
+        
+        
+        
+        /*
+         if(node.position.x <= (-1)){
+         
+         passed = false
+         
+         }else{
+         
+         passed = true
+         }
+         
+         
+         
+         if(node.position.x >= lastPositionToRight.x && direita){
+         
+         
+         //cameraNode.run(SKAction.move(to: CGPoint(x: (node.position.x - 1), y: node.position.y), duration: 0.01))
+         
+         cameraNode.position.x = (node.position.x - 1)
+         
+         }
+         
+         
+         if(passed){
+         
+         if(node.position.x <= (lastPositionToRight.x - 1) && esquerda){
+         
+         //cameraNode.run(SKAction.move(to: CGPoint(x: (node.position.x + 1), y: node.position.y), duration: 0.01))
+         cameraNode.position.x = (node.position.x + 1)
+         
+         
+         cameraNode.position.x = (node.position.x + 1)
+         }
+         
+         
+         cameraNode.position.y = node.position.y+100
+         
+         }
+         */
+        
+        if(node.position.y < -123 && !introAnimation){
+            return
+        }
+        
+        if(node.position.x >= 0){
+            
+            cameraNode.position.y = node.position.y+75
+            cameraNode.position.x = node.position.x
+            
+        }
+        
+        
+        
+    }
+
+    
+    
     func performZoomToEndGame(){
         
         self.cameraNode.run(SKAction.scale(to: 0.68, duration: 3))
         
     }
     
+    func performZoomToIntroAnimation(){
+        
+        self.cameraNode.run(SKAction.scale(to: 0.8, duration: 3))
+        
+    }
+    
+    func performZoomToIntroAnimationFinal(){
+        
+        self.cameraNode.run(SKAction.scale(to: 0.7, duration: 3))
+    }
     
 }

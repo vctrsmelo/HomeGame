@@ -167,7 +167,7 @@ class MainScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // teste se apertou em playbtn ou creditsbtn
-        let gamescene = SKScene(fileNamed: "Level1Scene")
+        let gamescene = SKScene(fileNamed: "IntroAnimation")
         let creditsScene = SKScene(fileNamed: "NewCreditsScene")
         
         if self.playbtn.contains((touches.first?.location(in: self))!){
