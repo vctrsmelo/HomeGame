@@ -47,13 +47,14 @@ class IntroAnimation: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-        
      
         self.physicsWorld.contactDelegate = self
         
         print("Entrou")
         
         player = Player()
+        
+        player.initializePlayerPhysicsBody()
         
         self.player.mainPlayerSprite.zPosition = 1
         
@@ -314,6 +315,7 @@ class IntroAnimation: SKScene, SKPhysicsContactDelegate {
         if let view = self.view as! SKView? {
             GameViewController.sharedView = view
             if let scene = SKScene(fileNamed: "Level1Scene") {
+                scene.scaleMode = .aspectFill
                 view.presentScene(scene)
             }
             

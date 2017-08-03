@@ -176,6 +176,7 @@ class MainScene: SKScene {
             self.addChild(playbtn)
             SKAction.wait(forDuration: 1.0)
             
+            gamescene?.scaleMode = .aspectFill
             self.view?.presentScene(gamescene!, transition: SKTransition.fade(withDuration: 1.0))
         }
         else if self.creditsbtn.contains((touches.first?.location(in: self))!){

@@ -48,6 +48,7 @@ class GameOverScene: SKScene {
         
         if  self.PlayAgainButotn.contains((touches.first?.location(in: self))!){
             if let level1 = SKScene(fileNamed: "Level1Scene"){
+                level1.scaleMode = .aspectFill
                 GameViewController.sharedView.presentScene(level1)
             }
         }
@@ -55,6 +56,7 @@ class GameOverScene: SKScene {
         else{
             if self.MenuButton.contains((touches.first?.location(in: self))!) {
                 if let home = SKScene(fileNamed: "MainScene"){
+                    home.scaleMode = .aspectFill
                     GameViewController.sharedView.presentScene(home)
                 }
             }
