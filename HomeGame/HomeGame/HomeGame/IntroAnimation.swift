@@ -55,6 +55,8 @@ class IntroAnimation: SKScene, SKPhysicsContactDelegate {
         
         player = Player()
         
+        player.initializePlayerPhysicsBody()
+        
         self.player.mainPlayerSprite.zPosition = 1
         
         self.player.mainPlayerSprite.position.y = -130

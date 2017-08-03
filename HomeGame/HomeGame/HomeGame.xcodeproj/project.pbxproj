@@ -43,6 +43,8 @@
 		ED11293C1F2961AB00D67489 /* FireFlyTest.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED11293B1F2961AB00D67489 /* FireFlyTest.sks */; };
 		ED11293E1F298A9A00D67489 /* LastAnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED11293D1F298A9A00D67489 /* LastAnimationManager.swift */; };
 		ED1129401F2A333E00D67489 /* ShootingStar.sks in Resources */ = {isa = PBXBuildFile; fileRef = ED11293F1F2A333E00D67489 /* ShootingStar.sks */; };
+		EDC785591F339ABE0080C3C5 /* TurtleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC785581F339ABE0080C3C5 /* TurtleScene.swift */; };
+		EDC7855B1F339AD30080C3C5 /* TurtleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EDC7855A1F339AD30080C3C5 /* TurtleScene.sks */; };
 		EDDBC4561F31019800516B98 /* IntroAnimation.sks in Resources */ = {isa = PBXBuildFile; fileRef = EDDBC4551F31019800516B98 /* IntroAnimation.sks */; };
 		EDDBC4581F3101BB00516B98 /* IntroAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDBC4571F3101BB00516B98 /* IntroAnimation.swift */; };
 		EDDBC45A1F31132E00516B98 /* BigLight.sks in Resources */ = {isa = PBXBuildFile; fileRef = EDDBC4591F31132E00516B98 /* BigLight.sks */; };
@@ -98,6 +100,8 @@
 		ED11293B1F2961AB00D67489 /* FireFlyTest.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireFlyTest.sks; sourceTree = "<group>"; };
 		ED11293D1F298A9A00D67489 /* LastAnimationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastAnimationManager.swift; sourceTree = "<group>"; };
 		ED11293F1F2A333E00D67489 /* ShootingStar.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShootingStar.sks; sourceTree = "<group>"; };
+		EDC785581F339ABE0080C3C5 /* TurtleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurtleScene.swift; sourceTree = "<group>"; };
+		EDC7855A1F339AD30080C3C5 /* TurtleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurtleScene.sks; sourceTree = "<group>"; };
 		EDDBC4551F31019800516B98 /* IntroAnimation.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = IntroAnimation.sks; sourceTree = "<group>"; };
 		EDDBC4571F3101BB00516B98 /* IntroAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroAnimation.swift; sourceTree = "<group>"; };
 		EDDBC4591F31132E00516B98 /* BigLight.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BigLight.sks; sourceTree = "<group>"; };
@@ -317,6 +321,8 @@
 				8DE355191F26790100FB3C56 /* CreditsScene.sks */,
 				8DE3551B1F267A7D00FB3C56 /* CreditsScene.swift */,
 				AE30A63A1F2921FA00879E56 /* NewCreditsScene.sks */,
+				EDC785581F339ABE0080C3C5 /* TurtleScene.swift */,
+				EDC7855A1F339AD30080C3C5 /* TurtleScene.sks */,
 			);
 			path = HomeGame;
 			sourceTree = "<group>";
@@ -391,6 +397,7 @@
 				ED1128EF1F1FE59000D67489 /* snowParticle.sks in Resources */,
 				ED11293C1F2961AB00D67489 /* FireFlyTest.sks in Resources */,
 				EEEE69321F324D4500D04C6C /* backgroundSound.wav in Resources */,
+				EDC7855B1F339AD30080C3C5 /* TurtleScene.sks in Resources */,
 				EEF9336F1F154836004EB520 /* Assets.xcassets in Resources */,
 				EEF933721F154836004EB520 /* LaunchScreen.storyboard in Resources */,
 				AE30A63B1F2921FA00879E56 /* NewCreditsScene.sks in Resources */,
@@ -424,6 +431,7 @@
 				AE30A6391F27B99A00879E56 /* MainScene.swift in Sources */,
 				8DE3551C1F267A7D00FB3C56 /* CreditsScene.swift in Sources */,
 				AE75D7C91F18019A00F37A5A /* StopComponent.swift in Sources */,
+				EDC785591F339ABE0080C3C5 /* TurtleScene.swift in Sources */,
 				AE30A62F1F1D29E500879E56 /* LevelButtonPopView.swift in Sources */,
 				8D8DF9181F1698AA00CF6A97 /* WaitingState.swift in Sources */,
 				8D8DF9141F155AB100CF6A97 /* JumpingState.swift in Sources */,
