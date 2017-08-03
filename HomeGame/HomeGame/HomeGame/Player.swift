@@ -139,7 +139,7 @@ class Player: GKEntity {
             
             animationEnded = 0
             
-            let animateSprite = isRunning ? SKAction.animate(with: self.runTextures, timePerFrame: duration/Double(runTextures.count)) : SKAction.animate(with: self.walkTextures, timePerFrame: duration/Double(walkTextures.count))
+            let animateSprite = isRunning ? SKAction.animate(with: self.runTextures, timePerFrame: (duration)/Double(runTextures.count)) : SKAction.animate(with: self.walkTextures, timePerFrame: duration/Double(walkTextures.count))
             
             
             if !addedSounds{

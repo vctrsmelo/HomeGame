@@ -11,23 +11,44 @@ import GameplayKit
 
 class GameOverScene: SKScene {
     
-    var PlayAgainButotn = SKShapeNode()
-    var MenuButton = SKShapeNode()
-    
+    var PlayAgainButotn = SKSpriteNode()
+    var MenuButton = SKSpriteNode()
+    var label = SKSpriteNode()
     var backGround = SKSpriteNode()
     
     override func didMove(to view: SKView) {
         
-        backGround = SKSpriteNode.init(imageNamed: "gameOver")
+        backGround = SKSpriteNode.init(imageNamed: "gameOver3")
         addChild(backGround)
         backGround.scale(to: self.frame.size)
+        backGround.zPosition -= 2
         
-        let menuButton = SKShapeNode.init(rectOf: CGSize.init(width: 105, height: 30))
-        let playAgainButton = SKShapeNode.init(rectOf: CGSize.init(width: 105, height: 30))
+        //let menuButton = SKShapeNode.init(rectOf: CGSize.init(width: 105, height: 30))
+        //let playAgainButton = SKShapeNode.init(rectOf: CGSize.init(width: 105, height: 30))
         
-        self.PlayAgainButotn = playAgainButton
-        self.MenuButton = menuButton
         
+        
+        self.PlayAgainButotn = SKSpriteNode.init(texture: SKTexture.init(imageNamed: "playagain"))
+        self.MenuButton =  SKSpriteNode.init(texture: SKTexture.init(imageNamed:"button_menu"))
+        self.label = SKSpriteNode.init(texture: SKTexture.init(imageNamed: "gameLabel2"))
+        
+        self.MenuButton.position.y = self.anchorPoint.y - 10
+        self.MenuButton.position.x = self.anchorPoint.x
+        
+        self.PlayAgainButotn.position.x = self.anchorPoint.x
+        self.PlayAgainButotn.position.y = self.MenuButton.position.y + self.MenuButton.frame.size.height + 10
+        
+        
+        self.label.position.x = self.anchorPoint.x
+        self.label.position.y = (self.view?.frame.size.height)! / 2 - (label.frame.height/2 + 30)
+        
+        addChild(label)
+        addChild(PlayAgainButotn)
+        addChild(MenuButton)
+        
+        
+        
+        /*
         menuButton.fillColor = .red
         playAgainButton.fillColor = .black
         
@@ -40,6 +61,7 @@ class GameOverScene: SKScene {
         menuButton.position = CGPoint(x: -1.5, y: -12)
         playAgainButton.zPosition = 1
         menuButton.zPosition = 1
+ */
         
         
         
