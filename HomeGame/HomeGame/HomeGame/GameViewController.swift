@@ -13,6 +13,7 @@ import GameplayKit
 class GameViewController: UIViewController {
 
     
+    static var playedAnimation = false
     static var sharedView: SKView!
     
     override func viewDidLoad() {
@@ -25,7 +26,7 @@ class GameViewController: UIViewController {
             }
             
             view.ignoresSiblingOrder = true
-                       view.showsPhysics = true
+//                       view.showsPhysics = true
             //            view.showsFPS = true
             //            view.showsNodeCount = true
         }

@@ -19,6 +19,10 @@ class MainScene: SKScene {
     var playbtn:    SKSpriteNode!
     var creditsbtn: SKSpriteNode!
     
+    var ibutton : SKSpriteNode!
+    
+    
+    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -38,6 +42,7 @@ class MainScene: SKScene {
             self.addChild(self.stone)
             self.addChild(self.playbtn)
             self.addChild(self.creditsbtn)
+            self.addChild(self.ibutton)
         }
     }
     
@@ -46,9 +51,24 @@ class MainScene: SKScene {
         initMiddleground()
         initPlayBtn("button_play")
         initCreditsBtn("button_credits")
+        initIButton(buttonName:"Button_info")
         
         return true
     }
+    
+    
+    func initIButton(buttonName:String){
+        
+        let backgroundTexture = SKTexture(imageNamed: buttonName)
+        
+        self.ibutton = SKSpriteNode.init(texture: backgroundTexture)
+        self.ibutton.position.x =  (self.view?.frame.size.width)! / 2 - 33
+        
+        self.ibutton.position.y = (self.view?.frame.size.height)! / 2 - 32
+        
+        
+    }
+    
     
     func initBackgroundAndHome() {
         /* Initialize background with texture */
@@ -167,7 +187,7 @@ class MainScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // teste se apertou em playbtn ou creditsbtn
-        let gamescene = SKScene(fileNamed: "Level1Scene")
+        let gamescene = GameViewController.playedAnimation ? SKScene(fileNamed: "Level1Scene") : SKScene(fileNamed: "IntroAnimation")
         let creditsScene = SKScene(fileNamed: "NewCreditsScene")
         
         if self.playbtn.contains((touches.first?.location(in: self))!){
@@ -176,6 +196,7 @@ class MainScene: SKScene {
             self.addChild(playbtn)
             SKAction.wait(forDuration: 1.0)
             
+            gamescene?.scaleMode = .aspectFill
             self.view?.presentScene(gamescene!, transition: SKTransition.fade(withDuration: 1.0))
         }
         else if self.creditsbtn.contains((touches.first?.location(in: self))!){
@@ -185,6 +206,21 @@ class MainScene: SKScene {
             SKAction.wait(forDuration: 1.0)
             
             self.view?.presentScene(creditsScene!, transition: SKTransition.fade(withDuration: 1.0))
+        }
+        
+        
+        else if self.ibutton.contains((touches.first?.location(in: self))!){
+            
+            if let turtleS = SKScene(fileNamed: "TurtleScene"){
+                turtleS.scaleMode = .aspectFill
+                GameViewController.sharedView.presentScene(turtleS)
+            }
+            
+    
+            
+            
+            
+            
         }
     }
 }

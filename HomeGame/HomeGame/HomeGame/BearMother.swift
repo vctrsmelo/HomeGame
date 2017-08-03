@@ -106,6 +106,53 @@ class BearMother{
     }
     
     
+    func animateMotherToGoAhead(){
+        
+        if(endGameAnimationCompleted && !sonAndMotherMatchedPosition){
+            
+            
+            let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.6/Double(walkTextures.count))
+            let moveByHalfXUp = SKAction.moveBy(x: positionToWalk.x, y: positionToWalk.y, duration: 0.6)
+            
+            
+            let walkAction = SKAction.sequence([moveByHalfXUp])
+            
+            var animationWithWalkAction = Array<SKAction>()
+            
+            
+            animationWithWalkAction.append(animateSprite)
+            animationWithWalkAction.append(walkAction)
+            
+            self.endGameAnimationCompleted = false
+            
+            let repeatWalkForever = (SKAction.group(animationWithWalkAction))
+            
+            self.mainMotherSprite.run(repeatWalkForever, completion: {() -> Void in
+                
+                self.endGameAnimationCompleted = true
+                
+                self.totalTimePassedEndGameAnimation+=0.6
+                
+                if(self.totalTimePassedEndGameAnimation > 24.0){
+                    
+                    self.mainMotherSprite.removeAllActions()
+                    
+                    self.sonAndMotherMatchedPosition = true
+                    
+                    self.mainMotherSprite.texture = SKTexture.init(imageNamed: "Stop_Mother")
+                    
+                }
+                
+            })
+            
+            
+            
+            
+        }
+        
+        
+    }
+    
     private func headMovementAnimation(){
         
         
@@ -121,7 +168,7 @@ class BearMother{
     private func initMotherSpritePhysicalBody(){
         
         
-            mainMotherSprite.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.mainMotherSprite.size.width, height: self.mainMotherSprite.size.height-15))
+            mainMotherSprite.physicsBody = SKPhysicsBody.init(texture: SKTexture.init(imageNamed: "Stop_Mother"), size: CGSize.init(width: self.mainMotherSprite.size.width, height: self.mainMotherSprite.size.height-40))
             
             mainMotherSprite.physicsBody?.affectedByGravity = true
             

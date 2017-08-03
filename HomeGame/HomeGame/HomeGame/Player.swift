@@ -45,7 +45,7 @@ class Player: GKEntity {
     
     
     
-    let initialPositionInScene = CGPoint(x:-210, y:-69)
+    let initialPositionInScene = CGPoint(x:-100, y:-75)
 
     let jumpTextureNumber = 60
     let walkTextureNumber = 8
@@ -55,6 +55,8 @@ class Player: GKEntity {
     
     var finishEndGameAnimation = false
     
+    var finishEndGameAnimationBack = false
+    
     var bird:SKNode!
 
     var animationEnded = 1
@@ -62,6 +64,8 @@ class Player: GKEntity {
     var totalTimePassedEndGameAnimation = 0.0
     
     var endGameAnimationCompleted = true
+    
+    var endGameAnimationCompletedBack = true
     
     override init() {
         super.init()
@@ -428,11 +432,105 @@ class Player: GKEntity {
             
         }
         
+    }
+    
+    func performIntroGameAnimation(direction:CGFloat){
+        
+        if(self.endGameAnimationCompleted && !finishEndGameAnimation){
+            
+            
+            let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.6/Double(walkTextures.count))
+            let px = ((direction) * positionToWalk.x)
+            
+            let moveByHalfXUp = SKAction.moveBy(x: px, y: positionToWalk.y, duration: 0.6)
+            
+            
+            let walkAction = SKAction.sequence([moveByHalfXUp])
+            
+            var animationWithWalkAction = Array<SKAction>()
+            
+            
+            animationWithWalkAction.append(animateSprite)
+            animationWithWalkAction.append(walkAction)
+            
+            self.endGameAnimationCompleted = false
+            
+            let repeatWalkForever = (SKAction.group(animationWithWalkAction))
+            
+            self.mainPlayerSprite.run(repeatWalkForever, completion: {() -> Void in
+                
+                self.endGameAnimationCompleted = true
+                self.totalTimePassedEndGameAnimation+=0.6
+                
+                if(self.totalTimePassedEndGameAnimation > 16.6){
+                    
+                    self.mainPlayerSprite.removeAllActions()
+                    
+                    self.finishEndGameAnimation = true
+                    
+                    self.mainPlayerSprite.texture = SKTexture.init(imageNamed: "Walking_1")
+                    
+                    self.totalTimePassedEndGameAnimation = 0.0
+                }
+                
+            })
+            
+            
+            
+        }
 
+        
+        
+    }
+    
+    func performIntroGameAnimationBackwards(){
+        
+        
+        if(self.endGameAnimationCompletedBack && !finishEndGameAnimationBack){
+            
+            
+            let animateSprite = SKAction.animate(with: self.walkTextures, timePerFrame: 0.6/Double(walkTextures.count))
+            //let px = ((-1) * positionToWalk.x)
+            
+            let moveByHalfXUp = SKAction.moveBy(x: -positionToWalk.x, y: positionToWalk.y, duration: 0.6)
+            
+            
+            let walkAction = SKAction.sequence([moveByHalfXUp])
+            
+            var animationWithWalkAction = Array<SKAction>()
+            
+            
+            animationWithWalkAction.append(animateSprite)
+            animationWithWalkAction.append(walkAction)
+            
+            self.endGameAnimationCompletedBack = false
+            
+            let repeatWalkForever = (SKAction.group(animationWithWalkAction))
+            
+            self.mainPlayerSprite.run(repeatWalkForever, completion: {() -> Void in
+                
+                self.endGameAnimationCompletedBack = true
+                self.totalTimePassedEndGameAnimation+=0.6
+                
+                if(self.totalTimePassedEndGameAnimation > 2.4){
+                    
+                    self.mainPlayerSprite.removeAllActions()
+                    
+                    self.finishEndGameAnimationBack = true
+                    
+                    self.mainPlayerSprite.texture = SKTexture.init(imageNamed: "Walking_1")
+                }
+                
+            })
+            
+            
+            
+        }
         
         
         
     }
+    
     
     
     func stopMainPlayerSpriteAnimation(){

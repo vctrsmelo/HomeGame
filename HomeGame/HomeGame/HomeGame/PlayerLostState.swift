@@ -21,6 +21,7 @@ class PlayerLostState: GKState {
     
     override func didEnter(from previousState: GKState?) {
         let gameOverScene = SKScene(fileNamed: "GameOverScene")
+        gameOverScene!.scaleMode = .aspectFill
         GameViewController.sharedView.presentScene(gameOverScene)
     }
 
