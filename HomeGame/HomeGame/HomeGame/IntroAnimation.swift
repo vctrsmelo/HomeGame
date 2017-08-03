@@ -47,7 +47,7 @@ class IntroAnimation: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-     
+        GameViewController.playedAnimation = true
         self.physicsWorld.contactDelegate = self
         
         print("Entrou")
@@ -124,6 +124,8 @@ class IntroAnimation: SKScene, SKPhysicsContactDelegate {
         
         self.mother.mainMotherSprite.zPosition = 1
         
+        self.mother.mainMotherSprite.xScale *= -(1)
+        
         self.addChild(self.mother.mainMotherSprite)
         
     }
@@ -152,7 +154,6 @@ class IntroAnimation: SKScene, SKPhysicsContactDelegate {
         
         if let name = contact.bodyA.node?.name{
             if name == "Player" {
-                print("body a player")
                 
                 playerNode = contact.bodyA.node
                 obstacleNode = contact.bodyB.node
@@ -164,7 +165,6 @@ class IntroAnimation: SKScene, SKPhysicsContactDelegate {
         
         if let name = contact.bodyB.node?.name{
             if name == "Player"{
-                print("body b player")
                 playerNode = contact.bodyB.node
                 obstacleNode = contact.bodyA.node
                 playerColision = true

@@ -184,7 +184,7 @@ class BearMother{
         
             mainMotherSprite.setScale(0.3)
 
-            mainMotherSprite.xScale *= (1)
+            mainMotherSprite.xScale *= -(1)
         
             mainMotherSprite.name="Mother"
             

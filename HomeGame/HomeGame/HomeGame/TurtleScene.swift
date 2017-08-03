@@ -37,7 +37,7 @@ class TurtleScene: SKScene {
         
         
         
-        self.twitterButton.position.x =  (self.view?.bounds.width)! / 2 - 31
+        self.twitterButton.position.x =  (self.view?.bounds.width)! / 2 - 33
         
         self.twitterButton.position.y = (self.view?.bounds.height)! / 2 - 32
         

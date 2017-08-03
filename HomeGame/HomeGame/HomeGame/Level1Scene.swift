@@ -1059,7 +1059,7 @@ class Level1Scene: SKScene , SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func movementShootingStar(){
         
-        self.shottingStar.run(SKAction.move(to: CGPoint.init(x: self.player.mainPlayerSprite.position.x-400, y: self.player.mainPlayerSprite.position.y+120), duration: 0.8), completion: {() -> Void in
+        self.shottingStar.run(SKAction.move(to: CGPoint.init(x: self.player.mainPlayerSprite.position.x-450, y: self.player.mainPlayerSprite.position.y+120), duration: 0.8), completion: {() -> Void in
             
            self.oneTimeShootingStarAnimation = true
             

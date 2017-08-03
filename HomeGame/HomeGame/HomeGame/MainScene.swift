@@ -62,7 +62,7 @@ class MainScene: SKScene {
         let backgroundTexture = SKTexture(imageNamed: buttonName)
         
         self.ibutton = SKSpriteNode.init(texture: backgroundTexture)
-        self.ibutton.position.x =  (self.view?.frame.size.width)! / 2 - 31
+        self.ibutton.position.x =  (self.view?.frame.size.width)! / 2 - 33
         
         self.ibutton.position.y = (self.view?.frame.size.height)! / 2 - 32
         
@@ -187,7 +187,7 @@ class MainScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // teste se apertou em playbtn ou creditsbtn
-        let gamescene = SKScene(fileNamed: "IntroAnimation")
+        let gamescene = GameViewController.playedAnimation ? SKScene(fileNamed: "Level1Scene") : SKScene(fileNamed: "IntroAnimation")
         let creditsScene = SKScene(fileNamed: "NewCreditsScene")
         
         if self.playbtn.contains((touches.first?.location(in: self))!){
